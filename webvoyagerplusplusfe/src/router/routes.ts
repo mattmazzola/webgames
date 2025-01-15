@@ -11,6 +11,7 @@ import Herding from "../pages/Herding";
 import IAccept from "../pages/IAccept";
 import Patience from "../pages/Patience";
 import SliderSymphony from "../pages/SliderSymphony";
+import TextMirror from "../pages/TextMirror";
 import TodaysDate from "../pages/TodaysDate";
 import TowersOfHanoi from "../pages/TowersOfHanoi";
 import WolfGoatCabbage from "../pages/WolfGoatCabbage";
@@ -150,5 +151,13 @@ export const routes: RouteConfig[] = [
     icon: "🧱",
     component: Breakout,
     tags: ["game", "arcade", "dexterity"],
+  },
+  {
+    path: "/text-mirror",
+    title: "Text Mirror",
+    description: "Can you perfectly copy the text? Every character matters!",
+    icon: "📝",
+    component: TextMirror,
+    tags: ["text", "accuracy", "typing"],
   },
 ];
