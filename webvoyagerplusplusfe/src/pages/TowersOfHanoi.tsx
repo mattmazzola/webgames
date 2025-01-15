@@ -8,7 +8,13 @@ interface Disk {
 type Peg = Disk[];
 
 const TowersOfHanoi = () => {
-  const colors = ["red", "orange", "yellow", "green", "blue"];
+  const colors = [
+    "#4A90E2", // Steel Blue
+    "#50C878", // Emerald
+    "#9B59B6", // Amethyst
+    "#F39C12", // Sunflower
+    "#E74C3C", // Coral
+  ];
   const numDisks = 5;
 
   // Initialize pegs with a proper initial state
@@ -78,13 +84,15 @@ const TowersOfHanoi = () => {
                 height: "20px",
                 backgroundColor: disk.color,
                 bottom: `${index * 24}px`,
-                borderRadius: "4px",
+                borderRadius: "8px",
+                zIndex: "10",
+                boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
               }}
             />
           ))}
           <div
-            className="absolute h-full w-4 bg-gray-600 rounded-sm"
-            style={{ bottom: "0" }}
+            className="absolute h-full w-2 bg-gray-700 rounded-full"
+            style={{ bottom: "0", zIndex: "1" }}
           />
         </div>
         <button

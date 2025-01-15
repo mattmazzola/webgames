@@ -2,7 +2,9 @@ import { FC } from "react";
 import Bullseye from "../pages/Bullseye";
 import ButtonMegastar from "../pages/ButtonMegastar";
 import ClickCubed from "../pages/ClickCubed";
+import ColorHarmony from "../pages/ColorHarmony";
 import EmojiRemember from "../pages/EmojiRemember";
+import Herding from "../pages/Herding";
 import IAccept from "../pages/IAccept";
 import Patience from "../pages/Patience";
 import SliderSymphony from "../pages/SliderSymphony";
@@ -92,5 +94,20 @@ export const routes: RouteConfig[] = [
       "Move the stack of disks to the rightmost peg following the rules",
     icon: "🗼",
     component: TowersOfHanoi,
+  },
+  {
+    path: "/color-harmony",
+    title: "Color Harmony",
+    description:
+      "Mix the perfect color combination using RGB sliders - but hurry before they shift!",
+    icon: "🎨",
+    component: ColorHarmony,
+  },
+  {
+    path: "/herding",
+    title: "Sheep Herding",
+    description: "Guide the wandering sheep into their pen using your cursor",
+    icon: "🐑",
+    component: Herding,
   },
 ];
