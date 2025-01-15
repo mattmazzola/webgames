@@ -1,9 +1,12 @@
 import { FC } from "react";
+import Breakout from "../pages/Breakout";
 import Bullseye from "../pages/Bullseye";
 import ButtonMegastar from "../pages/ButtonMegastar";
+import CanvasCatch from "../pages/CanvasCatch";
 import ClickCubed from "../pages/ClickCubed";
 import ColorHarmony from "../pages/ColorHarmony";
 import EmojiRemember from "../pages/EmojiRemember";
+import FileUpload from "../pages/FileUpload";
 import Herding from "../pages/Herding";
 import IAccept from "../pages/IAccept";
 import Patience from "../pages/Patience";
@@ -18,6 +21,7 @@ export interface RouteConfig {
   description: string;
   icon: string;
   component: FC;
+  tags: string[];
 }
 
 export const routes: RouteConfig[] = [
@@ -27,6 +31,7 @@ export const routes: RouteConfig[] = [
     description: "Enter today's date to reveal a secret password",
     icon: "📅",
     component: TodaysDate,
+    tags: ["form", "date"],
   },
   {
     path: "/buttons",
@@ -35,6 +40,7 @@ export const routes: RouteConfig[] = [
       "A collection of very clickable (and maybe not so clickable) things",
     icon: "🔘",
     component: ButtonMegastar,
+    tags: ["button", "click"],
   },
   {
     path: "/click-cubed",
@@ -42,6 +48,7 @@ export const routes: RouteConfig[] = [
     description: "Can you click three times before time runs out?",
     icon: "⏱️",
     component: ClickCubed,
+    tags: ["click", "speed"],
   },
   {
     path: "/patience",
@@ -49,6 +56,7 @@ export const routes: RouteConfig[] = [
     description: "Can you wait the perfect amount of time?",
     icon: "⌛",
     component: Patience,
+    tags: ["timing", "waiting"],
   },
   {
     path: "/slider-symphony",
@@ -56,6 +64,7 @@ export const routes: RouteConfig[] = [
     description: "Align the boxes by mastering the vertical sliders!",
     icon: "🎚️",
     component: SliderSymphony,
+    tags: ["slider", "dexterity"],
   },
   {
     path: "/emoji-remember",
@@ -63,6 +72,7 @@ export const routes: RouteConfig[] = [
     description: "Remember the sequence of emojis to unlock the secret",
     icon: "🧠",
     component: EmojiRemember,
+    tags: ["memory", "sequence"],
   },
   {
     path: "/bullseye",
@@ -71,6 +81,7 @@ export const routes: RouteConfig[] = [
       "Hit the moving target three times - but watch out, it gets faster!",
     icon: "🎯",
     component: Bullseye,
+    tags: ["aim", "speed", "timing"],
   },
   {
     path: "/i-accept",
@@ -78,6 +89,7 @@ export const routes: RouteConfig[] = [
     description: "Prove you're human by agreeing to our terms",
     icon: "✅",
     component: IAccept,
+    tags: ["checkbox", "form"],
   },
   {
     path: "/wolf-goat-cabbage",
@@ -86,6 +98,7 @@ export const routes: RouteConfig[] = [
       "Help transport a wolf, goat, and cabbage across the river safely",
     icon: "⛵",
     component: WolfGoatCabbage,
+    tags: ["logic", "planning"],
   },
   {
     path: "/towers-of-hanoi",
@@ -94,6 +107,7 @@ export const routes: RouteConfig[] = [
       "Move the stack of disks to the rightmost peg following the rules",
     icon: "🗼",
     component: TowersOfHanoi,
+    tags: ["logic", "planning"],
   },
   {
     path: "/color-harmony",
@@ -102,6 +116,7 @@ export const routes: RouteConfig[] = [
       "Mix the perfect color combination using RGB sliders - but hurry before they shift!",
     icon: "🎨",
     component: ColorHarmony,
+    tags: ["color", "slider", "dexterity"],
   },
   {
     path: "/herding",
@@ -109,5 +124,31 @@ export const routes: RouteConfig[] = [
     description: "Guide the wandering sheep into their pen using your cursor",
     icon: "🐑",
     component: Herding,
+    tags: ["mouse", "dexterity"],
+  },
+  {
+    path: "/file-upload",
+    title: "File Upload",
+    description: "Upload any file to complete this challenge",
+    icon: "📎",
+    component: FileUpload,
+    tags: ["file", "upload"],
+  },
+  {
+    path: "/canvas-catch",
+    title: "Canvas Catch",
+    description:
+      "Drag the circle into the target zone to complete the challenge",
+    icon: "🎯",
+    component: CanvasCatch,
+    tags: ["canvas", "drag", "coordination"],
+  },
+  {
+    path: "/breakout",
+    title: "Breakout",
+    description: "Classic Atari Breakout - break all the bricks to win!",
+    icon: "🧱",
+    component: Breakout,
+    tags: ["game", "arcade", "dexterity"],
   },
 ];
