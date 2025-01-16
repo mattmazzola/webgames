@@ -11,6 +11,7 @@ import FileUpload from "../pages/FileUpload";
 import Frogger from "../pages/Frogger";
 import Herding from "../pages/Herding";
 import IAccept from "../pages/IAccept";
+import KeyCombo from "../pages/KeyCombo";
 import Patience from "../pages/Patience";
 import SliderSymphony from "../pages/SliderSymphony";
 import TextMirror from "../pages/TextMirror";
@@ -177,5 +178,13 @@ export const routes: RouteConfig[] = [
     icon: "⏱️",
     component: ButtonHold,
     tags: ["button", "timing", "dexterity"],
+  },
+  {
+    path: "/key-combo",
+    title: "Key Combo",
+    description: "Press the correct key combination to unlock the secret",
+    icon: "⌨️",
+    component: KeyCombo,
+    tags: ["keyboard", "hotkey", "dexterity"],
   },
 ];
