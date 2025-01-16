@@ -7,6 +7,7 @@ import ClickCubed from "../pages/ClickCubed";
 import ColorHarmony from "../pages/ColorHarmony";
 import EmojiRemember from "../pages/EmojiRemember";
 import FileUpload from "../pages/FileUpload";
+import Frogger from "../pages/Frogger";
 import Herding from "../pages/Herding";
 import IAccept from "../pages/IAccept";
 import Patience from "../pages/Patience";
@@ -159,5 +160,13 @@ export const routes: RouteConfig[] = [
     icon: "📝",
     component: TextMirror,
     tags: ["text", "accuracy", "typing"],
+  },
+  {
+    path: "/frogger",
+    title: "Frogger",
+    description: "Guide your frog safely across the busy road using arrow keys",
+    icon: "🐸",
+    component: Frogger,
+    tags: ["game", "keyboard", "timing"],
   },
 ];
