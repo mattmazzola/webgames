@@ -1,6 +1,7 @@
 import { FC } from "react";
 import Breakout from "../pages/Breakout";
 import Bullseye from "../pages/Bullseye";
+import ButtonHold from "../pages/ButtonHold";
 import ButtonMegastar from "../pages/ButtonMegastar";
 import CanvasCatch from "../pages/CanvasCatch";
 import ClickCubed from "../pages/ClickCubed";
@@ -168,5 +169,13 @@ export const routes: RouteConfig[] = [
     icon: "🐸",
     component: Frogger,
     tags: ["game", "keyboard", "timing"],
+  },
+  {
+    path: "/button-hold",
+    title: "Button Hold",
+    description: "Can you hold the button for exactly 3 seconds?",
+    icon: "⏱️",
+    component: ButtonHold,
+    tags: ["button", "timing", "dexterity"],
   },
 ];
