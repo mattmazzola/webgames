@@ -13,10 +13,13 @@ import Herding from "../pages/Herding";
 import IAccept from "../pages/IAccept";
 import KeyCombo from "../pages/KeyCombo";
 import Patience from "../pages/Patience";
+import ScrollHorizontal from "../pages/ScrollHorizontal";
+import ScrollVertical from "../pages/ScrollVertical";
 import SliderSymphony from "../pages/SliderSymphony";
 import TextMirror from "../pages/TextMirror";
 import TodaysDate from "../pages/TodaysDate";
 import TowersOfHanoi from "../pages/TowersOfHanoi";
+import WebGLText from "../pages/WebGLText";
 import WolfGoatCabbage from "../pages/WolfGoatCabbage";
 
 export interface RouteConfig {
@@ -186,5 +189,29 @@ export const routes: RouteConfig[] = [
     icon: "⌨️",
     component: KeyCombo,
     tags: ["keyboard", "hotkey", "dexterity"],
+  },
+  {
+    path: "/scroll-vertical",
+    title: "Endless Scroll",
+    description: "How far can you scroll? Keep going to find out!",
+    icon: "📜",
+    component: ScrollVertical,
+    tags: ["scroll", "endurance", "patience"],
+  },
+  {
+    path: "/scroll-horizontal",
+    title: "Sideways Scroll",
+    description: "Keep scrolling right until you can't scroll anymore!",
+    icon: "➡️",
+    component: ScrollHorizontal,
+    tags: ["scroll", "endurance", "patience"],
+  },
+  {
+    path: "/webgl-text",
+    title: "3D Text Challenge",
+    description: "Can you read and type the rotating 3D text?",
+    icon: "🎮",
+    component: WebGLText,
+    tags: ["webgl", "3d", "typing"],
   },
 ];
