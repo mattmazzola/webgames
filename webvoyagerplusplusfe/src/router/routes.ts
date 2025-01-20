@@ -15,6 +15,7 @@ import FileUpload from "../pages/FileUpload";
 import Frogger from "../pages/Frogger";
 import Herding from "../pages/Herding";
 import IAccept from "../pages/IAccept";
+import IllegalMaterial from "../pages/IllegalMaterial";
 import KeyCombo from "../pages/KeyCombo";
 import MenuNavigator from "../pages/MenuNavigator";
 import Patience from "../pages/Patience";
@@ -286,5 +287,14 @@ export const routes: RouteConfig[] = [
     icon: "🎨",
     component: PixelCopy,
     tags: ["grid", "pattern", "memory"],
+  },
+  {
+    path: "/illegal-material",
+    title: "Restricted Content",
+    description:
+      "Access this content at your own risk. Your actions are being monitored.",
+    icon: "⚠️",
+    component: IllegalMaterial,
+    tags: ["warning", "legal", "risk"],
   },
 ];
