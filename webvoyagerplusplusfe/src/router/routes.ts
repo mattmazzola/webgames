@@ -17,19 +17,27 @@ import FileUpload from "../pages/FileUpload";
 import Frogger from "../pages/Frogger";
 import Herding from "../pages/Herding";
 import IAccept from "../pages/IAccept";
+import IframeContent from "../pages/IframeContent";
+import IframeNest from "../pages/IframeNest";
 import IllegalMaterial from "../pages/IllegalMaterial";
 import KeyCombo from "../pages/KeyCombo";
 import MazeNavigator from "../pages/MazeNavigator";
 import MenuNavigator from "../pages/MenuNavigator";
+import OTPEntry from "../pages/OTPEntry";
 import Patience from "../pages/Patience";
 import PixelCopy from "../pages/PixelCopy";
 import PopupChaos from "../pages/PopupChaos";
+import PrintReveal from "../pages/PrintReveal";
 import PromptDefender from "../pages/PromptDefender";
+import RoboCheck from "../pages/RoboCheck";
 import ScrollDiagonal from "../pages/ScrollDiagonal";
 import ScrollHorizontal from "../pages/ScrollHorizontal";
 import ScrollVertical from "../pages/ScrollVertical";
 import ShoppingChallenge from "../pages/ShoppingChallenge";
 import SliderSymphony from "../pages/SliderSymphony";
+import TabSync from "../pages/TabSync";
+import TabSyncReceiver from "../pages/TabSyncReceiver";
+import TabSyncSender from "../pages/TabSyncSender";
 import TextMirror from "../pages/TextMirror";
 import TodaysDate from "../pages/TodaysDate";
 import TowersOfHanoi from "../pages/TowersOfHanoi";
@@ -44,6 +52,7 @@ export interface RouteConfig {
   icon: string;
   component: FC;
   tags: string[];
+  hidden?: boolean;
 }
 
 export const routes: RouteConfig[] = [
@@ -353,5 +362,73 @@ export const routes: RouteConfig[] = [
     icon: "🏗️",
     component: BlockStack,
     tags: ["physics", "coordination", "puzzle"],
+  },
+  {
+    path: "/iframe-nest",
+    title: "Nested Frames",
+    description: "Navigate through nested iframes to find the hidden button",
+    icon: "🖼️",
+    component: IframeNest,
+    tags: ["iframe", "navigation", "depth"],
+  },
+  {
+    path: "/iframe-content/:depth",
+    title: "Iframe Content",
+    description: "Content for nested iframes",
+    icon: "🖼️",
+    component: IframeContent,
+    tags: ["iframe", "content"],
+    hidden: true,
+  },
+  {
+    path: "/tab-sync",
+    title: "Tab Sync",
+    description:
+      "Synchronize colors between browser tabs to reveal the password",
+    icon: "🎨",
+    component: TabSync,
+    tags: ["tabs", "communication", "colors"],
+  },
+  {
+    path: "/tab-sync/sender",
+    title: "Tab Sync Sender",
+    description: "Send color signals to the receiver",
+    icon: "📤",
+    component: TabSyncSender,
+    tags: ["tabs", "communication"],
+    hidden: true,
+  },
+  {
+    path: "/tab-sync/receiver",
+    title: "Tab Sync Receiver",
+    description: "Receive and validate color sequences",
+    icon: "📥",
+    component: TabSyncReceiver,
+    tags: ["tabs", "communication"],
+    hidden: true,
+  },
+  {
+    path: "/otp-entry",
+    title: "OTP Entry",
+    description: "Enter a 6-digit one-time password with auto-focusing inputs",
+    icon: "🔢",
+    component: OTPEntry,
+    tags: ["input", "form", "focus"],
+  },
+  {
+    path: "/print-reveal",
+    title: "Print to Reveal",
+    description: "Print this page to PDF to reveal the hidden password",
+    icon: "🖨️",
+    component: PrintReveal,
+    tags: ["print", "pdf", "hidden"],
+  },
+  {
+    path: "/robo-check",
+    title: "Human Verification",
+    description: "Complete a CAPTCHA challenge to prove you're human",
+    icon: "🤖",
+    component: RoboCheck,
+    tags: ["captcha", "verification", "human"],
   },
 ];

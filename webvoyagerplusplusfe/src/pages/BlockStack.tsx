@@ -237,7 +237,7 @@ const BlockStack = () => {
           </div>
         ) : (
           <span style={{ color: "#4CAF50", fontWeight: "bold" }}>
-            Challenge Complete! 🎉
+            Challenge Complete! 🎉 Password: EquilibriumAscended
           </span>
         )}
       </div>
