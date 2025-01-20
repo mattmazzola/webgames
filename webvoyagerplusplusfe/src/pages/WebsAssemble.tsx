@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-interface WasmExports extends WebAssembly.Exports {
+interface WasmExports {
   get_code: () => number;
   memory: WebAssembly.Memory;
 }
@@ -19,30 +19,22 @@ const WebsAssemble: React.FC = () => {
       try {
         const response = await fetch("/wasm/code_gen.wasm");
         const wasmBytes = await response.arrayBuffer();
-        const wasmModule = await WebAssembly.instantiate(wasmBytes, {
-          env: {
-            memory: new WebAssembly.Memory({ initial: 1, maximum: 1 }),
-          },
-        });
-        const exports = wasmModule.instance.exports as WasmExports;
-        const ptr = exports.get_code();
+        const wasmModule = await WebAssembly.instantiate(wasmBytes);
+        const exports = wasmModule.instance.exports as unknown as WasmExports;
+        const result = exports.get_code();
 
-        // Read the string from memory
-        const memory = new Uint8Array(exports.memory.buffer);
+        // Convert the pointer to a string
+        const view = new Uint8Array(exports.memory.buffer);
         let str = "";
-        let i = ptr;
-        let maxLen = 100; // Safety limit
-        while (memory[i] !== 0 && maxLen > 0) {
-          str += String.fromCharCode(memory[i]);
+        let i = result;
+        while (view[i] !== 0) {
+          str += String.fromCharCode(view[i]);
           i++;
-          maxLen--;
         }
-        console.log("Read from WASM:", str); // Debug log
         setCode(str);
         setWasmLoaded(true);
       } catch (err) {
         const error = err as Error;
-        console.error("WASM error:", error); // Debug log
         setMessage({
           text: `Failed to load WebAssembly module: ${error.message}`,
           type: "error",
@@ -78,17 +70,17 @@ const WebsAssemble: React.FC = () => {
         <div className="mb-6 text-center">
           <p className="text-lg mb-2">
             {wasmLoaded
-              ? "WebAssembly module loaded! Here's the secret code:"
+              ? "WebAssembly module loaded! Can you find the secret code?"
               : "Loading WebAssembly module..."}
           </p>
-          {wasmLoaded && (
-            <p className="text-xl font-mono bg-gray-100 p-3 rounded mt-2">
-              {code}
-            </p>
-          )}
-          <p className="text-sm text-gray-600 mt-2">
-            Enter this code below to complete the challenge
+          <p className="text-sm text-gray-600">
+            Hint: The code is hidden in the WebAssembly module
           </p>
+          {wasmLoaded && (
+            <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+              <p className="text-sm font-mono break-all">{code}</p>
+            </div>
+          )}
         </div>
 
         {message.text && (

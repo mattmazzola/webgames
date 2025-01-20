@@ -13,7 +13,9 @@ import Frogger from "../pages/Frogger";
 import Herding from "../pages/Herding";
 import IAccept from "../pages/IAccept";
 import KeyCombo from "../pages/KeyCombo";
+import MenuNavigator from "../pages/MenuNavigator";
 import Patience from "../pages/Patience";
+import PopupChaos from "../pages/PopupChaos";
 import ScrollHorizontal from "../pages/ScrollHorizontal";
 import ScrollVertical from "../pages/ScrollVertical";
 import SliderSymphony from "../pages/SliderSymphony";
@@ -231,5 +233,22 @@ export const routes: RouteConfig[] = [
     icon: "🕸️",
     component: WebsAssemble,
     tags: ["wasm", "code", "inspection"],
+  },
+  {
+    path: "/menu-navigator",
+    title: "Menu Navigator",
+    description: "Navigate through a menu bar to find the secret option",
+    icon: "🗺️",
+    component: MenuNavigator,
+    tags: ["menu", "navigation", "hover"],
+  },
+  {
+    path: "/popup-chaos",
+    title: "Popup Chaos",
+    description:
+      "Close the annoying popup windows to reveal the secret password",
+    icon: "🪟",
+    component: PopupChaos,
+    tags: ["drag", "click", "timing"],
   },
 ];
