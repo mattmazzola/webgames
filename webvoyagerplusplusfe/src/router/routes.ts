@@ -4,6 +4,7 @@ import Breakout from "../pages/Breakout";
 import Bullseye from "../pages/Bullseye";
 import ButtonHold from "../pages/ButtonHold";
 import ButtonMegastar from "../pages/ButtonMegastar";
+import CalendarComprehension from "../pages/CalendarComprehension";
 import CanvasCatch from "../pages/CanvasCatch";
 import ChartRead from "../pages/ChartRead";
 import ChartTranscribe from "../pages/ChartTranscribe";
@@ -29,6 +30,7 @@ import PixelCopy from "../pages/PixelCopy";
 import PopupChaos from "../pages/PopupChaos";
 import PrintReveal from "../pages/PrintReveal";
 import PromptDefender from "../pages/PromptDefender";
+import RightClickReveal from "../pages/RightClickReveal";
 import RoboCheck from "../pages/RoboCheck";
 import ScrollDiagonal from "../pages/ScrollDiagonal";
 import ScrollHorizontal from "../pages/ScrollHorizontal";
@@ -430,5 +432,21 @@ export const routes: RouteConfig[] = [
     icon: "🤖",
     component: RoboCheck,
     tags: ["captcha", "verification", "human"],
+  },
+  {
+    path: "/right-click",
+    title: "Right Click Reveal",
+    description: "Use your context menu skills to reveal the hidden password",
+    icon: "🖱️",
+    component: RightClickReveal,
+    tags: ["mouse", "context-menu", "interaction"],
+  },
+  {
+    path: "/calendar-comprehension",
+    title: "Calendar Comprehension",
+    description: "Study a calendar and answer questions about the events",
+    icon: "📅",
+    component: CalendarComprehension,
+    tags: ["calendar", "comprehension", "attention"],
   },
 ];
