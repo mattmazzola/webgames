@@ -21,6 +21,7 @@ import TextMirror from "../pages/TextMirror";
 import TodaysDate from "../pages/TodaysDate";
 import TowersOfHanoi from "../pages/TowersOfHanoi";
 import WebGLText from "../pages/WebGLText";
+import WebsAssemble from "../pages/WebsAssemble";
 import WolfGoatCabbage from "../pages/WolfGoatCabbage";
 
 export interface RouteConfig {
@@ -222,5 +223,13 @@ export const routes: RouteConfig[] = [
     icon: "🔑",
     component: FileCredentials,
     tags: ["file", "download", "form"],
+  },
+  {
+    path: "/webs-assemble",
+    title: "Webs, Assemble!",
+    description: "Find the secret code hidden in the WebAssembly module",
+    icon: "🕸️",
+    component: WebsAssemble,
+    tags: ["wasm", "code", "inspection"],
   },
 ];

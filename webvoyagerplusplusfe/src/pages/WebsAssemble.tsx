@@ -1,0 +1,135 @@
+import { useEffect, useState } from "react";
+
+interface WasmExports extends WebAssembly.Exports {
+  get_code: () => number;
+  memory: WebAssembly.Memory;
+}
+
+const WebsAssemble: React.FC = () => {
+  const [wasmLoaded, setWasmLoaded] = useState(false);
+  const [code, setCode] = useState("");
+  const [userInput, setUserInput] = useState("");
+  const [message, setMessage] = useState<{
+    text: string;
+    type: "success" | "error" | null;
+  }>({ text: "", type: null });
+
+  useEffect(() => {
+    const loadWasm = async () => {
+      try {
+        const response = await fetch("/wasm/code_gen.wasm");
+        const wasmBytes = await response.arrayBuffer();
+        const wasmModule = await WebAssembly.instantiate(wasmBytes, {
+          env: {
+            memory: new WebAssembly.Memory({ initial: 1, maximum: 1 }),
+          },
+        });
+        const exports = wasmModule.instance.exports as WasmExports;
+        const ptr = exports.get_code();
+
+        // Read the string from memory
+        const memory = new Uint8Array(exports.memory.buffer);
+        let str = "";
+        let i = ptr;
+        let maxLen = 100; // Safety limit
+        while (memory[i] !== 0 && maxLen > 0) {
+          str += String.fromCharCode(memory[i]);
+          i++;
+          maxLen--;
+        }
+        console.log("Read from WASM:", str); // Debug log
+        setCode(str);
+        setWasmLoaded(true);
+      } catch (err) {
+        const error = err as Error;
+        console.error("WASM error:", error); // Debug log
+        setMessage({
+          text: `Failed to load WebAssembly module: ${error.message}`,
+          type: "error",
+        });
+      }
+    };
+
+    loadWasm();
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (userInput === code) {
+      setMessage({
+        text: "Correct! The completion password is: WebAssemblyMaster",
+        type: "success",
+      });
+    } else {
+      setMessage({
+        text: "Incorrect code. Try inspecting the WebAssembly module more carefully.",
+        type: "error",
+      });
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-purple-100 to-blue-100 p-4">
+      <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-6">
+        <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">
+          Webs, Assemble!
+        </h1>
+
+        <div className="mb-6 text-center">
+          <p className="text-lg mb-2">
+            {wasmLoaded
+              ? "WebAssembly module loaded! Here's the secret code:"
+              : "Loading WebAssembly module..."}
+          </p>
+          {wasmLoaded && (
+            <p className="text-xl font-mono bg-gray-100 p-3 rounded mt-2">
+              {code}
+            </p>
+          )}
+          <p className="text-sm text-gray-600 mt-2">
+            Enter this code below to complete the challenge
+          </p>
+        </div>
+
+        {message.text && (
+          <div
+            className={`mb-4 p-3 rounded-lg text-center ${
+              message.type === "error"
+                ? "bg-red-100 text-red-700"
+                : message.type === "success"
+                ? "bg-green-100 text-green-700"
+                : ""
+            }`}
+          >
+            {message.text}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Enter the secret code
+            </label>
+            <input
+              type="text"
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+              placeholder="XXXX_XXXX_XXXX"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors"
+            disabled={!wasmLoaded}
+          >
+            Submit Code
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default WebsAssemble;
