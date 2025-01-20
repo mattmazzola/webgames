@@ -21,6 +21,7 @@ import MenuNavigator from "../pages/MenuNavigator";
 import Patience from "../pages/Patience";
 import PixelCopy from "../pages/PixelCopy";
 import PopupChaos from "../pages/PopupChaos";
+import PromptDefender from "../pages/PromptDefender";
 import ScrollHorizontal from "../pages/ScrollHorizontal";
 import ScrollVertical from "../pages/ScrollVertical";
 import SliderSymphony from "../pages/SliderSymphony";
@@ -296,5 +297,13 @@ export const routes: RouteConfig[] = [
     icon: "⚠️",
     component: IllegalMaterial,
     tags: ["warning", "legal", "risk"],
+  },
+  {
+    path: "/prompt-defender",
+    title: "Prompt Defender",
+    description: "Can you resist deception and find the real password?",
+    icon: "🛡️",
+    component: PromptDefender,
+    tags: ["deception", "attention"],
   },
 ];
