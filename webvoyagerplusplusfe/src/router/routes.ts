@@ -4,8 +4,11 @@ import Bullseye from "../pages/Bullseye";
 import ButtonHold from "../pages/ButtonHold";
 import ButtonMegastar from "../pages/ButtonMegastar";
 import CanvasCatch from "../pages/CanvasCatch";
+import ChartRead from "../pages/ChartRead";
+import ChartTranscribe from "../pages/ChartTranscribe";
 import ClickCubed from "../pages/ClickCubed";
 import ColorHarmony from "../pages/ColorHarmony";
+import CombinationLock from "../pages/CombinationLock";
 import EmojiRemember from "../pages/EmojiRemember";
 import FileCredentials from "../pages/FileCredentials";
 import FileUpload from "../pages/FileUpload";
@@ -15,6 +18,7 @@ import IAccept from "../pages/IAccept";
 import KeyCombo from "../pages/KeyCombo";
 import MenuNavigator from "../pages/MenuNavigator";
 import Patience from "../pages/Patience";
+import PixelCopy from "../pages/PixelCopy";
 import PopupChaos from "../pages/PopupChaos";
 import ScrollHorizontal from "../pages/ScrollHorizontal";
 import ScrollVertical from "../pages/ScrollVertical";
@@ -250,5 +254,37 @@ export const routes: RouteConfig[] = [
     icon: "🪟",
     component: PopupChaos,
     tags: ["drag", "click", "timing"],
+  },
+  {
+    path: "/chart-read",
+    title: "Chart Read",
+    description: "Find the maximum price and time in the stock chart",
+    icon: "📈",
+    component: ChartRead,
+    tags: ["chart", "analysis", "observation"],
+  },
+  {
+    path: "/chart-transcribe",
+    title: "Chart Transcribe",
+    description: "Transcribe the bar chart data into CSV format",
+    icon: "📊",
+    component: ChartTranscribe,
+    tags: ["chart", "data", "accuracy"],
+  },
+  {
+    path: "/combination-lock",
+    title: "Combination Lock",
+    description: "Solve Grampa's riddles to unlock the combination",
+    icon: "🔒",
+    component: CombinationLock,
+    tags: ["puzzle", "riddle", "numbers"],
+  },
+  {
+    path: "/pixel-copy",
+    title: "Pixel Copy",
+    description: "Recreate the pattern by toggling pixels in the grid",
+    icon: "🎨",
+    component: PixelCopy,
+    tags: ["grid", "pattern", "memory"],
   },
 ];
