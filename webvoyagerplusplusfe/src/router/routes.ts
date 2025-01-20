@@ -1,4 +1,5 @@
 import { FC } from "react";
+import BlockStack from "../pages/BlockStack";
 import Breakout from "../pages/Breakout";
 import Bullseye from "../pages/Bullseye";
 import ButtonHold from "../pages/ButtonHold";
@@ -344,5 +345,13 @@ export const routes: RouteConfig[] = [
     icon: "↘️",
     component: ScrollDiagonal,
     tags: ["scroll", "endurance", "coordination"],
+  },
+  {
+    path: "/block-stack",
+    title: "Block Stack",
+    description: "Stack blocks above the red line using physics to win!",
+    icon: "🏗️",
+    component: BlockStack,
+    tags: ["physics", "coordination", "puzzle"],
   },
 ];
