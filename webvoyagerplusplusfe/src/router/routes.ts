@@ -9,6 +9,7 @@ import ChartTranscribe from "../pages/ChartTranscribe";
 import ClickCubed from "../pages/ClickCubed";
 import ColorHarmony from "../pages/ColorHarmony";
 import CombinationLock from "../pages/CombinationLock";
+import ContextBreaker from "../pages/ContextBreaker";
 import EmojiRemember from "../pages/EmojiRemember";
 import FileCredentials from "../pages/FileCredentials";
 import FileUpload from "../pages/FileUpload";
@@ -17,11 +18,13 @@ import Herding from "../pages/Herding";
 import IAccept from "../pages/IAccept";
 import IllegalMaterial from "../pages/IllegalMaterial";
 import KeyCombo from "../pages/KeyCombo";
+import MazeNavigator from "../pages/MazeNavigator";
 import MenuNavigator from "../pages/MenuNavigator";
 import Patience from "../pages/Patience";
 import PixelCopy from "../pages/PixelCopy";
 import PopupChaos from "../pages/PopupChaos";
 import PromptDefender from "../pages/PromptDefender";
+import ScrollDiagonal from "../pages/ScrollDiagonal";
 import ScrollHorizontal from "../pages/ScrollHorizontal";
 import ScrollVertical from "../pages/ScrollVertical";
 import ShoppingChallenge from "../pages/ShoppingChallenge";
@@ -314,5 +317,32 @@ export const routes: RouteConfig[] = [
     icon: "🛍️",
     component: ShoppingChallenge,
     tags: ["math", "shopping", "calculation"],
+  },
+  {
+    path: "/maze/*",
+    title: "The Maze",
+    description:
+      "Navigate through a series of doors to find the exit - but choose wisely!",
+    icon: "🚪",
+    component: MazeNavigator,
+    tags: ["navigation", "memory", "maze"],
+  },
+  {
+    path: "/context-breaker",
+    title: "Context Breaker",
+    description:
+      "Can you scroll all the way to the bottom to find the secret password?",
+    icon: "🤖",
+    component: ContextBreaker,
+    tags: ["scroll", "endurance", "patience"],
+  },
+  {
+    path: "/scroll-diagonal",
+    title: "Diagonal Scroll",
+    description:
+      "Navigate to the bottom-right corner through diagonal scrolling!",
+    icon: "↘️",
+    component: ScrollDiagonal,
+    tags: ["scroll", "endurance", "coordination"],
   },
 ];
