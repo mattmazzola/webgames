@@ -7,6 +7,7 @@ import CanvasCatch from "../pages/CanvasCatch";
 import ClickCubed from "../pages/ClickCubed";
 import ColorHarmony from "../pages/ColorHarmony";
 import EmojiRemember from "../pages/EmojiRemember";
+import FileCredentials from "../pages/FileCredentials";
 import FileUpload from "../pages/FileUpload";
 import Frogger from "../pages/Frogger";
 import Herding from "../pages/Herding";
@@ -213,5 +214,13 @@ export const routes: RouteConfig[] = [
     icon: "🎮",
     component: WebGLText,
     tags: ["webgl", "3d", "typing"],
+  },
+  {
+    path: "/file-credentials",
+    title: "File Credentials",
+    description: "Download a credentials file and use it to log in",
+    icon: "🔑",
+    component: FileCredentials,
+    tags: ["file", "download", "form"],
   },
 ];
