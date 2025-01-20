@@ -24,6 +24,7 @@ import PopupChaos from "../pages/PopupChaos";
 import PromptDefender from "../pages/PromptDefender";
 import ScrollHorizontal from "../pages/ScrollHorizontal";
 import ScrollVertical from "../pages/ScrollVertical";
+import ShoppingChallenge from "../pages/ShoppingChallenge";
 import SliderSymphony from "../pages/SliderSymphony";
 import TextMirror from "../pages/TextMirror";
 import TodaysDate from "../pages/TodaysDate";
@@ -305,5 +306,13 @@ export const routes: RouteConfig[] = [
     icon: "🛡️",
     component: PromptDefender,
     tags: ["deception", "attention"],
+  },
+  {
+    path: "/shopping-challenge",
+    title: "Shopping Challenge",
+    description: "Add items to your cart and calculate the total price to win!",
+    icon: "🛍️",
+    component: ShoppingChallenge,
+    tags: ["math", "shopping", "calculation"],
   },
 ];
