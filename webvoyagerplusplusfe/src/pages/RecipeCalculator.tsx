@@ -42,13 +42,6 @@ export default function RecipeCalculator() {
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-2xl font-bold">Recipe Calculator Challenge</h1>
-            <Link
-              to="/recipes"
-              className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-2"
-            >
-              <span>Browse All Recipes</span>
-              <span aria-hidden="true">→</span>
-            </Link>
           </div>
 
           <div className="mb-6">
@@ -106,6 +99,14 @@ export default function RecipeCalculator() {
               )}
             </div>
           )}
+        </div>
+        <div className="flex justify-center mt-6">
+          <Link
+            to="/recipes"
+            className="inline-flex items-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition-colors duration-200"
+          >
+            Go to recipe site →
+          </Link>
         </div>
       </div>
     </div>
