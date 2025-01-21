@@ -22,6 +22,7 @@ import IframeContent from "../pages/IframeContent";
 import IframeNest from "../pages/IframeNest";
 import IllegalMaterial from "../pages/IllegalMaterial";
 import KeyCombo from "../pages/KeyCombo";
+import LadyBirdPlanner from "../pages/LadyBirdPlanner";
 import MapPanner from "../pages/MapPanner";
 import MazeNavigator from "../pages/MazeNavigator";
 import MenuNavigator from "../pages/MenuNavigator";
@@ -36,6 +37,8 @@ import RoboCheck from "../pages/RoboCheck";
 import ScrollDiagonal from "../pages/ScrollDiagonal";
 import ScrollHorizontal from "../pages/ScrollHorizontal";
 import ScrollVertical from "../pages/ScrollVertical";
+import ShopAdmin from "../pages/ShopAdmin";
+import ShopAdminEdit from "../pages/ShopAdminEdit";
 import ShoppingChallenge from "../pages/ShoppingChallenge";
 import SliderSymphony from "../pages/SliderSymphony";
 import TabSync from "../pages/TabSync";
@@ -457,5 +460,31 @@ export const routes: RouteConfig[] = [
     icon: "🗺️",
     component: MapPanner,
     tags: ["drag", "exploration", "coordination"],
+  },
+  {
+    path: "/ladybird",
+    title: "LadyBird Planner",
+    description:
+      "Plan the ladybird's path to reach the flower using directional emojis",
+    icon: "🐞",
+    component: LadyBirdPlanner,
+    tags: ["planning", "puzzle", "maze"],
+  },
+  {
+    path: "/shop-admin",
+    title: "Shop Admin",
+    description: "Update product prices in the admin panel",
+    icon: "🏪",
+    component: ShopAdmin,
+    tags: ["admin", "form", "edit"],
+  },
+  {
+    path: "/shop-admin/edit/:productId",
+    title: "Edit Product",
+    description: "Edit product details",
+    icon: "✏️",
+    component: ShopAdminEdit,
+    tags: ["admin", "form", "edit"],
+    hidden: true,
   },
 ];
