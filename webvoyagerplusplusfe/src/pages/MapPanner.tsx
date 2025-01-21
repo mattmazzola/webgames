@@ -85,7 +85,7 @@ const MapPanner = () => {
         <p className="text-gray-300">
           {isComplete
             ? "You found the treasure!"
-            : "Pan around the map to find the hidden treasure..."}
+            : "Pan around the map to find the hidden treasure. Try searching in the southeast quadrant of the map, around coordinates (1400-1600, 1100-1300)..."}
         </p>
         {isComplete && (
           <div className="mt-4 p-4 bg-green-800 rounded-lg">
