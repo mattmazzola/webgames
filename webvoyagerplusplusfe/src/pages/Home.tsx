@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="container mx-auto px-2 py-4">
       <h1 className="text-3xl font-bold mb-6 text-center">WebVoyager++</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
         {visibleRoutes.map((route, index) => (
           <Link
             key={route.path}
@@ -34,6 +34,14 @@ export default function Home() {
             </div>
           </Link>
         ))}
+      </div>
+      <div className="flex justify-center">
+        <Link
+          to="/recipes"
+          className="inline-flex items-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition-colors duration-200"
+        >
+          Go to recipe site →
+        </Link>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { FC } from "react";
+import AdClicked from "../pages/AdClicked";
 import BlockStack from "../pages/BlockStack";
 import Breakout from "../pages/Breakout";
 import Bullseye from "../pages/Bullseye";
@@ -33,6 +34,9 @@ import PixelCopy from "../pages/PixelCopy";
 import PopupChaos from "../pages/PopupChaos";
 import PrintReveal from "../pages/PrintReveal";
 import PromptDefender from "../pages/PromptDefender";
+import RecipeCalculator from "../pages/RecipeCalculator";
+import RecipeDetail from "../pages/RecipeDetail";
+import RecipeList from "../pages/RecipeList";
 import RightClickReveal from "../pages/RightClickReveal";
 import RoboCheck from "../pages/RoboCheck";
 import ScrollDiagonal from "../pages/ScrollDiagonal";
@@ -495,5 +499,40 @@ export const routes: RouteConfig[] = [
     icon: "🎯",
     component: ClickPixel,
     tags: ["precision", "mouse", "dexterity"],
+  },
+  {
+    path: "/recipes",
+    title: "Recipe Book",
+    description: "Browse and discover delicious recipes",
+    icon: "📖",
+    component: RecipeList,
+    tags: ["recipes", "cooking", "food"],
+  },
+  {
+    path: "/recipes/:recipeId",
+    title: "Recipe Details",
+    description: "View recipe details",
+    icon: "🍳",
+    component: RecipeDetail,
+    tags: ["recipes", "cooking", "food"],
+    hidden: true,
+  },
+  {
+    path: "/recipe-calculator",
+    title: "Recipe Calculator",
+    description:
+      "Help calculate the right amount of ingredients for a dinner party",
+    icon: "🧮",
+    component: RecipeCalculator,
+    tags: ["math", "recipes", "calculation"],
+  },
+  {
+    path: "/ad-clicked",
+    title: "Advertisement",
+    description: "Advertisement landing page",
+    icon: "🎯",
+    component: AdClicked,
+    tags: ["ad"],
+    hidden: true,
   },
 ];
