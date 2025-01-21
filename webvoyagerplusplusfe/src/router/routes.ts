@@ -507,6 +507,7 @@ export const routes: RouteConfig[] = [
     icon: "📖",
     component: RecipeList,
     tags: ["recipes", "cooking", "food"],
+    hidden: true,
   },
   {
     path: "/recipes/:recipeId",

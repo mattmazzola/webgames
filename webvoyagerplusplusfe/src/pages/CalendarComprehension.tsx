@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-
-interface CalendarEvent {
-  id: number;
-  title: string;
-  startTime: string;
-  endTime: string;
-  day: string;
-  color: string;
-}
+import WeeklyCalendar, { CalendarEvent } from "../components/WeeklyCalendar";
 
 const events: CalendarEvent[] = [
   {
@@ -165,7 +157,6 @@ const events: CalendarEvent[] = [
 ];
 
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-const hours = Array.from({ length: 9 }, (_, i) => `${i + 9}:00`);
 
 const questions = [
   {
@@ -218,72 +209,13 @@ const CalendarComprehension: React.FC = () => {
     setShowResults(true);
   };
 
-  const getEventPosition = (event: CalendarEvent) => {
-    const startHour = parseInt(event.startTime.split(":")[0]);
-    const startMinute = parseInt(event.startTime.split(":")[1]);
-    const endHour = parseInt(event.endTime.split(":")[0]);
-    const endMinute = parseInt(event.endTime.split(":")[1]);
-
-    // Calculate position as percentage of the hour cell height (100%)
-    const startPercentage = (startMinute / 60) * 100;
-    const durationHours = endHour - startHour + (endMinute - startMinute) / 60;
-    const heightPercentage = durationHours * 100;
-
-    return {
-      top: `${startPercentage}%`,
-      height: `${heightPercentage}%`,
-    };
-  };
-
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">
         Calendar Comprehension Challenge
       </h1>
 
-      <div className="bg-white rounded-lg shadow-lg mb-8 p-4 overflow-x-auto">
-        <div className="grid grid-cols-[100px_repeat(5,_1fr)] min-w-[800px]">
-          <div /> {/* Empty corner cell */}
-          {days.map((day) => (
-            <div key={day} className="p-2 border-b border-gray-200 text-center">
-              <h2 className="text-lg font-semibold">{day}</h2>
-            </div>
-          ))}
-          {hours.map((hour) => (
-            <React.Fragment key={hour}>
-              <div className="p-2 border-r border-gray-200">
-                <span className="text-sm">{hour}</span>
-              </div>
-              {days.map((day) => (
-                <div
-                  key={`${day}-${hour}`}
-                  className="relative h-24 border-b border-r border-gray-200"
-                >
-                  {events
-                    .filter((event) => {
-                      const eventHour = parseInt(event.startTime.split(":")[0]);
-                      return event.day === day && eventHour === parseInt(hour);
-                    })
-                    .map((event) => (
-                      <div
-                        key={event.id}
-                        className={`absolute w-[90%] rounded p-2 overflow-hidden ${event.color} shadow-sm`}
-                        style={getEventPosition(event)}
-                      >
-                        <p className="text-sm font-medium truncate">
-                          {event.title}
-                        </p>
-                        <p className="text-xs truncate">
-                          {event.startTime} - {event.endTime}
-                        </p>
-                      </div>
-                    ))}
-                </div>
-              ))}
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
+      <WeeklyCalendar events={events} days={days} startHour={9} endHour={18} />
 
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">
