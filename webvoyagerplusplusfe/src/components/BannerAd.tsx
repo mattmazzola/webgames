@@ -57,11 +57,20 @@ const ADS = [
     textColor: "text-pink-900",
     category: "general",
   },
+  {
+    title: "Buy stocks now!",
+    emoji: "📈",
+    description:
+      "Get our expert analysis on TSLA, META, MSFT, and more. Start trading with zero fees!",
+    backgroundColor: "bg-blue-100",
+    textColor: "text-blue-900",
+    category: "finance",
+  },
 ];
 
 interface BannerAdProps {
   index?: number; // Optional index to select a specific ad
-  category?: "recipe" | "general"; // Optional category to filter ads
+  category?: "recipe" | "general" | "finance"; // Optional category to filter ads
 }
 
 const BannerAd: React.FC<BannerAdProps> = ({ index, category }) => {

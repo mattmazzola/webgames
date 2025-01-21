@@ -47,6 +47,7 @@ import ShopAdmin from "../pages/ShopAdmin";
 import ShopAdminEdit from "../pages/ShopAdminEdit";
 import ShoppingChallenge from "../pages/ShoppingChallenge";
 import SliderSymphony from "../pages/SliderSymphony";
+import StockMarketScroll from "../pages/StockMarketScroll";
 import TabSync from "../pages/TabSync";
 import TabSyncReceiver from "../pages/TabSyncReceiver";
 import TabSyncSender from "../pages/TabSyncSender";
@@ -545,5 +546,13 @@ export const routes: RouteConfig[] = [
     icon: "📅",
     component: CalendarComprehension2,
     tags: ["calendar", "time", "math"],
+  },
+  {
+    path: "/stock-market",
+    title: "Stock Market Insight",
+    description: "Discover the best tech stock to buy in 2025",
+    icon: "📈",
+    component: StockMarketScroll,
+    tags: ["scroll", "reading", "stocks"],
   },
 ];
