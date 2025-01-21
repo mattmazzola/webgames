@@ -6,6 +6,7 @@ import Bullseye from "../pages/Bullseye";
 import ButtonHold from "../pages/ButtonHold";
 import ButtonMegastar from "../pages/ButtonMegastar";
 import CalendarComprehension from "../pages/CalendarComprehension";
+import CalendarComprehension2 from "../pages/CalendarComprehension2";
 import CanvasCatch from "../pages/CanvasCatch";
 import ChartRead from "../pages/ChartRead";
 import ChartTranscribe from "../pages/ChartTranscribe";
@@ -535,5 +536,14 @@ export const routes: RouteConfig[] = [
     component: AdClicked,
     tags: ["ad"],
     hidden: true,
+  },
+  {
+    path: "/calendar2",
+    title: "Advanced Calendar Challenge",
+    description:
+      "Test your calendar comprehension skills with complex time calculations",
+    icon: "📅",
+    component: CalendarComprehension2,
+    tags: ["calendar", "time", "math"],
   },
 ];
