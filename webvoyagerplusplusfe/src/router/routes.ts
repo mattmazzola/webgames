@@ -22,6 +22,7 @@ import IframeContent from "../pages/IframeContent";
 import IframeNest from "../pages/IframeNest";
 import IllegalMaterial from "../pages/IllegalMaterial";
 import KeyCombo from "../pages/KeyCombo";
+import MapPanner from "../pages/MapPanner";
 import MazeNavigator from "../pages/MazeNavigator";
 import MenuNavigator from "../pages/MenuNavigator";
 import OTPEntry from "../pages/OTPEntry";
@@ -448,5 +449,13 @@ export const routes: RouteConfig[] = [
     icon: "📅",
     component: CalendarComprehension,
     tags: ["calendar", "comprehension", "attention"],
+  },
+  {
+    path: "/map-panner",
+    title: "Map Panner",
+    description: "Pan around a mysterious map to find the hidden treasure",
+    icon: "🗺️",
+    component: MapPanner,
+    tags: ["drag", "exploration", "coordination"],
   },
 ];
