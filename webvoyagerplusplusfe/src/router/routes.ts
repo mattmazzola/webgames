@@ -9,6 +9,7 @@ import CanvasCatch from "../pages/CanvasCatch";
 import ChartRead from "../pages/ChartRead";
 import ChartTranscribe from "../pages/ChartTranscribe";
 import ClickCubed from "../pages/ClickCubed";
+import ClickPixel from "../pages/ClickPixel";
 import ColorHarmony from "../pages/ColorHarmony";
 import CombinationLock from "../pages/CombinationLock";
 import ContextBreaker from "../pages/ContextBreaker";
@@ -486,5 +487,13 @@ export const routes: RouteConfig[] = [
     component: ShopAdminEdit,
     tags: ["admin", "form", "edit"],
     hidden: true,
+  },
+  {
+    path: "/click-pixel",
+    title: "Pixel Perfect",
+    description: "Can you click on a single pixel target?",
+    icon: "🎯",
+    component: ClickPixel,
+    tags: ["precision", "mouse", "dexterity"],
   },
 ];
