@@ -53,7 +53,10 @@ const IframeNest: React.FC = () => {
           </span>
         )}
       </div>
-      <iframe src="/iframe-content/5" style={iframeStyle} />
+      <iframe
+        src={`${window.location.origin}/iframe-content/5`}
+        style={iframeStyle}
+      />
     </div>
   );
 };

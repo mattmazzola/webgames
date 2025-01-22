@@ -98,7 +98,7 @@ const IframeContent = () => {
         Layer {currentDepth}
       </div>
       <iframe
-        src={`/iframe-content/${currentDepth - 1}`}
+        src={`${window.location.origin}/iframe-content/${currentDepth - 1}`}
         style={{
           width: "90%",
           height: "90%",
