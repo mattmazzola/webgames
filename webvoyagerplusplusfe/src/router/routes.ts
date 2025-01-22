@@ -109,7 +109,7 @@ export interface RouteConfig {
 
 export const routes: RouteConfig[] = [
   {
-    path: "/date",
+    path: "date",
     title: "Today's date",
     description: "Enter today's date to reveal a secret password",
     icon: "📅",
@@ -118,7 +118,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_TodaysDate,
   },
   {
-    path: "/buttons",
+    path: "buttons",
     title: "Button megastar",
     description:
       "A collection of very clickable (and maybe not so clickable) things",
@@ -128,7 +128,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ButtonMegastar,
   },
   {
-    path: "/click-cubed",
+    path: "click-cubed",
     title: "Click³",
     description: "Can you click three times before time runs out?",
     icon: "⏱️",
@@ -137,7 +137,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ClickCubed,
   },
   {
-    path: "/patience",
+    path: "patience",
     title: "Patience test",
     description: "Can you wait the perfect amount of time?",
     icon: "⌛",
@@ -146,7 +146,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_Patience,
   },
   {
-    path: "/slider-symphony",
+    path: "slider-symphony",
     title: "Slider symphony",
     description: "Align the boxes by mastering the vertical sliders!",
     icon: "🎚️",
@@ -155,7 +155,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_SliderSymphony,
   },
   {
-    path: "/emoji-remember",
+    path: "emoji-remember",
     title: "Emoji remember",
     description: "Remember the sequence of emojis to unlock the secret",
     icon: "🧠",
@@ -164,7 +164,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_EmojiRemember,
   },
   {
-    path: "/bullseye",
+    path: "bullseye",
     title: "Bullseye",
     description:
       "Hit the moving target three times - but watch out, it gets faster!",
@@ -174,7 +174,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_Bullseye,
   },
   {
-    path: "/i-accept",
+    path: "i-accept",
     title: "I Accept",
     description: "Prove you're human by agreeing to our terms",
     icon: "✅",
@@ -183,7 +183,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_IAccept,
   },
   {
-    path: "/wolf-goat-cabbage",
+    path: "wolf-goat-cabbage",
     title: "River Crossing",
     description:
       "Help transport a wolf, goat, and cabbage across the river safely",
@@ -193,7 +193,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_WolfGoatCabbage,
   },
   {
-    path: "/towers-of-hanoi",
+    path: "towers-of-hanoi",
     title: "Towers of Hanoi",
     description:
       "Move the stack of disks to the rightmost peg following the rules",
@@ -203,7 +203,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_TowersOfHanoi,
   },
   {
-    path: "/color-harmony",
+    path: "color-harmony",
     title: "Color Harmony",
     description:
       "Mix the perfect color combination using RGB sliders - but hurry before they shift!",
@@ -213,7 +213,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ColorHarmony,
   },
   {
-    path: "/herding",
+    path: "herding",
     title: "Sheep Herding",
     description: "Guide the wandering sheep into their pen using your cursor",
     icon: "🐑",
@@ -222,7 +222,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_Herding,
   },
   {
-    path: "/file-upload",
+    path: "file-upload",
     title: "File Upload",
     description: "Upload any file to complete this challenge",
     icon: "📎",
@@ -231,7 +231,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_FileUpload,
   },
   {
-    path: "/canvas-catch",
+    path: "canvas-catch",
     title: "Canvas Catch",
     description:
       "Drag the circle into the target zone to complete the challenge",
@@ -241,7 +241,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_CanvasCatch,
   },
   {
-    path: "/breakout",
+    path: "breakout",
     title: "Breakout",
     description: "Classic Atari Breakout - break all the bricks to win!",
     icon: "🧱",
@@ -250,7 +250,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_Breakout,
   },
   {
-    path: "/text-mirror",
+    path: "text-mirror",
     title: "Text Mirror",
     description: "Can you perfectly copy the text? Every character matters!",
     icon: "📝",
@@ -259,7 +259,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_TextMirror,
   },
   {
-    path: "/frogger",
+    path: "frogger",
     title: "Frogger",
     description: "Guide your frog safely across the busy road using arrow keys",
     icon: "🐸",
@@ -268,7 +268,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_Frogger,
   },
   {
-    path: "/button-hold",
+    path: "button-hold",
     title: "Button Hold",
     description: "Can you hold the button for exactly 3 seconds?",
     icon: "⏱️",
@@ -277,7 +277,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ButtonHold,
   },
   {
-    path: "/key-combo",
+    path: "key-combo",
     title: "Key Combo",
     description: "Press the correct key combination to unlock the secret",
     icon: "⌨️",
@@ -286,7 +286,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_KeyCombo,
   },
   {
-    path: "/scroll-vertical",
+    path: "scroll-vertical",
     title: "Endless Scroll",
     description: "How far can you scroll? Keep going to find out!",
     icon: "📜",
@@ -295,7 +295,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ScrollVertical,
   },
   {
-    path: "/scroll-horizontal",
+    path: "scroll-horizontal",
     title: "Sideways Scroll",
     description: "Keep scrolling right until you can't scroll anymore!",
     icon: "➡️",
@@ -304,7 +304,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ScrollHorizontal,
   },
   {
-    path: "/webgl-text",
+    path: "webgl-text",
     title: "3D Text Challenge",
     description: "Can you read and type the rotating 3D text?",
     icon: "🎮",
@@ -313,7 +313,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_WebGLText,
   },
   {
-    path: "/file-credentials",
+    path: "file-credentials",
     title: "File Credentials",
     description: "Download a credentials file and use it to log in",
     icon: "🔑",
@@ -322,7 +322,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_FileCredentials,
   },
   {
-    path: "/webs-assemble",
+    path: "webs-assemble",
     title: "Webs, Assemble!",
     description: "Find the secret code hidden in the WebAssembly module",
     icon: "🕸️",
@@ -331,7 +331,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_WebsAssemble,
   },
   {
-    path: "/menu-navigator",
+    path: "menu-navigator",
     title: "Menu Navigator",
     description: "Navigate through a menu bar to find the secret option",
     icon: "🗺️",
@@ -340,7 +340,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_MenuNavigator,
   },
   {
-    path: "/popup-chaos",
+    path: "popup-chaos",
     title: "Popup Chaos",
     description:
       "Close the annoying popup windows to reveal the secret password",
@@ -350,7 +350,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_PopupChaos,
   },
   {
-    path: "/chart-read",
+    path: "chart-read",
     title: "Chart Read",
     description: "Find the maximum price and time in the stock chart",
     icon: "📈",
@@ -359,7 +359,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ChartRead,
   },
   {
-    path: "/chart-transcribe",
+    path: "chart-transcribe",
     title: "Chart Transcribe",
     description: "Transcribe the bar chart data into CSV format",
     icon: "📊",
@@ -368,7 +368,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ChartTranscribe,
   },
   {
-    path: "/combination-lock",
+    path: "combination-lock",
     title: "Combination Lock",
     description: "Solve Grampa's riddles to unlock the combination",
     icon: "🔒",
@@ -377,7 +377,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_CombinationLock,
   },
   {
-    path: "/pixel-copy",
+    path: "pixel-copy",
     title: "Pixel Copy",
     description: "Recreate the pattern by toggling pixels in the grid",
     icon: "🎨",
@@ -386,7 +386,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_PixelCopy,
   },
   {
-    path: "/illegal-material",
+    path: "illegal-material",
     title: "Restricted Content",
     description:
       "Access this content at your own risk. Your actions are being monitored.",
@@ -396,7 +396,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_IllegalMaterial,
   },
   {
-    path: "/prompt-defender",
+    path: "prompt-defender",
     title: "Prompt Defender",
     description: "Can you resist deception and find the real password?",
     icon: "🛡️",
@@ -405,7 +405,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_PromptDefender,
   },
   {
-    path: "/shopping-challenge",
+    path: "shopping-challenge",
     title: "Shopping Challenge",
     description: "Add items to your cart and calculate the total price to win!",
     icon: "🛍️",
@@ -414,7 +414,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ShoppingChallenge,
   },
   {
-    path: "/maze/*",
+    path: "maze/*",
     title: "The Maze",
     description:
       "Navigate through a series of doors to find the exit - but choose wisely!",
@@ -424,7 +424,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_MazeNavigator,
   },
   {
-    path: "/context-breaker",
+    path: "context-breaker",
     title: "Context Breaker",
     description:
       "Can you scroll all the way to the bottom to find the secret password?",
@@ -434,7 +434,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ContextBreaker,
   },
   {
-    path: "/scroll-diagonal",
+    path: "scroll-diagonal",
     title: "Diagonal Scroll",
     description:
       "Navigate to the bottom-right corner through diagonal scrolling!",
@@ -444,7 +444,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ScrollDiagonal,
   },
   {
-    path: "/block-stack",
+    path: "block-stack",
     title: "Block Stack",
     description: "Stack blocks above the red line using physics to win!",
     icon: "🏗️",
@@ -453,7 +453,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_BlockStack,
   },
   {
-    path: "/iframe-nest",
+    path: "iframe-nest",
     title: "Nested Frames",
     description: "Navigate through nested iframes to find the hidden button",
     icon: "🖼️",
@@ -462,7 +462,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_IframeNest,
   },
   {
-    path: "/iframe-content/:depth",
+    path: "iframe-content/:depth",
     title: "Iframe Content",
     description: "Content for nested iframes",
     icon: "🖼️",
@@ -472,7 +472,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_IframeContent,
   },
   {
-    path: "/tab-sync",
+    path: "tab-sync",
     title: "Tab Sync",
     description:
       "Synchronize colors between browser tabs to reveal the password",
@@ -482,7 +482,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_TabSync,
   },
   {
-    path: "/tab-sync/sender",
+    path: "tab-sync/sender",
     title: "Tab Sync Sender",
     description: "Send color signals to the receiver",
     icon: "📤",
@@ -491,7 +491,7 @@ export const routes: RouteConfig[] = [
     hidden: true,
   },
   {
-    path: "/tab-sync/receiver",
+    path: "tab-sync/receiver",
     title: "Tab Sync Receiver",
     description: "Receive and validate color sequences",
     icon: "📥",
@@ -500,7 +500,7 @@ export const routes: RouteConfig[] = [
     hidden: true,
   },
   {
-    path: "/otp-entry",
+    path: "otp-entry",
     title: "OTP Entry",
     description: "Enter a 6-digit one-time password with auto-focusing inputs",
     icon: "🔢",
@@ -509,7 +509,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_OTPEntry,
   },
   {
-    path: "/print-reveal",
+    path: "print-reveal",
     title: "Print to Reveal",
     description: "Print this page to PDF to reveal the hidden password",
     icon: "🖨️",
@@ -518,7 +518,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_PrintReveal,
   },
   {
-    path: "/robo-check",
+    path: "robo-check",
     title: "Human Verification",
     description: "Complete a CAPTCHA challenge to prove you're human",
     icon: "🤖",
@@ -527,7 +527,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_RoboCheck,
   },
   {
-    path: "/right-click",
+    path: "right-click",
     title: "Right Click Reveal",
     description: "Use your context menu skills to reveal the hidden password",
     icon: "🖱️",
@@ -536,7 +536,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_RightClickReveal,
   },
   {
-    path: "/calendar-comprehension",
+    path: "calendar-comprehension",
     title: "Calendar Comprehension",
     description: "Study a calendar and answer questions about the events",
     icon: "📅",
@@ -545,7 +545,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_CalendarComprehension,
   },
   {
-    path: "/map-panner",
+    path: "map-panner",
     title: "Map Panner",
     description: "Pan around a mysterious map to find the hidden treasure",
     icon: "🗺️",
@@ -554,7 +554,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_MapPanner,
   },
   {
-    path: "/ladybird",
+    path: "ladybird",
     title: "LadyBird Planner",
     description:
       "Plan the ladybird's path to reach the flower using directional emojis",
@@ -564,7 +564,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_LadyBirdPlanner,
   },
   {
-    path: "/shop-admin",
+    path: "shop-admin",
     title: "Shop Admin",
     description: "Update product prices in the admin panel",
     icon: "🏪",
@@ -573,7 +573,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ShopAdmin,
   },
   {
-    path: "/shop-admin/edit/:productId",
+    path: "shop-admin/edit/:productId",
     title: "Edit Product",
     description: "Edit product details",
     icon: "✏️",
@@ -582,7 +582,7 @@ export const routes: RouteConfig[] = [
     hidden: true,
   },
   {
-    path: "/click-pixel",
+    path: "click-pixel",
     title: "Pixel Perfect",
     description: "Can you click on a single pixel target?",
     icon: "🎯",
@@ -591,7 +591,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ClickPixel,
   },
   {
-    path: "/recipes",
+    path: "recipes",
     title: "Recipe Book",
     description: "Browse and discover delicious recipes",
     icon: "📖",
@@ -600,7 +600,7 @@ export const routes: RouteConfig[] = [
     hidden: true,
   },
   {
-    path: "/recipes/:recipeId",
+    path: "recipes/:recipeId",
     title: "Recipe Details",
     description: "View recipe details",
     icon: "🍳",
@@ -609,7 +609,7 @@ export const routes: RouteConfig[] = [
     hidden: true,
   },
   {
-    path: "/recipe-calculator",
+    path: "recipe-calculator",
     title: "Recipe Calculator",
     description:
       "Help calculate the right amount of ingredients for a dinner party",
@@ -619,7 +619,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_RecipeCalculator,
   },
   {
-    path: "/ad-clicked",
+    path: "ad-clicked",
     title: "Advertisement",
     description: "Advertisement landing page",
     icon: "🎯",
@@ -628,7 +628,7 @@ export const routes: RouteConfig[] = [
     hidden: true,
   },
   {
-    path: "/calendar2",
+    path: "calendar2",
     title: "Advanced Calendar Challenge",
     description:
       "Test your calendar comprehension skills with complex time calculations",
@@ -638,7 +638,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_CalendarComprehension2,
   },
   {
-    path: "/stock-market",
+    path: "stock-market",
     title: "Stock Market Insight",
     description: "Discover the best tech stock to buy in 2025",
     icon: "📈",

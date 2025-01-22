@@ -4,9 +4,43 @@ import { routes } from "../router/routes";
 export default function Home() {
   const visibleRoutes = routes.filter((route) => !route.hidden);
 
+  const downloadChallengesJSONL = () => {
+    const jsonl = visibleRoutes
+      .map((route) =>
+        JSON.stringify({
+          id: route.path,
+          title: route.title,
+          description: route.description,
+          path: route.path,
+          password: route.password,
+        })
+      )
+      .join("\n");
+
+    const blob = new Blob([jsonl], { type: "application/x-jsonlines" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "challenges.jsonl";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="container mx-auto px-2 py-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">WebVoyager++</h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold text-center flex-grow">
+          WebVoyager++
+        </h1>
+        <button
+          onClick={downloadChallengesJSONL}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-200"
+        >
+          Download Challenges JSONL
+        </button>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {visibleRoutes.map((route, index) => (
           <Link
