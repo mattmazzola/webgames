@@ -18,7 +18,7 @@ export default function ContextBreaker() {
     if (textAreaRef.current) {
       // Set the initial text
       textAreaRef.current.value =
-        generateText() + "\n\nSecret Password: HEART_SCROLLER_SUPREME";
+        generateText() + "\n\nSecret Password: " + PASSWORD_ContextBreaker;
     }
   }, []);
 
