@@ -8,7 +8,7 @@ export default function RequireAuth({
   const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to={`/login${window.location.search}`} replace />;
   }
 
   return <>{children}</>;
