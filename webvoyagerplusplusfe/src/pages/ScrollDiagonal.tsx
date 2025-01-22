@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const ScrollDiagonal = () => {
+export const PASSWORD_ScrollDiagonal = "DIAGONALMASTER2024";
+
+const ScrollDiagonal: React.FC = () => {
   const [hasReachedTarget, setHasReachedTarget] = useState(false);
 
   useEffect(() => {
@@ -105,7 +107,7 @@ const ScrollDiagonal = () => {
                 fontWeight: "bold",
               }}
             >
-              Password: DIAGONALMASTER2024
+              Password: {PASSWORD_ScrollDiagonal}
             </div>
           </div>
         )}

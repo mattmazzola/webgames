@@ -1,11 +1,13 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+
+export const PASSWORD_MapPanner = "CARTOGRAPHER2024";
 
 interface Position {
   x: number;
   y: number;
 }
 
-const MapPanner = () => {
+const MapPanner: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
@@ -89,7 +91,7 @@ const MapPanner = () => {
         </p>
         {isComplete && (
           <div className="mt-4 p-4 bg-green-800 rounded-lg">
-            <p className="font-bold">Password: CARTOGRAPHER2024</p>
+            <p className="font-bold">Password: {PASSWORD_MapPanner}</p>
           </div>
         )}
       </div>

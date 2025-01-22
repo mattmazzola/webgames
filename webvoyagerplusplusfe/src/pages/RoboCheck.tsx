@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
+export const PASSWORD_RoboCheck = "ReCAPTCHA_MASTER_2024";
+
 const RoboCheck: React.FC = () => {
   const [isComplete, setIsComplete] = useState(false);
-  const secretPassword = "ReCAPTCHA_MASTER_2024";
 
   const handleCaptchaChange = useCallback((token: string | null) => {
     if (token) {
@@ -28,7 +29,7 @@ const RoboCheck: React.FC = () => {
           <h2 className="text-lg font-bold">🎉 Congratulations!</h2>
           <p>You've successfully proven you're human.</p>
           <p className="mt-2">
-            The secret password is: <strong>{secretPassword}</strong>
+            The secret password is: <strong>{PASSWORD_RoboCheck}</strong>
           </p>
         </div>
       )}

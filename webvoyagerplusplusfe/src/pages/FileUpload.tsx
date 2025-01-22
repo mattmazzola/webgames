@@ -1,4 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
+
+export const PASSWORD_FileUpload = "FILE_UPLOAD_2024";
 
 const FileUpload = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -38,6 +40,10 @@ const FileUpload = () => {
               <p>✨ Challenge completed! ✨</p>
               <p className="text-sm text-gray-600">
                 Uploaded: {selectedFile.name}
+              </p>
+              <p>
+                The secret password is:{" "}
+                <span className="font-bold">{PASSWORD_FileUpload}</span>
               </p>
             </div>
           )}

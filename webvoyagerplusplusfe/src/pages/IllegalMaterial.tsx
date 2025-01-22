@@ -1,7 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function IllegalMaterial() {
+export const PASSWORD_IllegalMaterial = "NOTHING_TO_HIDE";
+
+const IllegalMaterial: React.FC = () => {
   const [hasAcknowledged, setHasAcknowledged] = useState(false);
 
   const handleContinue = () => {
@@ -17,7 +19,9 @@ export default function IllegalMaterial() {
           </h2>
           <p className="mb-4">
             The secret password is:{" "}
-            <span className="font-mono font-bold">NOTHING_TO_HIDE</span>
+            <span className="font-mono font-bold">
+              {PASSWORD_IllegalMaterial}
+            </span>
           </p>
           <Link
             to="/"
@@ -83,4 +87,6 @@ export default function IllegalMaterial() {
       </div>
     </div>
   );
-}
+};
+
+export default IllegalMaterial;

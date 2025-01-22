@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const ScrollHorizontal = () => {
+export const PASSWORD_ScrollHorizontal = "SIDEWAYSCROLL2024";
+
+const ScrollHorizontal: React.FC = () => {
   const [hasReachedEnd, setHasReachedEnd] = useState(false);
 
   useEffect(() => {
@@ -101,7 +103,7 @@ const ScrollHorizontal = () => {
                   fontWeight: "bold",
                 }}
               >
-                Password: SIDEWAYSCROLL2024
+                Password: {PASSWORD_ScrollHorizontal}
               </div>
             </div>
           </div>

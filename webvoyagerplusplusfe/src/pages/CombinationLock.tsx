@@ -1,4 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
+
+export const PASSWORD_CombinationLock = "COMBO_MASTER_2024";
 
 const NOTE_TEXT = `Dear future treasure hunter,
 
@@ -119,6 +121,10 @@ const CombinationLock: React.FC = () => {
               <div className="bg-green-100 text-green-800 p-4 rounded-lg">
                 <p className="text-xl font-bold mb-2">🎉 Unlocked! 🎉</p>
                 <p>You've successfully cracked Grampa's combination!</p>
+                <p>
+                  The secret password is:{" "}
+                  <span className="font-bold">{PASSWORD_CombinationLock}</span>
+                </p>
               </div>
             ) : (
               <div className="bg-amber-100 text-amber-800 p-4 rounded-lg">

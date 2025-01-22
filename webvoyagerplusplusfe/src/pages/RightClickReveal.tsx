@@ -1,11 +1,13 @@
 import { useState } from "react";
 
+export const PASSWORD_RightClickReveal = "RIGHT_CLICK_MASTER";
+
 const RightClickReveal = () => {
   const [password, setPassword] = useState("");
 
   const handleContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
-    setPassword("RIGHT_CLICK_MASTER");
+    setPassword(PASSWORD_RightClickReveal);
   };
 
   return (

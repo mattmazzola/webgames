@@ -1,6 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-const TodaysDate = () => {
+export const PASSWORD_TodaysDate = "DATE_MASTER_2024";
+
+const TodaysDate: React.FC = () => {
   const [date, setDate] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -45,7 +47,7 @@ const TodaysDate = () => {
       {showPassword && (
         <div className="mt-6 p-4 bg-green-100 rounded">
           <p className="text-green-800 font-medium">
-            Secret Password: WebVoyager2024!
+            Secret Password: {PASSWORD_TodaysDate}
           </p>
         </div>
       )}

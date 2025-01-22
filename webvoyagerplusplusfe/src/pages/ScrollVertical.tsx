@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+export const PASSWORD_ScrollVertical = "SCROLLMASTER2024";
+
 const ScrollVertical = () => {
   const [hasReachedBottom, setHasReachedBottom] = useState(false);
 
@@ -61,7 +63,7 @@ const ScrollVertical = () => {
           <div
             style={{ marginTop: "10px", fontSize: "24px", fontWeight: "bold" }}
           >
-            Password: SCROLLMASTER2024
+            Password: {PASSWORD_ScrollVertical}
           </div>
         </div>
       )}

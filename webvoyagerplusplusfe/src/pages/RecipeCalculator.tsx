@@ -1,8 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { recipes } from "./recipes/recipes";
 
-export default function RecipeCalculator() {
+export const PASSWORD_RecipeCalculator = "RECIPE_CALC_2024";
+
+const RecipeCalculator: React.FC = () => {
   const [answer, setAnswer] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -27,7 +29,7 @@ export default function RecipeCalculator() {
     const userAnswer = parseFloat(answer);
 
     if (Math.abs(userAnswer - expectedAmount) < 0.01) {
-      setPassword("RECIPE_MASTER_2024");
+      setPassword(PASSWORD_RecipeCalculator);
       setMessage(
         "Congratulations! You've correctly calculated the amount of pancetta needed!"
       );
@@ -111,4 +113,6 @@ export default function RecipeCalculator() {
       </div>
     </div>
   );
-}
+};
+
+export default RecipeCalculator;

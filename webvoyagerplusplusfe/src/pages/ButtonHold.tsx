@@ -1,7 +1,7 @@
 import confetti from "canvas-confetti";
 import { useEffect, useRef, useState } from "react";
 
-const SUCCESS_PASSWORD = "HOLD_STEADY_2024";
+export const PASSWORD_ButtonHold = "HOLD_STEADY_2024";
 
 const ButtonHold = () => {
   const [holdTime, setHoldTime] = useState(0);
@@ -85,7 +85,7 @@ const ButtonHold = () => {
         {isComplete && (
           <div className="text-center p-4 bg-green-100 text-green-700 rounded-lg">
             <p className="font-bold mb-2">Congratulations! 🎉</p>
-            <p>The secret password is: {SUCCESS_PASSWORD}</p>
+            <p>The secret password is: {PASSWORD_ButtonHold}</p>
           </div>
         )}
       </div>

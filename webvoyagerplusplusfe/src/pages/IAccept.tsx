@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+export const PASSWORD_IACCEPT = "BicentennialMan";
+
 const IAccept = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -56,7 +58,7 @@ const IAccept = () => {
         {showPassword && (
           <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-md">
             <p className="text-green-800 font-medium">
-              Secret Password: BicentennialMan
+              Secret Password: {PASSWORD_IACCEPT}
             </p>
           </div>
         )}

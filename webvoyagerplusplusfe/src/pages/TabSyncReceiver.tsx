@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
+import { PASSWORD_TabSync } from "./TabSync";
 
 const CORRECT_SEQUENCE = ["#FF0000", "#0000FF", "#FFFF00", "#00FF00"]; // Red, Blue, Yellow, Green
-const PASSWORD = "ChromaticSync";
+const PASSWORD = PASSWORD_TabSync;
 
 const TabSyncReceiver = () => {
   const [receivedColors, setReceivedColors] = useState<string[]>([]);

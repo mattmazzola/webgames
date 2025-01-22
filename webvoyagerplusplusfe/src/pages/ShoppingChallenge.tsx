@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Product, products } from "./shopping/products";
 
 interface ShoppingListItem {
@@ -23,7 +23,9 @@ interface CartItem extends Product {
   quantity: number;
 }
 
-export default function ShoppingChallenge() {
+export const PASSWORD_ShoppingChallenge = "SHOPPING_MASTER_2024";
+
+const ShoppingChallenge: React.FC = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -89,7 +91,7 @@ export default function ShoppingChallenge() {
   const checkPrice = () => {
     const guessedPrice = parseFloat(priceGuess);
     if (Math.abs(guessedPrice - expectedTotal) < 0.01) {
-      setPassword("SHOPPING_MASTER_2024");
+      setPassword(PASSWORD_ShoppingChallenge);
       setMessage("Correct! You've completed the challenge!");
     } else {
       setMessage("That's not the correct total. Try again!");
@@ -331,4 +333,6 @@ export default function ShoppingChallenge() {
       </div>
     </div>
   );
-}
+};
+
+export default ShoppingChallenge;

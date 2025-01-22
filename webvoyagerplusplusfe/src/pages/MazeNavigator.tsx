@@ -1,5 +1,7 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
+export const PASSWORD_MazeNavigator = "MAZE_MASTER_2024";
 
 // Define the winning path and dead ends
 const WINNING_PATH = "1/1/2/1";
@@ -22,7 +24,7 @@ const MESSAGES = {
   victory: "Congratulations! You've found the exit!",
 };
 
-export default function MazeNavigator() {
+const MazeNavigator: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -104,11 +106,13 @@ export default function MazeNavigator() {
             <h2 className="text-2xl font-bold mb-4">🎉 You made it! 🎉</h2>
             <p className="text-xl mb-4">The secret password is:</p>
             <p className="font-mono text-2xl bg-green-800 p-4 rounded">
-              MAZE_MASTER_2024
+              {PASSWORD_MazeNavigator}
             </p>
           </div>
         )}
       </div>
     </div>
   );
-}
+};
+
+export default MazeNavigator;

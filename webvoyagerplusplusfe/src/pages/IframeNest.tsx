@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const IframeNest = () => {
+export const PASSWORD_IframeNest = "NestedVoyager";
+
+const IframeNest: React.FC = () => {
   const [isComplete, setIsComplete] = useState(false);
   const iframeStyle = {
     width: "90%",
@@ -47,7 +49,7 @@ const IframeNest = () => {
           <div>Find and click the button hidden in the nested iframes!</div>
         ) : (
           <span style={{ color: "#4CAF50", fontWeight: "bold" }}>
-            Challenge Complete! 🎉 Password: NestedVoyager
+            Challenge Complete! 🎉 Password: {PASSWORD_IframeNest}
           </span>
         )}
       </div>

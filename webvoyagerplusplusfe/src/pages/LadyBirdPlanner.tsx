@@ -1,4 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
+
+export const PASSWORD_LadyBirdPlanner = "LADYBIRD_NAVIGATOR";
 
 interface Position {
   x: number;
@@ -14,7 +16,7 @@ const MOVE_DOWN = "⬇️";
 const MOVE_LEFT = "⬅️";
 const MOVE_RIGHT = "➡️";
 
-const LadyBirdPlanner = () => {
+const LadyBirdPlanner: React.FC = () => {
   const gridSize = 12;
   const [inputSequence, setInputSequence] = useState<string>("");
   const [isComplete, setIsComplete] = useState(false);
@@ -288,7 +290,7 @@ const LadyBirdPlanner = () => {
           {isComplete && (
             <div className="p-6 bg-green-800 rounded-lg">
               <p className="font-bold text-xl mb-2">Perfect Path Found!</p>
-              <p>The password is: LADYBIRD_NAVIGATOR</p>
+              <p>The password is: {PASSWORD_LadyBirdPlanner}</p>
             </div>
           )}
         </div>

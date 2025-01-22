@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+
+export const PASSWORD_PopupChaos = "PopupSlayer2024";
 
 interface Popup {
   id: number;
@@ -250,6 +252,9 @@ const PopupChaos: React.FC = () => {
         <div className="fixed top-4 right-4 bg-green-100 border border-green-200 rounded-lg p-4 shadow-lg">
           <p className="text-green-800 font-medium">
             Congratulations! You've defeated the popup invasion!
+          </p>
+          <p className="text-green-800 font-medium">
+            The password is: {PASSWORD_PopupChaos}
           </p>
         </div>
       )}

@@ -1,6 +1,9 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
-const TabSync = () => {
+export const PASSWORD_TabSync = "ChromaticSync";
+
+const TabSync: React.FC = () => {
   return (
     <div
       style={{

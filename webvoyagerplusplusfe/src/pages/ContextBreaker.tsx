@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+export const PASSWORD_ContextBreaker = "CONTEXT_MASTER_2024";
 
 export default function ContextBreaker() {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -64,6 +66,10 @@ export default function ContextBreaker() {
           >
             <div className="bg-green-500 text-white px-6 py-3 rounded-full shadow-lg">
               🎉 You made it!
+              <p>
+                The secret password is:{" "}
+                <span className="font-bold">{PASSWORD_ContextBreaker}</span>
+              </p>
             </div>
           </div>
         </div>

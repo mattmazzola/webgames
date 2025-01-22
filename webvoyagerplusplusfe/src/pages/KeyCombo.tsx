@@ -1,7 +1,7 @@
 import confetti from "canvas-confetti";
 import { useEffect, useState } from "react";
 
-const SUCCESS_PASSWORD = "KEY_MASTER_2024";
+export const PASSWORD_KeyCombo = "KEY_MASTER_2024";
 
 const KeyCombo = () => {
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
@@ -109,7 +109,7 @@ const KeyCombo = () => {
         {isComplete && (
           <div className="text-center p-4 bg-green-100 text-green-700 rounded-lg">
             <p className="font-bold mb-2">Congratulations! 🎉</p>
-            <p>The secret password is: {SUCCESS_PASSWORD}</p>
+            <p>The secret password is: {PASSWORD_KeyCombo}</p>
           </div>
         )}
       </div>

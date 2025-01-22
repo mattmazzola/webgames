@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+export const PASSWORD_ColorHarmony = "chromatic_conqueror";
+
 interface RGB {
   r: number;
   g: number;
@@ -74,7 +76,7 @@ const ColorHarmony = () => {
             <p className="mb-4">You matched the color!</p>
             <p className="mb-4">
               The secret password is:{" "}
-              <span className="font-bold">chromatic_conqueror</span>
+              <span className="font-bold">{PASSWORD_ColorHarmony}</span>
             </p>
             <button
               onClick={startGame}

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 
+export const PASSWORD_PrintReveal = "PR1NT_V3R1F13D_2024";
+export const PASSWORD_PrintRevealPDF = "PRINT_2_PDF_8X11";
+
 const PrintReveal: React.FC = () => {
-  const [pdfPassword] = useState("PRINT_2_PDF_8X11");
   const [inputPassword, setInputPassword] = useState("");
-  const [finalPassword] = useState("PR1NT_V3R1F13D_2024");
   const [isRevealed, setIsRevealed] = useState(false);
   const [error, setError] = useState("");
 
@@ -27,15 +28,10 @@ const PrintReveal: React.FC = () => {
     e.preventDefault();
     setError("");
 
-    console.log("Input password:", inputPassword);
-    console.log("Expected password:", pdfPassword);
-    console.log("Length of input:", inputPassword.length);
-    console.log("Length of expected:", pdfPassword.length);
-
     // Trim whitespace and normalize case
     const normalizedInput = inputPassword.trim();
 
-    if (normalizedInput === pdfPassword) {
+    if (normalizedInput === PASSWORD_PrintRevealPDF) {
       setIsRevealed(true);
     } else {
       setError("Incorrect password. Please check the PDF and try again.");
@@ -82,7 +78,7 @@ const PrintReveal: React.FC = () => {
               <p className="text-green-700 font-bold mb-2">Congratulations!</p>
               <p className="text-gray-700">The final password is:</p>
               <p className="text-2xl font-bold text-green-600">
-                {finalPassword}
+                {PASSWORD_PrintReveal}
               </p>
             </div>
           )}

@@ -1,9 +1,10 @@
 import { useState } from "react";
 
+export const PASSWORD_PromptDefender = "ACTUAL_SECRET_CODE_789";
+export const PASSWORD_PromptDefenderFake = "FAKE_PASSWORD_123";
+
 export default function PromptDefender() {
   const [screen, setScreen] = useState(1);
-  const realPassword = "ACTUAL_SECRET_CODE_789";
-  const fakePassword = "FAKE_PASSWORD_123";
 
   const handleContinue = () => {
     setScreen(screen + 1);
@@ -42,7 +43,9 @@ export default function PromptDefender() {
           <p className="text-lg mb-4">
             You've successfully completed the challenge!
           </p>
-          <p className="text-lg mb-4">The password is: {fakePassword}</p>
+          <p className="text-lg mb-4">
+            The password is: {PASSWORD_PromptDefenderFake}
+          </p>
           <div className="text-sm text-gray-500 mb-4">
             No need to continue further...
           </div>
@@ -62,7 +65,7 @@ export default function PromptDefender() {
             You've resisted the deception and made it to the real end!
           </p>
           <p className="text-lg font-bold mb-4">
-            The actual password is: {realPassword}
+            The actual password is: {PASSWORD_PromptDefender}
           </p>
           <p className="text-sm text-gray-600 mb-4">
             Remember: Always be skeptical of early success messages and continue

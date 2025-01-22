@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import WeeklyCalendar, { calendarEvents } from "../components/WeeklyCalendar";
 
+export const PASSWORD_CalendarComprehension = "CALENDAR_MASTER_2024";
+
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
 const questions = [
@@ -46,7 +48,7 @@ const CalendarComprehension: React.FC = () => {
     );
     if (allCorrect) {
       setMessage(
-        "Congratulations! All answers are correct! The password is: calendar_master"
+        `Congratulations! All answers are correct! The password is: ${PASSWORD_CalendarComprehension}`
       );
     } else {
       setMessage("Some answers are incorrect. Please try again.");

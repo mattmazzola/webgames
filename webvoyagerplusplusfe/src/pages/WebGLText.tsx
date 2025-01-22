@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+export const PASSWORD_WebGLText = "WEBGLSHAPES2024";
 
 // Vertex shader source
 const vertexShaderSource = `#version 300 es
@@ -23,7 +25,7 @@ void main() {
     fragColor = vec4(vColor, 1.0);
 }`;
 
-const WebGLText = () => {
+const WebGLText: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [userInput, setUserInput] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
@@ -245,7 +247,7 @@ const WebGLText = () => {
                 marginTop: "10px",
               }}
             >
-              Password: WEBGLSHAPES2024
+              Password: {PASSWORD_WebGLText}
             </div>
           </div>
         )}

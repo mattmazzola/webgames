@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+
+export const PASSWORD_PixelCopy = "PixelPerfect2024";
 
 interface GridProps {
   grid: boolean[][];
@@ -97,7 +99,9 @@ const PixelCopy: React.FC = () => {
             <h2 className="text-2xl font-bold text-green-800 mb-2">
               Congratulations!
             </h2>
-            <p className="text-green-700">The password is: PixelPerfect2024</p>
+            <p className="text-green-700">
+              The password is: {PASSWORD_PixelCopy}
+            </p>
           </div>
         </div>
       )}

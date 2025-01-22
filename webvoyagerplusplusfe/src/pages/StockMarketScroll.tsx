@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BannerAd from "../components/BannerAd";
 
-const StockMarketScroll = () => {
+export const PASSWORD_StockMarketScroll = "GG_GOOG_GAIN";
+
+const StockMarketScroll: React.FC = () => {
   const [answer, setAnswer] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
   const [spacerHeight, setSpacerHeight] = useState(0);
@@ -70,7 +72,7 @@ const StockMarketScroll = () => {
         {isCorrect && (
           <div className="mt-4 p-4 bg-green-100 text-green-700 rounded">
             Correct! You've successfully completed the challenge. The password
-            is: <span className="font-bold">GG_GOOG_GAIN</span>
+            is: <span className="font-bold">{PASSWORD_StockMarketScroll}</span>
           </div>
         )}
       </div>

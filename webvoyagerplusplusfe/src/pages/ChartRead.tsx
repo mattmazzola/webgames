@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CartesianGrid,
   Line,
@@ -13,6 +13,8 @@ interface DataPoint {
   time: string;
   price: number;
 }
+
+export const PASSWORD_ChartRead = "CHART_MASTER_2024";
 
 const ChartRead: React.FC = () => {
   const [data, setData] = useState<DataPoint[]>([]);
@@ -177,7 +179,9 @@ const ChartRead: React.FC = () => {
             <h2 className="text-2xl font-bold text-green-800 mb-2">
               Congratulations!
             </h2>
-            <p className="text-green-700">The password is: ChartMaster2024</p>
+            <p className="text-green-700">
+              The password is: {PASSWORD_ChartRead}
+            </p>
           </div>
         </div>
       )}

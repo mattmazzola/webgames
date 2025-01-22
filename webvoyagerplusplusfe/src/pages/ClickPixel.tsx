@@ -1,4 +1,6 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+
+export const PASSWORD_ClickPixel = "PIXEL_MASTER_2024";
 
 export default function ClickPixel() {
   const containerRef = useRef<HTMLDivElement>(null);

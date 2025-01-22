@@ -10,9 +10,11 @@ import {
   Runner,
   World,
 } from "matter-js";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const BlockStack = () => {
+export const PASSWORD_BlockStack = "EquilibriumAscended";
+
+const BlockStack: React.FC = () => {
   const scene = useRef<HTMLDivElement>(null);
   const engine = useRef(Engine.create());
   const [isComplete, setIsComplete] = useState(false);
@@ -237,7 +239,7 @@ const BlockStack = () => {
           </div>
         ) : (
           <span style={{ color: "#4CAF50", fontWeight: "bold" }}>
-            Challenge Complete! 🎉 Password: EquilibriumAscended
+            Challenge Complete! 🎉 Password: {PASSWORD_BlockStack}
           </span>
         )}
       </div>

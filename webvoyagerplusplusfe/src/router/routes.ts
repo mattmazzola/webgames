@@ -66,6 +66,7 @@ export interface RouteConfig {
   component: FC;
   tags: string[];
   hidden?: boolean;
+  password?: string;
 }
 
 export const routes: RouteConfig[] = [

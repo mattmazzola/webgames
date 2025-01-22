@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+export const PASSWORD_FileCredentials = "FileSecrets2024";
+
 const FileCredentials: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +17,7 @@ const FileCredentials: React.FC = () => {
     if (username === "webvoyager" && password === "ai_explorer") {
       setIsComplete(true);
       setMessage({
-        text: "Login successful! The completion password is: FileSecrets2024",
+        text: `Login successful! The completion password is: ${PASSWORD_FileCredentials}`,
         type: "success",
       });
     } else {

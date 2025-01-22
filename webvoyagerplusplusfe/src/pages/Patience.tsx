@@ -1,3 +1,5 @@
+export const PASSWORD_Patience = "waitForIt2023";
+
 const REQUIRED_WAIT_TIME = 10000; // 10 seconds in milliseconds
 const STORAGE_KEY = "patienceStartTime";
 
@@ -79,7 +81,7 @@ const PatienceSuccess = () => {
         <div className="mb-6">
           <p className="text-sm text-gray-500 mb-2">The secret password is:</p>
           <span className="block bg-gray-100 py-3 px-4 rounded-md text-xl font-mono font-bold text-purple-600">
-            waitForIt2023
+            {PASSWORD_Patience}
           </span>
         </div>
         <button

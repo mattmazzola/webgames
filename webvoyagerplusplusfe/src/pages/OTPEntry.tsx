@@ -1,5 +1,7 @@
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
 
+export const PASSWORD_OTPEntry = "OTP_MASTER_2024";
+
 const OTPEntry = () => {
   const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
   const [targetOTP, setTargetOTP] = useState<string>("");
@@ -124,7 +126,7 @@ const OTPEntry = () => {
         {isComplete && (
           <div className="text-center p-4 bg-green-100 rounded-lg">
             <p className="text-green-700 font-medium">
-              Success! The password is: OTP_MASTER_2024
+              Success! The password is: {PASSWORD_OTPEntry}
             </p>
           </div>
         )}

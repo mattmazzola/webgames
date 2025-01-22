@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import WeeklyCalendar, { calendarEvents } from "../components/WeeklyCalendar";
 
+export const PASSWORD_CalendarComprehension2 = "time_wizard_2024";
+
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
 const questions = [
@@ -69,7 +71,7 @@ const CalendarComprehension2: React.FC = () => {
             </h2>
             <p className="text-xl mb-4">Your password is:</p>
             <div className="inline-block font-mono text-2xl bg-green-200 px-6 py-3 rounded-lg font-bold">
-              time_wizard_2024
+              {PASSWORD_CalendarComprehension2}
             </div>
           </div>
         ) : (
