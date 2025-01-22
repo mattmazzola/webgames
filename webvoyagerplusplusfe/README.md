@@ -1,4 +1,4 @@
-# WebVoyager++
+# WebGames
 
 This is a collection of challenges for general-purpose web-browsing AI agents.
 

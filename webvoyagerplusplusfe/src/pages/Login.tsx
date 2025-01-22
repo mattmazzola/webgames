@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { Navigate } from "react-router-dom";
 
-const SITE_PASSWORD = "convergencewebvoyager";
+const SITE_PASSWORD = "convergencewebgames";
 
 export default function Login() {
   const [password, setPassword] = useState("");
@@ -27,7 +27,7 @@ export default function Login() {
       <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
         <div>
           <h2 className="text-center text-3xl font-bold text-gray-900">
-            WebVoyager++
+            WebGames
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Enter the site password to continue

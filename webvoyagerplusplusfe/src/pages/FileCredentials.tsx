@@ -14,7 +14,7 @@ const FileCredentials: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (username === "webvoyager" && password === "ai_explorer") {
+    if (username === "WebGames" && password === "hunter2") {
       setIsComplete(true);
       setMessage({
         text: `Login successful! The completion password is: ${PASSWORD_FileCredentials}`,
@@ -29,7 +29,7 @@ const FileCredentials: React.FC = () => {
   };
 
   const handleDownload = () => {
-    const content = "username: webvoyager\npassword: ai_explorer";
+    const content = "username: WebGames\npassword: hunter2";
     const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
