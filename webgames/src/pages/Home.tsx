@@ -13,6 +13,7 @@ export default function Home() {
           description: route.description,
           path: route.path,
           password: route.password,
+          tags: route.tags,
         })
       )
       .join("\n");
