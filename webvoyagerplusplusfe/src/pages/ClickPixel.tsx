@@ -3,17 +3,12 @@ import { useRef, useState } from "react";
 export default function ClickPixel() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [password, setPassword] = useState("");
-  const [targetPosition, setTargetPosition] = useState(() => {
-    // Generate random position for the pixel, keeping some padding from edges
-    const padding = 100;
-    return {
-      x:
-        Math.floor(Math.random() * (window.innerWidth - 2 * padding)) + padding,
-      y:
-        Math.floor(Math.random() * (window.innerHeight - 2 * padding)) +
-        padding,
-    };
-  });
+
+  const targetPosition = {
+    x: Math.floor(Math.random() * (window.innerWidth - 2 * 100)) + 100,
+    y: Math.floor(Math.random() * (window.innerHeight - 2 * 100)) + 100,
+  };
+
   const [lastClick, setLastClick] = useState<{ x: number; y: number } | null>(
     null
   );

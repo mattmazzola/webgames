@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { useState } from "react";
 
 interface RGB {

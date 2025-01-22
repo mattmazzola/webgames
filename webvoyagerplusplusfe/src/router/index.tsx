@@ -1,20 +1,28 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "../components/Layout";
+import RequireAuth from "../components/RequireAuth";
 import Home from "../pages/Home";
+import Login from "../pages/Login";
 import { routes } from "./routes";
 
 export const router = createBrowserRouter([
   {
-    element: <Layout />,
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      ...routes.map((route) => ({
-        path: route.path,
-        element: <route.component />,
-      })),
-    ],
+    path: "/login",
+    element: <Login />,
   },
+  {
+    path: "/",
+    element: (
+      <RequireAuth>
+        <Home />
+      </RequireAuth>
+    ),
+  },
+  ...routes.map((route) => ({
+    path: route.path,
+    element: (
+      <RequireAuth>
+        <route.component />
+      </RequireAuth>
+    ),
+  })),
 ]);

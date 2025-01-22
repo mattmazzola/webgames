@@ -1,14 +1,12 @@
 import { useState } from "react";
 
 const FileUpload = () => {
-  const [isComplete, setIsComplete] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setSelectedFile(file);
-      setIsComplete(true);
     }
   };
 

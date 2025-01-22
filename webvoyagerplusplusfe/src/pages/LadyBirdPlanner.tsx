@@ -205,7 +205,7 @@ const LadyBirdPlanner = () => {
         <div className="mb-8 inline-block bg-gray-800 p-2 rounded-lg">
           {initialGrid.map((row, y) => (
             <div key={y} className="flex">
-              {row.map((cell, x) => (
+              {row.map((_, x) => (
                 <div
                   key={`${x}-${y}`}
                   data-testid="grid-cell"
