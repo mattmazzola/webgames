@@ -5,7 +5,7 @@ set -e
 
 # Configuration
 PROJECT_ID="gsd-prod-432011"
-BUCKET_NAME="convergence-web-thunderdome"
+BUCKET_NAME="convergence-webgames"
 REGION="us-central1"
 
 echo "🚀 Starting deployment process..."
