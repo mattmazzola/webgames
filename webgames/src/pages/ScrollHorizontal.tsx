@@ -1,25 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export const PASSWORD_ScrollHorizontal = "SIDEWAYSCROLL2024";
 
 const ScrollHorizontal: React.FC = () => {
-  const [hasReachedEnd, setHasReachedEnd] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollX;
-      const maxScroll =
-        document.documentElement.scrollWidth - window.innerWidth;
-
-      if (scrollPosition >= maxScroll) {
-        setHasReachedEnd(true);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   // Generate content boxes
   const boxes = Array(50)
     .fill(null)
@@ -72,42 +55,39 @@ const ScrollHorizontal: React.FC = () => {
         }}
       >
         {boxes}
-
-        {hasReachedEnd && (
+        <div
+          style={{
+            width: "300px",
+            height: "80vh",
+            display: "inline-flex",
+            margin: "20px",
+            backgroundColor: "#4CAF50",
+            color: "white",
+            borderRadius: "8px",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "24px",
+          }}
+        >
           <div
             style={{
-              width: "300px",
-              height: "80vh",
-              display: "inline-flex",
-              margin: "20px",
-              backgroundColor: "#4CAF50",
-              color: "white",
-              borderRadius: "8px",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "24px",
+              transform: "rotate(-90deg)",
+              whiteSpace: "nowrap",
+              textAlign: "center",
             }}
           >
+            <div>Congratulations! You've reached the end!</div>
             <div
               style={{
-                transform: "rotate(-90deg)",
-                whiteSpace: "nowrap",
-                textAlign: "center",
+                marginTop: "20px",
+                fontSize: "28px",
+                fontWeight: "bold",
               }}
             >
-              <div>Congratulations! You've reached the end!</div>
-              <div
-                style={{
-                  marginTop: "20px",
-                  fontSize: "28px",
-                  fontWeight: "bold",
-                }}
-              >
-                Password: {PASSWORD_ScrollHorizontal}
-              </div>
+              Password: {PASSWORD_ScrollHorizontal}
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
