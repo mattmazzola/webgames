@@ -1,11 +1,20 @@
-import { FormEvent, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { FormEvent, useEffect, useState } from "react";
+import { Navigate, useSearchParams } from "react-router-dom";
 
 const SITE_PASSWORD = "convergencewebgames";
 
 export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const urlPassword = searchParams.get("password");
+    if (urlPassword === SITE_PASSWORD) {
+      localStorage.setItem("isAuthenticated", "true");
+      window.location.href = "/"; // Force reload to trigger auth check
+    }
+  }, [searchParams]);
 
   // Check if already authenticated
   if (localStorage.getItem("isAuthenticated") === "true") {
