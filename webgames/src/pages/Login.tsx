@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { Navigate, useSearchParams } from "react-router-dom";
+import { Navigate, useLocation, useSearchParams } from "react-router-dom";
 
 const SITE_PASSWORD = "convergencewebgames";
 
@@ -7,25 +7,33 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [searchParams] = useSearchParams();
+  const location = useLocation();
+
+  // Get the intended path from the state, or default to "/"
+  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     const urlPassword = searchParams.get("password");
     if (urlPassword === SITE_PASSWORD) {
       localStorage.setItem("isAuthenticated", "true");
-      window.location.href = "/"; // Force reload to trigger auth check
+      // Preserve the current pathname when redirecting
+      const targetPath =
+        location.pathname === "/login" ? from : location.pathname;
+      window.location.href =
+        targetPath + location.search.replace(`?password=${SITE_PASSWORD}`, "");
     }
-  }, [searchParams]);
+  }, [searchParams, location, from]);
 
   // Check if already authenticated
   if (localStorage.getItem("isAuthenticated") === "true") {
-    return <Navigate to="/" replace />;
+    return <Navigate to={from} replace />;
   }
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (password === SITE_PASSWORD) {
       localStorage.setItem("isAuthenticated", "true");
-      window.location.href = "/"; // Force reload to trigger auth check
+      window.location.href = from; // Redirect to the intended path
     } else {
       setError("Incorrect password");
     }
