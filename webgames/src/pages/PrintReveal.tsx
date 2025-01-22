@@ -95,7 +95,7 @@ const PrintReveal: React.FC = () => {
             You've found the initial password. Now go back to the webpage and
             enter this password:
           </p>
-          <p className="text-2xl font-bold">{PASSWORD_PrintReveal}</p>
+          <p className="text-2xl font-bold">{PASSWORD_PrintRevealPDF}</p>
           <p className="mt-4 text-sm">
             Enter this password on the webpage to reveal the final password.
           </p>
