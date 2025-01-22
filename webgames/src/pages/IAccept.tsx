@@ -58,7 +58,7 @@ const IAccept = () => {
         {showPassword && (
           <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-md">
             <p className="text-green-800 font-medium">
-              Secret Password: {PASSWORD_IACCEPT}
+              Secret Password: {PASSWORD_IAccept}
             </p>
           </div>
         )}
