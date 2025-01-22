@@ -32,13 +32,16 @@ export default function Home() {
   return (
     <div className="container mx-auto px-2 py-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-center flex-grow">WebGames</h1>
-        <button
-          onClick={downloadChallengesJSONL}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-200"
-        >
-          Download Challenges JSONL
-        </button>
+        <div className="w-[140px]"></div>
+        <h1 className="text-3xl font-bold">WebGames</h1>
+        <div className="w-[140px] flex justify-end">
+          <button
+            onClick={downloadChallengesJSONL}
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-200"
+          >
+            Download Challenges JSONL
+          </button>
+        </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {visibleRoutes.map((route, index) => (
