@@ -30,6 +30,8 @@ const DECOY_EMOJIS = [
   "🎟️",
 ];
 
+export const PASSWORD_EmojiRemember = "MemoryIsKey";
+
 const EmojiRemember: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [displayedEmojis, setDisplayedEmojis] = useState<string[]>([]);
@@ -58,7 +60,7 @@ const EmojiRemember: React.FC = () => {
       if (currentStep === EMOJI_SEQUENCE.length - 1) {
         setIsComplete(true);
         setMessage({
-          text: "Congratulations! You have completed the sequence! 🎉 The secret password is: MemoryIsKey",
+          text: "Congratulations! You have completed the sequence! 🎉 The secret password is: {PASSWORD_EmojiRemember}",
           type: "success",
         });
       } else {

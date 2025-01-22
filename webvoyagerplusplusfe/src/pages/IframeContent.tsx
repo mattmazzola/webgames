@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
+export const PASSWORD_IframeContent = "NestedVoyager";
+
 const IframeContent = () => {
   const { depth } = useParams();
   const currentDepth = parseInt(depth || "0", 10);
@@ -40,7 +42,7 @@ const IframeContent = () => {
                 display: "block",
               }}
             >
-              Password: NestedVoyager
+              Password: {PASSWORD_IframeContent}
             </span>
           </div>
         ) : (

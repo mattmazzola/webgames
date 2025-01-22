@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Product, products as initialProducts } from "./shopping/products";
 
+export const PASSWORD_ShopAdmin = "SHOP_MASTER_2024";
+
 export default function ShopAdmin() {
   const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>(initialProducts);

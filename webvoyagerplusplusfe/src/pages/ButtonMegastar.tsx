@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+export const PASSWORD_ButtonMegastar = "ClickityClickBoom2024";
+
 const ButtonMegastar: React.FC = () => {
   const [checked, setChecked] = useState(false);
   const [showSecret, setShowSecret] = useState(false);
@@ -130,7 +132,7 @@ const ButtonMegastar: React.FC = () => {
             </span>
             {showSecret && (
               <div className="absolute mt-2 py-1 px-2 bg-black text-green-400 font-mono text-sm rounded opacity-80 transform transition-all duration-300">
-                secret_password_123!
+                {PASSWORD_ButtonMegastar}
               </div>
             )}
           </div>

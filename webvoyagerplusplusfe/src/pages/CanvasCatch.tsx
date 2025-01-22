@@ -13,6 +13,8 @@ interface TargetZone {
   height: number;
 }
 
+export const PASSWORD_CanvasCatch = "CircleMaster2024";
+
 const CanvasCatch = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDragging, setIsDragging] = useState(false);

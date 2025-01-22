@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+export const PASSWORD_WebsAssemble = "WebAssemblyMaster";
+
 interface WasmExports {
   get_code: () => number;
   memory: WebAssembly.Memory;
@@ -49,7 +51,7 @@ const WebsAssemble: React.FC = () => {
     e.preventDefault();
     if (userInput === code) {
       setMessage({
-        text: "Correct! The completion password is: WebAssemblyMaster",
+        text: `Correct! The completion password is: ${PASSWORD_WebsAssemble}`,
         type: "success",
       });
     } else {

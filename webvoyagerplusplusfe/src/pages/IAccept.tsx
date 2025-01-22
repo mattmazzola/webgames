@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const PASSWORD_IACCEPT = "BicentennialMan";
+export const PASSWORD_IAccept = "BicentennialMan";
 
 const IAccept = () => {
   const [isChecked, setIsChecked] = useState(false);

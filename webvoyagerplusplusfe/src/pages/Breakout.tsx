@@ -75,6 +75,8 @@ const createInitialState = (): GameState => {
   };
 };
 
+export const PASSWORD_Breakout = "BreakoutMaster2024";
+
 const Breakout = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameStateRef = useRef<GameState>(createInitialState());
@@ -179,7 +181,7 @@ const Breakout = () => {
         setDisplayScore(state.score);
 
         if (state.score === BRICK_ROWS * BRICK_COLS) {
-          setPassword("breakout_master");
+          setPassword(PASSWORD_Breakout);
           setGameStarted(false);
           return;
         }

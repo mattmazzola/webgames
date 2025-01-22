@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
+export const PASSWORD_Bullseye = "BullseyeBonanza2024";
+
 const Bullseye: React.FC = () => {
   const [position, setPosition] = useState({ x: 0, y: 50 });
   const [direction, setDirection] = useState(1);
@@ -71,7 +73,7 @@ const Bullseye: React.FC = () => {
         {isComplete ? (
           <div className="text-center p-4 bg-green-100 text-green-700 rounded-lg">
             Congratulations! You've completed the challenge! 🎯 The secret
-            password is: BullseyeBonanza
+            password is: BullseyeBonanza2024
           </div>
         ) : (
           <div className="relative h-80 bg-gray-100 rounded-lg overflow-hidden">

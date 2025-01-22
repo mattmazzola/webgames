@@ -7,6 +7,8 @@ interface Disk {
 
 type Peg = Disk[];
 
+export const PASSWORD_TowersOfHanoi = "RecursionMasterTower";
+
 const TowersOfHanoi = () => {
   const colors = [
     "#4A90E2", // Steel Blue
@@ -136,7 +138,7 @@ const TowersOfHanoi = () => {
         {showPassword && (
           <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded">
             <p className="text-green-800 font-medium">
-              Congratulations! Secret Password: RecursionMasterTower
+              Congratulations! Secret Password: {PASSWORD_TowersOfHanoi}
             </p>
           </div>
         )}

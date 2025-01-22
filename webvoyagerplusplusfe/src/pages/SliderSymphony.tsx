@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+export const PASSWORD_SliderSymphony = "SMOOTHSLIDER42";
+
 const SliderSymphony = () => {
   const [sliderValues, setSliderValues] = useState([50, 50, 50, 50]);
   const [targetPositions] = useState(() => {
@@ -45,7 +47,7 @@ const SliderSymphony = () => {
           <div className="p-4 bg-green-100 text-green-700 rounded-lg">
             <div>🎉 Congratulations! You've aligned all the boxes!</div>
             <div className="mt-2 text-sm font-mono">
-              Secret password: SMOOTHSLIDER42
+              Secret password: {PASSWORD_SliderSymphony}
             </div>
           </div>
         </div>

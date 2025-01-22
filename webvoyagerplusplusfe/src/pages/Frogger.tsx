@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
+export const PASSWORD_Frogger = "HOPPY_CROSSING";
+
 interface Position {
   x: number;
   y: number;
@@ -15,7 +17,6 @@ interface Car {
 const GRID_SIZE = 15;
 const CAR_ROWS = [3, 6, 9, 12];
 const CARS_PER_ROW = 3;
-const SUCCESS_PASSWORD = "HOPPY_CROSSING";
 
 export default function Frogger() {
   const [frog, setFrog] = useState<Position>({
@@ -123,7 +124,7 @@ export default function Frogger() {
           <div className="text-red-500">Game Over! Press R to restart</div>
         ) : success ? (
           <div className="text-green-500">
-            Success! The password is: {SUCCESS_PASSWORD}
+            Success! The password is: {PASSWORD_Frogger}
           </div>
         ) : (
           <div>Use arrow keys to guide the frog home!</div>

@@ -6,6 +6,8 @@ interface Item {
   location: "left" | "right" | "boat";
 }
 
+export const PASSWORD_WolfGoatCabbage = "CabbagesAreYummy";
+
 const WolfGoatCabbage = () => {
   const [boatPosition, setBoatPosition] = useState<"left" | "right">("left");
   const [items, setItems] = useState<Item[]>([
@@ -197,7 +199,7 @@ const WolfGoatCabbage = () => {
         {showPassword && (
           <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded">
             <p className="text-green-800 font-medium">
-              Congratulations! Secret Password: GaryMarcusGoatMan
+              Congratulations! Secret Password: {PASSWORD_WolfGoatCabbage}
             </p>
           </div>
         )}

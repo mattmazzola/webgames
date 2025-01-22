@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { PASSWORD_ShopAdmin } from "./ShopAdmin";
 import { Product, products as initialProducts } from "./shopping/products";
 
 interface EditableProduct {
@@ -64,7 +65,7 @@ export default function ShopAdminEdit() {
       product.id === targetProduct?.id &&
       Math.abs(updatedPrice - targetPrice) < 0.01
     ) {
-      setPassword("PRICE_MASTER_2024");
+      setPassword(PASSWORD_ShopAdmin);
       setMessage(
         "Congratulations! You've successfully updated the watermelon price to the correct value!"
       );

@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+export const PASSWORD_MenuNavigator = "MenuMaster2024";
+
 interface MenuItem {
   label: string;
   items?: MenuItem[];
@@ -142,7 +144,7 @@ const MenuNavigator: React.FC = () => {
   const handleSubmenuClick = (item: MenuItem) => {
     if (item.isTarget) {
       setMessage({
-        text: "Congratulations! The completion password is: MenuMaster2024",
+        text: `Congratulations! The completion password is: ${PASSWORD_MenuNavigator}`,
         type: "success",
       });
     } else if (item.items) {

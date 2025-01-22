@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+export const PASSWORD_ClickCubed = "TripleClickChampion";
+
 const ClickCubed = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [button1Clicked, setButton1Clicked] = useState(false);
@@ -7,7 +9,6 @@ const ClickCubed = () => {
   const [timeLeft, setTimeLeft] = useState(5);
   const [gameWon, setGameWon] = useState(false);
   const [gameLost, setGameLost] = useState(false);
-  const secretPassword = "TripleClickChampion";
 
   useEffect(() => {
     let timer: number | undefined;
@@ -68,7 +69,7 @@ const ClickCubed = () => {
           <p className="text-xl mb-4">
             Secret password:{" "}
             <span className="font-mono bg-gray-100 p-2 rounded">
-              {secretPassword}
+              {PASSWORD_ClickCubed}
             </span>
           </p>
           <button

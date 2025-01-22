@@ -15,6 +15,8 @@ interface DataPoint {
   secondary: number;
 }
 
+export const PASSWORD_ChartTranscribe = "DataScribe2024";
+
 const ChartTranscribe: React.FC = () => {
   const [data, setData] = useState<DataPoint[]>([]);
   const [userInput, setUserInput] = useState("");
@@ -102,7 +104,9 @@ const ChartTranscribe: React.FC = () => {
             <h2 className="text-2xl font-bold text-green-800 mb-2">
               Congratulations!
             </h2>
-            <p className="text-green-700">The password is: DataScribe2024</p>
+            <p className="text-green-700">
+              The password is: {PASSWORD_ChartTranscribe}
+            </p>
           </div>
         </div>
       )}

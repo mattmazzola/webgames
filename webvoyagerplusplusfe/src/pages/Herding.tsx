@@ -15,6 +15,8 @@ interface Pen {
   height: number;
 }
 
+export const PASSWORD_Herding = "HerdTooMuch";
+
 const Herding = () => {
   const [sheep, setSheep] = useState<Sheep[]>([]);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -144,7 +146,8 @@ const Herding = () => {
           </div>
           <div className="text-2xl mb-8">All sheep are safely in the pen!</div>
           <div className="text-xl bg-yellow-100 p-4 rounded-lg border-2 border-yellow-400">
-            The secret password is: <span className="font-bold">SHEPHERD</span>
+            The secret password is:{" "}
+            <span className="font-bold">{PASSWORD_Herding}</span>
           </div>
         </div>
       ) : (

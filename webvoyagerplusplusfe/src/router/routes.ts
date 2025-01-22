@@ -1,62 +1,100 @@
 import { FC } from "react";
 import AdClicked from "../pages/AdClicked";
-import BlockStack from "../pages/BlockStack";
-import Breakout from "../pages/Breakout";
-import Bullseye from "../pages/Bullseye";
-import ButtonHold from "../pages/ButtonHold";
-import ButtonMegastar from "../pages/ButtonMegastar";
-import CalendarComprehension from "../pages/CalendarComprehension";
-import CalendarComprehension2 from "../pages/CalendarComprehension2";
-import CanvasCatch from "../pages/CanvasCatch";
-import ChartRead from "../pages/ChartRead";
-import ChartTranscribe from "../pages/ChartTranscribe";
-import ClickCubed from "../pages/ClickCubed";
-import ClickPixel from "../pages/ClickPixel";
-import ColorHarmony from "../pages/ColorHarmony";
-import CombinationLock from "../pages/CombinationLock";
-import ContextBreaker from "../pages/ContextBreaker";
-import EmojiRemember from "../pages/EmojiRemember";
-import FileCredentials from "../pages/FileCredentials";
-import FileUpload from "../pages/FileUpload";
-import Frogger from "../pages/Frogger";
-import Herding from "../pages/Herding";
-import IAccept from "../pages/IAccept";
-import IframeContent from "../pages/IframeContent";
-import IframeNest from "../pages/IframeNest";
-import IllegalMaterial from "../pages/IllegalMaterial";
-import KeyCombo from "../pages/KeyCombo";
-import LadyBirdPlanner from "../pages/LadyBirdPlanner";
-import MapPanner from "../pages/MapPanner";
-import MazeNavigator from "../pages/MazeNavigator";
-import MenuNavigator from "../pages/MenuNavigator";
-import OTPEntry from "../pages/OTPEntry";
-import Patience from "../pages/Patience";
-import PixelCopy from "../pages/PixelCopy";
-import PopupChaos from "../pages/PopupChaos";
-import PrintReveal from "../pages/PrintReveal";
-import PromptDefender from "../pages/PromptDefender";
-import RecipeCalculator from "../pages/RecipeCalculator";
+import BlockStack, { PASSWORD_BlockStack } from "../pages/BlockStack";
+import Breakout, { PASSWORD_Breakout } from "../pages/Breakout";
+import Bullseye, { PASSWORD_Bullseye } from "../pages/Bullseye";
+import ButtonHold, { PASSWORD_ButtonHold } from "../pages/ButtonHold";
+import ButtonMegastar, {
+  PASSWORD_ButtonMegastar,
+} from "../pages/ButtonMegastar";
+import CalendarComprehension, {
+  PASSWORD_CalendarComprehension,
+} from "../pages/CalendarComprehension";
+import CalendarComprehension2, {
+  PASSWORD_CalendarComprehension2,
+} from "../pages/CalendarComprehension2";
+import CanvasCatch, { PASSWORD_CanvasCatch } from "../pages/CanvasCatch";
+import ChartRead, { PASSWORD_ChartRead } from "../pages/ChartRead";
+import ChartTranscribe, {
+  PASSWORD_ChartTranscribe,
+} from "../pages/ChartTranscribe";
+import ClickCubed, { PASSWORD_ClickCubed } from "../pages/ClickCubed";
+import ClickPixel, { PASSWORD_ClickPixel } from "../pages/ClickPixel";
+import ColorHarmony, { PASSWORD_ColorHarmony } from "../pages/ColorHarmony";
+import CombinationLock, {
+  PASSWORD_CombinationLock,
+} from "../pages/CombinationLock";
+import ContextBreaker, {
+  PASSWORD_ContextBreaker,
+} from "../pages/ContextBreaker";
+import EmojiRemember, { PASSWORD_EmojiRemember } from "../pages/EmojiRemember";
+import FileCredentials, {
+  PASSWORD_FileCredentials,
+} from "../pages/FileCredentials";
+import FileUpload, { PASSWORD_FileUpload } from "../pages/FileUpload";
+import Frogger, { PASSWORD_Frogger } from "../pages/Frogger";
+import Herding, { PASSWORD_Herding } from "../pages/Herding";
+import IAccept, { PASSWORD_IAccept } from "../pages/IAccept";
+import IframeContent, { PASSWORD_IframeContent } from "../pages/IframeContent";
+import IframeNest, { PASSWORD_IframeNest } from "../pages/IframeNest";
+import IllegalMaterial, {
+  PASSWORD_IllegalMaterial,
+} from "../pages/IllegalMaterial";
+import KeyCombo, { PASSWORD_KeyCombo } from "../pages/KeyCombo";
+import LadyBirdPlanner, {
+  PASSWORD_LadyBirdPlanner,
+} from "../pages/LadyBirdPlanner";
+import MapPanner, { PASSWORD_MapPanner } from "../pages/MapPanner";
+import MazeNavigator, { PASSWORD_MazeNavigator } from "../pages/MazeNavigator";
+import MenuNavigator, { PASSWORD_MenuNavigator } from "../pages/MenuNavigator";
+import OTPEntry, { PASSWORD_OTPEntry } from "../pages/OTPEntry";
+import Patience, { PASSWORD_Patience } from "../pages/Patience";
+import PixelCopy, { PASSWORD_PixelCopy } from "../pages/PixelCopy";
+import PopupChaos, { PASSWORD_PopupChaos } from "../pages/PopupChaos";
+import PrintReveal, { PASSWORD_PrintReveal } from "../pages/PrintReveal";
+import PromptDefender, {
+  PASSWORD_PromptDefender,
+} from "../pages/PromptDefender";
+import RecipeCalculator, {
+  PASSWORD_RecipeCalculator,
+} from "../pages/RecipeCalculator";
 import RecipeDetail from "../pages/RecipeDetail";
 import RecipeList from "../pages/RecipeList";
-import RightClickReveal from "../pages/RightClickReveal";
-import RoboCheck from "../pages/RoboCheck";
-import ScrollDiagonal from "../pages/ScrollDiagonal";
-import ScrollHorizontal from "../pages/ScrollHorizontal";
-import ScrollVertical from "../pages/ScrollVertical";
-import ShopAdmin from "../pages/ShopAdmin";
+import RightClickReveal, {
+  PASSWORD_RightClickReveal,
+} from "../pages/RightClickReveal";
+import RoboCheck, { PASSWORD_RoboCheck } from "../pages/RoboCheck";
+import ScrollDiagonal, {
+  PASSWORD_ScrollDiagonal,
+} from "../pages/ScrollDiagonal";
+import ScrollHorizontal, {
+  PASSWORD_ScrollHorizontal,
+} from "../pages/ScrollHorizontal";
+import ScrollVertical, {
+  PASSWORD_ScrollVertical,
+} from "../pages/ScrollVertical";
+import ShopAdmin, { PASSWORD_ShopAdmin } from "../pages/ShopAdmin";
 import ShopAdminEdit from "../pages/ShopAdminEdit";
-import ShoppingChallenge from "../pages/ShoppingChallenge";
-import SliderSymphony from "../pages/SliderSymphony";
-import StockMarketScroll from "../pages/StockMarketScroll";
-import TabSync from "../pages/TabSync";
+import ShoppingChallenge, {
+  PASSWORD_ShoppingChallenge,
+} from "../pages/ShoppingChallenge";
+import SliderSymphony, {
+  PASSWORD_SliderSymphony,
+} from "../pages/SliderSymphony";
+import StockMarketScroll, {
+  PASSWORD_StockMarketScroll,
+} from "../pages/StockMarketScroll";
+import TabSync, { PASSWORD_TabSync } from "../pages/TabSync";
 import TabSyncReceiver from "../pages/TabSyncReceiver";
 import TabSyncSender from "../pages/TabSyncSender";
-import TextMirror from "../pages/TextMirror";
-import TodaysDate from "../pages/TodaysDate";
-import TowersOfHanoi from "../pages/TowersOfHanoi";
-import WebGLText from "../pages/WebGLText";
-import WebsAssemble from "../pages/WebsAssemble";
-import WolfGoatCabbage from "../pages/WolfGoatCabbage";
+import TextMirror, { PASSWORD_TextMirror } from "../pages/TextMirror";
+import TodaysDate, { PASSWORD_TodaysDate } from "../pages/TodaysDate";
+import TowersOfHanoi, { PASSWORD_TowersOfHanoi } from "../pages/TowersOfHanoi";
+import WebGLText, { PASSWORD_WebGLText } from "../pages/WebGLText";
+import WebsAssemble, { PASSWORD_WebsAssemble } from "../pages/WebsAssemble";
+import WolfGoatCabbage, {
+  PASSWORD_WolfGoatCabbage,
+} from "../pages/WolfGoatCabbage";
 
 export interface RouteConfig {
   path: string;
@@ -77,6 +115,7 @@ export const routes: RouteConfig[] = [
     icon: "📅",
     component: TodaysDate,
     tags: ["form", "date"],
+    password: PASSWORD_TodaysDate,
   },
   {
     path: "/buttons",
@@ -86,6 +125,7 @@ export const routes: RouteConfig[] = [
     icon: "🔘",
     component: ButtonMegastar,
     tags: ["button", "click"],
+    password: PASSWORD_ButtonMegastar,
   },
   {
     path: "/click-cubed",
@@ -94,6 +134,7 @@ export const routes: RouteConfig[] = [
     icon: "⏱️",
     component: ClickCubed,
     tags: ["click", "speed"],
+    password: PASSWORD_ClickCubed,
   },
   {
     path: "/patience",
@@ -102,6 +143,7 @@ export const routes: RouteConfig[] = [
     icon: "⌛",
     component: Patience,
     tags: ["timing", "waiting"],
+    password: PASSWORD_Patience,
   },
   {
     path: "/slider-symphony",
@@ -110,6 +152,7 @@ export const routes: RouteConfig[] = [
     icon: "🎚️",
     component: SliderSymphony,
     tags: ["slider", "dexterity"],
+    password: PASSWORD_SliderSymphony,
   },
   {
     path: "/emoji-remember",
@@ -118,6 +161,7 @@ export const routes: RouteConfig[] = [
     icon: "🧠",
     component: EmojiRemember,
     tags: ["memory", "sequence"],
+    password: PASSWORD_EmojiRemember,
   },
   {
     path: "/bullseye",
@@ -127,6 +171,7 @@ export const routes: RouteConfig[] = [
     icon: "🎯",
     component: Bullseye,
     tags: ["aim", "speed", "timing"],
+    password: PASSWORD_Bullseye,
   },
   {
     path: "/i-accept",
@@ -135,6 +180,7 @@ export const routes: RouteConfig[] = [
     icon: "✅",
     component: IAccept,
     tags: ["checkbox", "form"],
+    password: PASSWORD_IAccept,
   },
   {
     path: "/wolf-goat-cabbage",
@@ -144,6 +190,7 @@ export const routes: RouteConfig[] = [
     icon: "⛵",
     component: WolfGoatCabbage,
     tags: ["logic", "planning"],
+    password: PASSWORD_WolfGoatCabbage,
   },
   {
     path: "/towers-of-hanoi",
@@ -153,6 +200,7 @@ export const routes: RouteConfig[] = [
     icon: "🗼",
     component: TowersOfHanoi,
     tags: ["logic", "planning"],
+    password: PASSWORD_TowersOfHanoi,
   },
   {
     path: "/color-harmony",
@@ -162,6 +210,7 @@ export const routes: RouteConfig[] = [
     icon: "🎨",
     component: ColorHarmony,
     tags: ["color", "slider", "dexterity"],
+    password: PASSWORD_ColorHarmony,
   },
   {
     path: "/herding",
@@ -170,6 +219,7 @@ export const routes: RouteConfig[] = [
     icon: "🐑",
     component: Herding,
     tags: ["mouse", "dexterity"],
+    password: PASSWORD_Herding,
   },
   {
     path: "/file-upload",
@@ -178,6 +228,7 @@ export const routes: RouteConfig[] = [
     icon: "📎",
     component: FileUpload,
     tags: ["file", "upload"],
+    password: PASSWORD_FileUpload,
   },
   {
     path: "/canvas-catch",
@@ -187,6 +238,7 @@ export const routes: RouteConfig[] = [
     icon: "🎯",
     component: CanvasCatch,
     tags: ["canvas", "drag", "coordination"],
+    password: PASSWORD_CanvasCatch,
   },
   {
     path: "/breakout",
@@ -195,6 +247,7 @@ export const routes: RouteConfig[] = [
     icon: "🧱",
     component: Breakout,
     tags: ["game", "arcade", "dexterity"],
+    password: PASSWORD_Breakout,
   },
   {
     path: "/text-mirror",
@@ -203,6 +256,7 @@ export const routes: RouteConfig[] = [
     icon: "📝",
     component: TextMirror,
     tags: ["text", "accuracy", "typing"],
+    password: PASSWORD_TextMirror,
   },
   {
     path: "/frogger",
@@ -211,6 +265,7 @@ export const routes: RouteConfig[] = [
     icon: "🐸",
     component: Frogger,
     tags: ["game", "keyboard", "timing"],
+    password: PASSWORD_Frogger,
   },
   {
     path: "/button-hold",
@@ -219,6 +274,7 @@ export const routes: RouteConfig[] = [
     icon: "⏱️",
     component: ButtonHold,
     tags: ["button", "timing", "dexterity"],
+    password: PASSWORD_ButtonHold,
   },
   {
     path: "/key-combo",
@@ -227,6 +283,7 @@ export const routes: RouteConfig[] = [
     icon: "⌨️",
     component: KeyCombo,
     tags: ["keyboard", "hotkey", "dexterity"],
+    password: PASSWORD_KeyCombo,
   },
   {
     path: "/scroll-vertical",
@@ -235,6 +292,7 @@ export const routes: RouteConfig[] = [
     icon: "📜",
     component: ScrollVertical,
     tags: ["scroll", "endurance", "patience"],
+    password: PASSWORD_ScrollVertical,
   },
   {
     path: "/scroll-horizontal",
@@ -243,6 +301,7 @@ export const routes: RouteConfig[] = [
     icon: "➡️",
     component: ScrollHorizontal,
     tags: ["scroll", "endurance", "patience"],
+    password: PASSWORD_ScrollHorizontal,
   },
   {
     path: "/webgl-text",
@@ -251,6 +310,7 @@ export const routes: RouteConfig[] = [
     icon: "🎮",
     component: WebGLText,
     tags: ["webgl", "3d", "typing"],
+    password: PASSWORD_WebGLText,
   },
   {
     path: "/file-credentials",
@@ -259,6 +319,7 @@ export const routes: RouteConfig[] = [
     icon: "🔑",
     component: FileCredentials,
     tags: ["file", "download", "form"],
+    password: PASSWORD_FileCredentials,
   },
   {
     path: "/webs-assemble",
@@ -267,6 +328,7 @@ export const routes: RouteConfig[] = [
     icon: "🕸️",
     component: WebsAssemble,
     tags: ["wasm", "code", "inspection"],
+    password: PASSWORD_WebsAssemble,
   },
   {
     path: "/menu-navigator",
@@ -275,6 +337,7 @@ export const routes: RouteConfig[] = [
     icon: "🗺️",
     component: MenuNavigator,
     tags: ["menu", "navigation", "hover"],
+    password: PASSWORD_MenuNavigator,
   },
   {
     path: "/popup-chaos",
@@ -284,6 +347,7 @@ export const routes: RouteConfig[] = [
     icon: "🪟",
     component: PopupChaos,
     tags: ["drag", "click", "timing"],
+    password: PASSWORD_PopupChaos,
   },
   {
     path: "/chart-read",
@@ -292,6 +356,7 @@ export const routes: RouteConfig[] = [
     icon: "📈",
     component: ChartRead,
     tags: ["chart", "analysis", "observation"],
+    password: PASSWORD_ChartRead,
   },
   {
     path: "/chart-transcribe",
@@ -300,6 +365,7 @@ export const routes: RouteConfig[] = [
     icon: "📊",
     component: ChartTranscribe,
     tags: ["chart", "data", "accuracy"],
+    password: PASSWORD_ChartTranscribe,
   },
   {
     path: "/combination-lock",
@@ -308,6 +374,7 @@ export const routes: RouteConfig[] = [
     icon: "🔒",
     component: CombinationLock,
     tags: ["puzzle", "riddle", "numbers"],
+    password: PASSWORD_CombinationLock,
   },
   {
     path: "/pixel-copy",
@@ -316,6 +383,7 @@ export const routes: RouteConfig[] = [
     icon: "🎨",
     component: PixelCopy,
     tags: ["grid", "pattern", "memory"],
+    password: PASSWORD_PixelCopy,
   },
   {
     path: "/illegal-material",
@@ -325,6 +393,7 @@ export const routes: RouteConfig[] = [
     icon: "⚠️",
     component: IllegalMaterial,
     tags: ["warning", "legal", "risk"],
+    password: PASSWORD_IllegalMaterial,
   },
   {
     path: "/prompt-defender",
@@ -333,6 +402,7 @@ export const routes: RouteConfig[] = [
     icon: "🛡️",
     component: PromptDefender,
     tags: ["deception", "attention"],
+    password: PASSWORD_PromptDefender,
   },
   {
     path: "/shopping-challenge",
@@ -341,6 +411,7 @@ export const routes: RouteConfig[] = [
     icon: "🛍️",
     component: ShoppingChallenge,
     tags: ["math", "shopping", "calculation"],
+    password: PASSWORD_ShoppingChallenge,
   },
   {
     path: "/maze/*",
@@ -350,6 +421,7 @@ export const routes: RouteConfig[] = [
     icon: "🚪",
     component: MazeNavigator,
     tags: ["navigation", "memory", "maze"],
+    password: PASSWORD_MazeNavigator,
   },
   {
     path: "/context-breaker",
@@ -359,6 +431,7 @@ export const routes: RouteConfig[] = [
     icon: "🤖",
     component: ContextBreaker,
     tags: ["scroll", "endurance", "patience"],
+    password: PASSWORD_ContextBreaker,
   },
   {
     path: "/scroll-diagonal",
@@ -368,6 +441,7 @@ export const routes: RouteConfig[] = [
     icon: "↘️",
     component: ScrollDiagonal,
     tags: ["scroll", "endurance", "coordination"],
+    password: PASSWORD_ScrollDiagonal,
   },
   {
     path: "/block-stack",
@@ -376,6 +450,7 @@ export const routes: RouteConfig[] = [
     icon: "🏗️",
     component: BlockStack,
     tags: ["physics", "coordination", "puzzle"],
+    password: PASSWORD_BlockStack,
   },
   {
     path: "/iframe-nest",
@@ -384,6 +459,7 @@ export const routes: RouteConfig[] = [
     icon: "🖼️",
     component: IframeNest,
     tags: ["iframe", "navigation", "depth"],
+    password: PASSWORD_IframeNest,
   },
   {
     path: "/iframe-content/:depth",
@@ -393,6 +469,7 @@ export const routes: RouteConfig[] = [
     component: IframeContent,
     tags: ["iframe", "content"],
     hidden: true,
+    password: PASSWORD_IframeContent,
   },
   {
     path: "/tab-sync",
@@ -402,6 +479,7 @@ export const routes: RouteConfig[] = [
     icon: "🎨",
     component: TabSync,
     tags: ["tabs", "communication", "colors"],
+    password: PASSWORD_TabSync,
   },
   {
     path: "/tab-sync/sender",
@@ -428,6 +506,7 @@ export const routes: RouteConfig[] = [
     icon: "🔢",
     component: OTPEntry,
     tags: ["input", "form", "focus"],
+    password: PASSWORD_OTPEntry,
   },
   {
     path: "/print-reveal",
@@ -436,6 +515,7 @@ export const routes: RouteConfig[] = [
     icon: "🖨️",
     component: PrintReveal,
     tags: ["print", "pdf", "hidden"],
+    password: PASSWORD_PrintReveal,
   },
   {
     path: "/robo-check",
@@ -444,6 +524,7 @@ export const routes: RouteConfig[] = [
     icon: "🤖",
     component: RoboCheck,
     tags: ["captcha", "verification", "human"],
+    password: PASSWORD_RoboCheck,
   },
   {
     path: "/right-click",
@@ -452,6 +533,7 @@ export const routes: RouteConfig[] = [
     icon: "🖱️",
     component: RightClickReveal,
     tags: ["mouse", "context-menu", "interaction"],
+    password: PASSWORD_RightClickReveal,
   },
   {
     path: "/calendar-comprehension",
@@ -460,6 +542,7 @@ export const routes: RouteConfig[] = [
     icon: "📅",
     component: CalendarComprehension,
     tags: ["calendar", "comprehension", "attention"],
+    password: PASSWORD_CalendarComprehension,
   },
   {
     path: "/map-panner",
@@ -468,6 +551,7 @@ export const routes: RouteConfig[] = [
     icon: "🗺️",
     component: MapPanner,
     tags: ["drag", "exploration", "coordination"],
+    password: PASSWORD_MapPanner,
   },
   {
     path: "/ladybird",
@@ -477,6 +561,7 @@ export const routes: RouteConfig[] = [
     icon: "🐞",
     component: LadyBirdPlanner,
     tags: ["planning", "puzzle", "maze"],
+    password: PASSWORD_LadyBirdPlanner,
   },
   {
     path: "/shop-admin",
@@ -485,6 +570,7 @@ export const routes: RouteConfig[] = [
     icon: "🏪",
     component: ShopAdmin,
     tags: ["admin", "form", "edit"],
+    password: PASSWORD_ShopAdmin,
   },
   {
     path: "/shop-admin/edit/:productId",
@@ -502,6 +588,7 @@ export const routes: RouteConfig[] = [
     icon: "🎯",
     component: ClickPixel,
     tags: ["precision", "mouse", "dexterity"],
+    password: PASSWORD_ClickPixel,
   },
   {
     path: "/recipes",
@@ -529,6 +616,7 @@ export const routes: RouteConfig[] = [
     icon: "🧮",
     component: RecipeCalculator,
     tags: ["math", "recipes", "calculation"],
+    password: PASSWORD_RecipeCalculator,
   },
   {
     path: "/ad-clicked",
@@ -547,6 +635,7 @@ export const routes: RouteConfig[] = [
     icon: "📅",
     component: CalendarComprehension2,
     tags: ["calendar", "time", "math"],
+    password: PASSWORD_CalendarComprehension2,
   },
   {
     path: "/stock-market",
@@ -555,5 +644,6 @@ export const routes: RouteConfig[] = [
     icon: "📈",
     component: StockMarketScroll,
     tags: ["scroll", "reading", "stocks"],
+    password: PASSWORD_StockMarketScroll,
   },
 ];
