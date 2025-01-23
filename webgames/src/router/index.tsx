@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import RequireAuth from "../components/RequireAuth";
 import Home from "../pages/Home";
 import IframeContent from "../pages/IframeContent";
 import Login from "../pages/Login";
@@ -12,11 +11,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: (
-      <RequireAuth>
-        <Home />
-      </RequireAuth>
-    ),
+    element: <Home />,
   },
   {
     path: "/iframe-content/:depth",
@@ -24,10 +19,6 @@ export const router = createBrowserRouter([
   },
   ...routes.map((route) => ({
     path: route.path,
-    element: (
-      <RequireAuth>
-        <route.component />
-      </RequireAuth>
-    ),
+    element: <route.component />,
   })),
 ]);
