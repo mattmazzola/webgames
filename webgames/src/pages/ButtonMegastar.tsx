@@ -8,6 +8,18 @@ const ButtonMegastar: React.FC = () => {
 
   return (
     <div className="min-h-screen p-8">
+      <div className="mb-8 max-w-2xl mx-auto">
+        <h1 className="text-2xl font-bold mb-4">Button Megastar Challenge</h1>
+        <p className="text-gray-600 mb-2">
+          Welcome to the Button Megastar challenge! This is a test of your
+          observation skills and ability to find hidden interactions.
+        </p>
+        <p className="text-gray-600 mb-4">
+          There are many clickable elements on this page, but only one holds the
+          secret password. Can you find it? Remember - not everything is as it
+          seems!
+        </p>
+      </div>
       <div className="grid grid-cols-12 gap-4">
         {/* Scattered original elements */}
         <div className="col-span-3 col-start-2">
@@ -132,7 +144,8 @@ const ButtonMegastar: React.FC = () => {
             </span>
             {showSecret && (
               <div className="absolute mt-2 py-1 px-2 bg-black text-green-400 font-mono text-sm rounded opacity-80 transform transition-all duration-300">
-                {PASSWORD_ButtonMegastar}
+                Congratulations! You found the secret password:{" "}
+                <span className="font-bold">{PASSWORD_ButtonMegastar}</span>
               </div>
             )}
           </div>
