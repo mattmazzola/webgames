@@ -1,24 +1,6 @@
-import { useEffect, useState } from "react";
-
 export const PASSWORD_ScrollVertical = "SCROLLMASTER2024";
 
 const ScrollVertical = () => {
-  const [hasReachedBottom, setHasReachedBottom] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.innerHeight + window.scrollY;
-      const documentHeight = document.documentElement.scrollHeight;
-
-      if (scrollPosition >= documentHeight) {
-        setHasReachedBottom(true);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   // Generate content boxes
   const boxes = Array(50)
     .fill(null)
@@ -48,25 +30,23 @@ const ScrollVertical = () => {
 
       {boxes}
 
-      {hasReachedBottom && (
+      <div
+        style={{
+          padding: "20px",
+          backgroundColor: "#4CAF50",
+          color: "white",
+          borderRadius: "8px",
+          textAlign: "center",
+          marginTop: "20px",
+        }}
+      >
+        Congratulations! You've reached the bottom!
         <div
-          style={{
-            padding: "20px",
-            backgroundColor: "#4CAF50",
-            color: "white",
-            borderRadius: "8px",
-            textAlign: "center",
-            marginTop: "20px",
-          }}
+          style={{ marginTop: "10px", fontSize: "24px", fontWeight: "bold" }}
         >
-          Congratulations! You've reached the bottom!
-          <div
-            style={{ marginTop: "10px", fontSize: "24px", fontWeight: "bold" }}
-          >
-            Password: {PASSWORD_ScrollVertical}
-          </div>
+          Password: {PASSWORD_ScrollVertical}
         </div>
-      )}
+      </div>
     </div>
   );
 };

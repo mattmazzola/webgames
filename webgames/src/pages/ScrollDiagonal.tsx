@@ -1,117 +1,71 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export const PASSWORD_ScrollDiagonal = "DIAGONALMASTER2024";
 
 const ScrollDiagonal: React.FC = () => {
-  const [hasReachedTarget, setHasReachedTarget] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const verticalProgress =
-        window.scrollY /
-        (document.documentElement.scrollHeight - window.innerHeight);
-      const horizontalProgress =
-        window.scrollX /
-        (document.documentElement.scrollWidth - window.innerWidth);
-
-      // Only reveal password when user has scrolled at least 90% in both directions
-      if (verticalProgress > 0.9 && horizontalProgress > 0.9) {
-        setHasReachedTarget(true);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Generate content grid
   const gridSize = 20;
+  const furthestDistance = Math.sqrt(
+    Math.pow((gridSize - 1) / gridSize, 2) +
+      Math.pow((gridSize - 1) / gridSize, 2)
+  );
+
+  const renderBox = (rowIndex: number, colIndex: number) => {
+    const distance =
+      Math.sqrt(
+        Math.pow((gridSize - 1 - rowIndex) / gridSize, 2) +
+          Math.pow((gridSize - 1 - colIndex) / gridSize, 2)
+      ) / furthestDistance;
+    const isLastBox = rowIndex === gridSize - 1 && colIndex === gridSize - 1;
+    if (isLastBox) {
+      return (
+        <div
+          key={colIndex}
+          className="inline-flex items-center justify-center w-96 h-48 m-3 rounded-lg bg-green-500 text-white"
+        >
+          <div className="text-center">
+            <p>Congratulations! Password:</p>
+            <p>{PASSWORD_ScrollDiagonal}</p>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div
+        key={colIndex}
+        className="inline-flex items-center justify-center w-96 h-48 m-3 rounded-lg text-gray-600"
+        style={{
+          backgroundColor: `hsl(${distance * 360}, 70%, 80%)`,
+        }}
+      >
+        <div className="text-center">
+          <p>Keep scrolling!</p>
+          <p>{Math.round(distance * 100)}% to go...</p>
+        </div>
+      </div>
+    );
+  };
+
   const grid = Array(gridSize)
     .fill(null)
     .map((_, rowIndex) => (
-      <div key={rowIndex} style={{ whiteSpace: "nowrap" }}>
+      <div key={rowIndex} className="whitespace-nowrap">
         {Array(gridSize)
           .fill(null)
-          .map((_, colIndex) => {
-            const distance = Math.sqrt(
-              Math.pow(rowIndex / gridSize, 2) +
-                Math.pow(colIndex / gridSize, 2)
-            );
-            return (
-              <div
-                key={colIndex}
-                style={{
-                  width: "200px",
-                  height: "200px",
-                  display: "inline-flex",
-                  margin: "10px",
-                  backgroundColor: `hsl(${distance * 360}, 70%, 80%)`,
-                  borderRadius: "8px",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "18px",
-                  color: "#444",
-                  textAlign: "center",
-                  padding: "20px",
-                }}
-              >
-                Keep scrolling diagonally!
-                <br />
-                {Math.round((1 - distance) * 100)}% to go...
-              </div>
-            );
-          })}
+          .map((_, colIndex) => renderBox(rowIndex, colIndex))}
       </div>
     ));
 
   return (
     <div>
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          backgroundColor: "white",
-          padding: "20px",
-          zIndex: 1,
-          borderBottom: "1px solid #ddd",
-        }}
-      >
-        <h1>Diagonal Scroll Challenge</h1>
-        <p>Scroll to the bottom-right corner to reveal the secret password!</p>
+      <div className="fixed top-0 left-0 right-0 bg-white p-5 border-b z-10">
+        <h1 className="text-2xl font-bold">Diagonal Scroll Challenge</h1>
+        <p className="mt-2">
+          Scroll to the bottom-right corner to reveal the secret password!
+        </p>
       </div>
 
-      <div style={{ marginTop: "100px", padding: "20px" }}>
-        {grid}
-
-        {hasReachedTarget && (
-          <div
-            style={{
-              position: "fixed",
-              bottom: "20px",
-              right: "20px",
-              padding: "20px",
-              backgroundColor: "#4CAF50",
-              color: "white",
-              borderRadius: "8px",
-              textAlign: "center",
-              zIndex: 2,
-            }}
-          >
-            <div>Congratulations! You've reached the target!</div>
-            <div
-              style={{
-                marginTop: "10px",
-                fontSize: "24px",
-                fontWeight: "bold",
-              }}
-            >
-              Password: {PASSWORD_ScrollDiagonal}
-            </div>
-          </div>
-        )}
-      </div>
+      <div className="mt-24 p-5">{grid}</div>
     </div>
   );
 };
