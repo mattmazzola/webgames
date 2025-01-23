@@ -7,9 +7,18 @@ They're designed to be:
 - easy for humans to complete
 - hard for AI agents to complete
 - fast and simple to run
+  - just client-side state and a single-page JavaScript app
 - easy to evaluate
-  - each task provides a unique password on successful completion.
+  - each task provides a unique password on successful completion
 
-## Hosted version:
+## Try it now
 
-Running on Cloudflare Pages.
+🎮 [webgames.convergence.ai](https://webgames.convergence.ai)
+
+## Run locally
+
+```
+cd webgames
+pnpm install
+pnpm run dev
+```
