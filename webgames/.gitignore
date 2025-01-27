@@ -27,5 +27,4 @@ dist-ssr
 **/target/
 **/*.rs.bk
 **/pkg/
-**/*.wasm
 **/wasm-pack.log

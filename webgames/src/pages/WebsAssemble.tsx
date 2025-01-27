@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import wasmUrl from "/code_gen.wasm?url";
 
 export const PASSWORD_WebsAssemble = "WebAssemblyMaster";
 
@@ -19,7 +20,7 @@ const WebsAssemble: React.FC = () => {
   useEffect(() => {
     const loadWasm = async () => {
       try {
-        const response = await fetch("/wasm/code_gen.wasm");
+        const response = await fetch(wasmUrl);
         const wasmBytes = await response.arrayBuffer();
         const wasmModule = await WebAssembly.instantiate(wasmBytes);
         const exports = wasmModule.instance.exports as unknown as WasmExports;
