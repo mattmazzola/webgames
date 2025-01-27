@@ -1,7 +1,9 @@
 import { FC } from "react";
 import AdClicked from "../pages/AdClicked";
 import BlockStack, { PASSWORD_BlockStack } from "../pages/BlockStack";
-import Breakout, { PASSWORD_Breakout } from "../pages/Breakout";
+import BrickBuster, {
+  PASSWORD_Breakout as PASSWORD_BrickBuster,
+} from "../pages/Breakout";
 import Bullseye, { PASSWORD_Bullseye } from "../pages/Bullseye";
 import ButtonHold, { PASSWORD_ButtonHold } from "../pages/ButtonHold";
 import ButtonMegastar, {
@@ -32,7 +34,9 @@ import FileCredentials, {
   PASSWORD_FileCredentials,
 } from "../pages/FileCredentials";
 import FileUpload, { PASSWORD_FileUpload } from "../pages/FileUpload";
-import Frogger, { PASSWORD_Frogger } from "../pages/Frogger";
+import FrogCrossing, {
+  PASSWORD_Frogger as PASSWORD_FrogCrossing,
+} from "../pages/Frogger";
 import Herding, { PASSWORD_Herding } from "../pages/Herding";
 import IAccept, { PASSWORD_IAccept } from "../pages/IAccept";
 import IframeContent, { PASSWORD_IframeContent } from "../pages/IframeContent";
@@ -105,45 +109,49 @@ export interface RouteConfig {
   tags: string[];
   hidden?: boolean;
   password?: string;
+  difficulty?: "easy" | "medium" | "hard";
 }
 
 export const routes: RouteConfig[] = [
   {
     path: "date",
     title: "Today's date",
-    description: "Enter today's date to reveal a secret password",
+    description: "Enter today's date",
     icon: "📅",
     component: TodaysDate,
     tags: ["form", "date"],
     password: PASSWORD_TodaysDate,
+    difficulty: "easy",
   },
   {
     path: "buttons",
     title: "Button megastar",
-    description:
-      "A collection of very clickable (and maybe not so clickable) things",
+    description: "Click everything on the page to reveal the password",
     icon: "🔘",
     component: ButtonMegastar,
     tags: ["button", "click"],
     password: PASSWORD_ButtonMegastar,
+    difficulty: "easy",
   },
   {
     path: "click-cubed",
     title: "Click³",
-    description: "Can you click three times before time runs out?",
+    description: "Click three times before time runs out",
     icon: "⏱️",
     component: ClickCubed,
-    tags: ["click", "speed"],
+    tags: ["click", "timed"],
     password: PASSWORD_ClickCubed,
+    difficulty: "medium",
   },
   {
     path: "patience",
     title: "Patience test",
-    description: "Can you wait the perfect amount of time?",
+    description: "Wait the perfect amount of time to reveal the password",
     icon: "⌛",
     component: Patience,
-    tags: ["timing", "waiting"],
+    tags: ["timed", "refresh"],
     password: PASSWORD_Patience,
+    difficulty: "medium",
   },
   {
     path: "slider-symphony",
@@ -151,8 +159,9 @@ export const routes: RouteConfig[] = [
     description: "Align the boxes by mastering the vertical sliders!",
     icon: "🎚️",
     component: SliderSymphony,
-    tags: ["slider", "dexterity"],
+    tags: ["slider", "actuation"],
     password: PASSWORD_SliderSymphony,
+    difficulty: "medium",
   },
   {
     path: "emoji-remember",
@@ -160,18 +169,20 @@ export const routes: RouteConfig[] = [
     description: "Remember the sequence of emojis to unlock the secret",
     icon: "🧠",
     component: EmojiRemember,
-    tags: ["memory", "sequence"],
+    tags: ["memory", "search"],
     password: PASSWORD_EmojiRemember,
+    difficulty: "hard",
   },
   {
     path: "bullseye",
     title: "Bullseye",
     description:
-      "Hit the moving target three times - but watch out, it gets faster!",
+      "Click the moving target three times - but watch out, it gets faster!",
     icon: "🎯",
     component: Bullseye,
-    tags: ["aim", "speed", "timing"],
+    tags: ["click", "timed", "coordination"],
     password: PASSWORD_Bullseye,
+    difficulty: "hard",
   },
   {
     path: "i-accept",
@@ -179,47 +190,50 @@ export const routes: RouteConfig[] = [
     description: "Prove you're human by agreeing to our terms",
     icon: "✅",
     component: IAccept,
-    tags: ["checkbox", "form"],
+    tags: ["checkbox", "human"],
     password: PASSWORD_IAccept,
+    difficulty: "easy",
   },
   {
     path: "wolf-goat-cabbage",
     title: "River Crossing",
-    description:
-      "Help transport a wolf, goat, and cabbage across the river safely",
+    description: "Transport a wolf, goat, and cabbage across the river safely",
     icon: "⛵",
     component: WolfGoatCabbage,
     tags: ["logic", "planning"],
     password: PASSWORD_WolfGoatCabbage,
+    difficulty: "medium",
   },
   {
     path: "towers-of-hanoi",
     title: "Towers of Hanoi",
-    description:
-      "Move the stack of disks to the rightmost peg following the rules",
+    description: "Stack the disks on the rightmost peg following the rules",
     icon: "🗼",
     component: TowersOfHanoi,
     tags: ["logic", "planning"],
     password: PASSWORD_TowersOfHanoi,
+    difficulty: "medium",
   },
   {
     path: "color-harmony",
     title: "Color Harmony",
-    description:
-      "Mix the perfect color combination using RGB sliders - but hurry before they shift!",
+    description: "Mix the perfect color combination using RGB sliders",
     icon: "🎨",
     component: ColorHarmony,
-    tags: ["color", "slider", "dexterity"],
+    tags: ["color", "slider", "dexterity", "perception"],
     password: PASSWORD_ColorHarmony,
+    difficulty: "medium",
   },
   {
     path: "herding",
     title: "Sheep Herding",
-    description: "Guide the wandering sheep into their pen using your cursor",
+    description:
+      "Guide the wandering sheep into their pen by hovering with your cursor",
     icon: "🐑",
     component: Herding,
     tags: ["mouse", "dexterity"],
     password: PASSWORD_Herding,
+    difficulty: "hard",
   },
   {
     path: "file-upload",
@@ -229,6 +243,7 @@ export const routes: RouteConfig[] = [
     component: FileUpload,
     tags: ["file", "upload"],
     password: PASSWORD_FileUpload,
+    difficulty: "easy",
   },
   {
     path: "canvas-catch",
@@ -237,44 +252,49 @@ export const routes: RouteConfig[] = [
       "Drag the circle into the target zone to complete the challenge",
     icon: "🎯",
     component: CanvasCatch,
-    tags: ["canvas", "drag", "coordination"],
+    tags: ["canvas", "drag"],
     password: PASSWORD_CanvasCatch,
+    difficulty: "medium",
   },
   {
-    path: "breakout",
-    title: "Breakout",
-    description: "Classic Atari Breakout - break all the bricks to win!",
+    path: "brick-buster",
+    title: "Brick buster",
+    description: "Break all the bricks to win!",
     icon: "🧱",
-    component: Breakout,
-    tags: ["game", "arcade", "dexterity"],
-    password: PASSWORD_Breakout,
+    component: BrickBuster,
+    tags: ["game", "coordination"],
+    password: PASSWORD_BrickBuster,
+    difficulty: "hard",
   },
   {
     path: "text-mirror",
     title: "Text Mirror",
-    description: "Can you perfectly copy the text? Every character matters!",
+    description: "Perfectly copy the text",
     icon: "📝",
     component: TextMirror,
-    tags: ["text", "accuracy", "typing"],
+    tags: ["text", "copypaste", "typing"],
     password: PASSWORD_TextMirror,
+    difficulty: "easy",
   },
   {
-    path: "frogger",
-    title: "Frogger",
-    description: "Guide your frog safely across the busy road using arrow keys",
+    path: "frog-crossing",
+    title: "Frog Crossing",
+    description: "Guide your frog safely across the busy road",
     icon: "🐸",
-    component: Frogger,
-    tags: ["game", "keyboard", "timing"],
-    password: PASSWORD_Frogger,
+    component: FrogCrossing,
+    tags: ["game", "keyboard"],
+    password: PASSWORD_FrogCrossing,
+    difficulty: "hard",
   },
   {
     path: "button-hold",
     title: "Button Hold",
-    description: "Can you hold the button for exactly 3 seconds?",
+    description: "Hold the button for exactly 3 seconds",
     icon: "⏱️",
     component: ButtonHold,
-    tags: ["button", "timing", "dexterity"],
+    tags: ["button", "timed"],
     password: PASSWORD_ButtonHold,
+    difficulty: "easy",
   },
   {
     path: "key-combo",
@@ -282,35 +302,39 @@ export const routes: RouteConfig[] = [
     description: "Press the correct key combination to unlock the secret",
     icon: "⌨️",
     component: KeyCombo,
-    tags: ["keyboard", "hotkey", "dexterity"],
+    tags: ["keyboard"],
     password: PASSWORD_KeyCombo,
+    difficulty: "easy",
   },
   {
     path: "scroll-vertical",
-    title: "Endless Scroll",
-    description: "How far can you scroll? Keep going to find out!",
+    title: "Scroll vertical",
+    description: "Scroll down to find the password",
     icon: "📜",
     component: ScrollVertical,
-    tags: ["scroll", "endurance", "patience"],
+    tags: ["scroll"],
     password: PASSWORD_ScrollVertical,
+    difficulty: "easy",
   },
   {
     path: "scroll-horizontal",
-    title: "Sideways Scroll",
-    description: "Keep scrolling right until you can't scroll anymore!",
+    title: "Scroll horizontal",
+    description: "Scroll right to find the password",
     icon: "➡️",
     component: ScrollHorizontal,
-    tags: ["scroll", "endurance", "patience"],
+    tags: ["scroll"],
     password: PASSWORD_ScrollHorizontal,
+    difficulty: "easy",
   },
   {
     path: "webgl-text",
-    title: "3D Text Challenge",
-    description: "Can you read and type the rotating 3D text?",
+    title: "WebGL Text",
+    description: "Recognise the WebGL shape",
     icon: "🎮",
     component: WebGLText,
-    tags: ["webgl", "3d", "typing"],
+    tags: ["webgl"],
     password: PASSWORD_WebGLText,
+    difficulty: "easy",
   },
   {
     path: "file-credentials",
@@ -318,8 +342,9 @@ export const routes: RouteConfig[] = [
     description: "Download a credentials file and use it to log in",
     icon: "🔑",
     component: FileCredentials,
-    tags: ["file", "download", "form"],
+    tags: ["file", "download"],
     password: PASSWORD_FileCredentials,
+    difficulty: "easy",
   },
   {
     path: "webs-assemble",
@@ -329,6 +354,7 @@ export const routes: RouteConfig[] = [
     component: WebsAssemble,
     tags: ["wasm", "code", "inspection"],
     password: PASSWORD_WebsAssemble,
+    difficulty: "easy",
   },
   {
     path: "menu-navigator",
