@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Balancer from "react-wrap-balancer";
+import Stopwatch from "../components/Stopwatch";
 import { routes } from "../router/routes";
 
 export default function Home() {
@@ -101,6 +102,14 @@ export default function Home() {
                 successful completion.
               </span>
             </p>
+            <p className="text-xl text-gray-600 mb-6">
+              You can use this handy stopwatch to time your progress:
+            </p>
+            <div className="mb-8">
+              <span className="hidden sm:inline">
+                <Stopwatch />
+              </span>
+            </div>
             <p className="text-xl text-gray-600 mb-6">
               <span className="sm:hidden">
                 <Balancer>Let the WebGames begin!</Balancer>
