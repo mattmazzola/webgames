@@ -126,11 +126,11 @@ export default function Home() {
               <Link
                 key={route.path}
                 to={route.path}
-                className="group flex gap-3 p-4 bg-white hover:bg-gray-50 border border-gray-200 hover:border-blue-500 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out relative"
+                className="group flex gap-3 p-4 bg-white hover:bg-gray-50 border border-gray-200 hover:border-blue-500 rounded-lg shadow-md hover:shadow-lg transition-all duration-100 ease-in-out relative"
               >
                 <div className="shrink-0 w-10 flex items-start pt-1">
                   <span
-                    className="text-2xl group-hover:scale-110 transition-transform duration-200"
+                    className="text-2xl group-hover:scale-110 transition-transform duration-100"
                     role="img"
                     aria-label={route.title}
                   >
