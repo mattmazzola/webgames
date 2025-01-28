@@ -46,9 +46,11 @@ const SliderSymphony = () => {
         >
           <div className="p-4 bg-green-100 text-green-700 rounded-lg">
             <div>🎉 Congratulations! You've aligned all the boxes!</div>
-            <div className="mt-2 text-sm font-mono">
-              Secret password: {PASSWORD_SliderSymphony}
-            </div>
+            {isComplete && (
+              <div className="mt-2 text-sm font-mono">
+                Secret password: {PASSWORD_SliderSymphony}
+              </div>
+            )}
           </div>
         </div>
       </div>
