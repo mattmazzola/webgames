@@ -1,25 +1,38 @@
-import React from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const PASSWORD_ScrollHorizontal = "SIDEWAYSCROLL2024";
 
-const ScrollHorizontal: React.FC = () => {
+const ScrollHorizontal = () => {
+  const [isLastBoxVisible, setIsLastBoxVisible] = useState(false);
+  const lastBoxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsLastBoxVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    if (lastBoxRef.current) {
+      observer.observe(lastBoxRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   // Generate content boxes
   const boxes = Array(50)
     .fill(null)
     .map((_, index) => (
       <div
         key={index}
+        ref={index === 49 ? lastBoxRef : undefined}
+        className="inline-flex w-[300px] h-[80vh] m-5 rounded-lg items-center justify-center text-2xl text-gray-600"
         style={{
-          width: "300px",
-          height: "80vh",
-          display: "inline-flex",
-          margin: "20px",
           backgroundColor: `hsl(${(index * 7) % 360}, 70%, 80%)`,
-          borderRadius: "8px",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "24px",
-          color: "#444",
           writingMode: "vertical-rl",
           textOrientation: "mixed",
         }}
@@ -30,64 +43,25 @@ const ScrollHorizontal: React.FC = () => {
 
   return (
     <div>
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          backgroundColor: "white",
-          padding: "20px",
-          zIndex: 1,
-          borderBottom: "1px solid #ddd",
-        }}
-      >
+      <div className="fixed top-0 left-0 right-0 bg-white p-5 z-10 border-b border-gray-200">
         <h1>Scroll to the Right</h1>
         <p>Keep scrolling horizontally to reveal the secret password!</p>
       </div>
 
-      <div
-        style={{
-          marginTop: "100px",
-          whiteSpace: "nowrap",
-          overflowX: "auto",
-          padding: "20px",
-        }}
-      >
+      <div className="mt-[100px] whitespace-nowrap overflow-x-auto p-5">
         {boxes}
-        <div
-          style={{
-            width: "300px",
-            height: "80vh",
-            display: "inline-flex",
-            margin: "20px",
-            backgroundColor: "#4CAF50",
-            color: "white",
-            borderRadius: "8px",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: "24px",
-          }}
-        >
+        {isLastBoxVisible && (
           <div
+            className="inline-flex w-[300px] h-[80vh] m-5 rounded-lg items-center justify-center text-2xl text-white"
             style={{
-              transform: "rotate(-90deg)",
-              whiteSpace: "nowrap",
-              textAlign: "center",
+              backgroundColor: "#22c55e",
+              writingMode: "vertical-rl",
+              textOrientation: "mixed",
             }}
           >
-            <div>Congratulations! You've reached the end!</div>
-            <div
-              style={{
-                marginTop: "20px",
-                fontSize: "28px",
-                fontWeight: "bold",
-              }}
-            >
-              Password: {PASSWORD_ScrollHorizontal}
-            </div>
+            Keep scrolling! You made it! Password: {PASSWORD_ScrollHorizontal}
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
