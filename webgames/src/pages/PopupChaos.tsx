@@ -11,6 +11,10 @@ interface Popup {
   isDragging: boolean;
   offsetX: number;
   offsetY: number;
+  cta: {
+    text: string;
+    className: string;
+  };
 }
 
 const MAX_POPUPS = 8; // Maximum number of popups allowed at once
@@ -64,6 +68,23 @@ const PopupChaos: React.FC = () => {
         "🎉 Congratulations! You've been selected for our exclusive offer. Limited time only - act fast!",
         "⚠️ System Alert: Multiple issues detected! Click here for an instant fix to all your problems.",
       ];
+      const ctas = [
+        { text: "Learn More", className: "bg-blue-500 hover:bg-blue-600" },
+        { text: "Get Started", className: "bg-indigo-500 hover:bg-indigo-600" },
+        {
+          text: "Yes, I'm Interested!",
+          className: "bg-pink-500 hover:bg-pink-600",
+        },
+        { text: "Install Now", className: "bg-orange-500 hover:bg-orange-600" },
+        { text: "Continue", className: "bg-teal-500 hover:bg-teal-600" },
+        { text: "Accept Offer", className: "bg-cyan-500 hover:bg-cyan-600" },
+        {
+          text: "Close all popups",
+          className: "bg-green-500 hover:bg-green-600",
+        },
+      ];
+
+      const randomCta = ctas[Math.floor(Math.random() * ctas.length)];
 
       const newPopup: Popup = {
         id: Date.now() + Math.random(),
@@ -74,6 +95,7 @@ const PopupChaos: React.FC = () => {
         isDragging: false,
         offsetX: 0,
         offsetY: 0,
+        cta: randomCta,
       };
 
       return [...prev, newPopup];
@@ -83,19 +105,35 @@ const PopupChaos: React.FC = () => {
   // Create initial popups that cover the password
   useEffect(() => {
     if (!hasInitialPopups) {
-      // Center coordinates (where the password is)
+      // Center coordinates (where the password would be)
       const centerX = window.innerWidth / 2 - 200;
       const centerY = window.innerHeight / 2 - 150;
 
-      // Create popups around the center to cover the password
+      // Create popups with more variance around the center
       const positions = [
-        [centerX - 50, centerY - 50],
-        [centerX + 50, centerY + 50],
-        [centerX, centerY],
-        [centerX + 100, centerY - 100],
+        // Top-left quadrant
+        [centerX - Math.random() * 300, centerY - Math.random() * 300],
+        // Top-right quadrant
+        [centerX + Math.random() * 300, centerY - Math.random() * 300],
+        // Bottom-left quadrant
+        [centerX - Math.random() * 300, centerY + Math.random() * 300],
+        // Bottom-right quadrant
+        [centerX + Math.random() * 300, centerY + Math.random() * 300],
+        // Random position with wider range
+        [
+          centerX + (Math.random() - 0.5) * 500,
+          centerY + (Math.random() - 0.5) * 500,
+        ],
       ];
 
-      positions.forEach(([x, y]) => createPopup(x, y));
+      // Ensure positions are within viewport bounds
+      const boundedPositions = positions.map(([x, y]) => [
+        Math.max(0, Math.min(x, window.innerWidth - 400)),
+        Math.max(0, Math.min(y, window.innerHeight - 300)),
+      ]);
+
+      // Create popups with unique IDs
+      boundedPositions.forEach(([x, y]) => createPopup(x, y));
       setHasInitialPopups(true);
     }
   }, [hasInitialPopups, createPopup]);
@@ -106,7 +144,10 @@ const PopupChaos: React.FC = () => {
       const interval = setInterval(() => {
         setPopups((prev) => {
           if (prev.length < MAX_POPUPS) {
-            createPopup();
+            // Add more variance to spawned popups
+            const x = Math.random() * (window.innerWidth - 400);
+            const y = Math.random() * (window.innerHeight - 300);
+            createPopup(x, y);
           }
           return prev;
         });
@@ -196,15 +237,17 @@ const PopupChaos: React.FC = () => {
       </div>
 
       {/* Password Window */}
-      <div
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl"
-        style={{ zIndex: 0 }}
-      >
-        <div className="p-8">
-          <h2 className="text-2xl font-bold mb-4">Secret Password</h2>
-          <p className="text-lg">PopupSlayer2024</p>
+      {isComplete && (
+        <div
+          className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl"
+          style={{ zIndex: 0 }}
+        >
+          <div className="p-8">
+            <h2 className="text-2xl font-bold mb-4">Secret Password</h2>
+            <p className="text-lg">{PASSWORD_PopupChaos}</p>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Popup Windows */}
       {popups.map((popup, index) => (
@@ -222,15 +265,16 @@ const PopupChaos: React.FC = () => {
               ? "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
               : "0 20px 25px -5px rgba(0, 0, 0, 0.2)",
           }}
-          onClick={() => bringToFront(popup.id)}
         >
-          <div
-            className="bg-gray-800 text-white p-4 rounded-t-lg flex justify-between items-center cursor-grab"
-            onMouseDown={(e) => handleMouseDown(e, popup.id)}
-          >
-            <span className="font-semibold text-lg">{popup.title}</span>
+          <div className="bg-gray-800 text-white p-4 rounded-t-lg flex justify-between items-center">
+            <div
+              className="flex-1 cursor-grab"
+              onMouseDown={(e) => handleMouseDown(e, popup.id)}
+            >
+              <span className="font-semibold text-lg">{popup.title}</span>
+            </div>
             <button
-              className="text-gray-300 hover:text-white focus:outline-none text-xl font-bold"
+              className="text-gray-300 hover:text-white focus:outline-none text-xl font-bold ml-4"
               onClick={() => closePopup(popup.id)}
             >
               ✕
@@ -239,8 +283,11 @@ const PopupChaos: React.FC = () => {
           <div className="p-6">
             <p className="text-lg leading-relaxed">{popup.content}</p>
             <div className="mt-4 flex justify-end">
-              <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                Learn More
+              <button
+                className={`${popup.cta.className} text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors`}
+                onClick={(e) => e.preventDefault()}
+              >
+                {popup.cta.text}
               </button>
             </div>
           </div>
