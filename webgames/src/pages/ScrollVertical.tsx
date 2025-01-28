@@ -1,22 +1,38 @@
+import { useEffect, useRef, useState } from "react";
+
 export const PASSWORD_ScrollVertical = "SCROLLMASTER2024";
 
 const ScrollVertical = () => {
+  const [isLastBoxVisible, setIsLastBoxVisible] = useState(false);
+  const lastBoxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsLastBoxVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.8, // 100% of the element must be visible
+      }
+    );
+
+    if (lastBoxRef.current) {
+      observer.observe(lastBoxRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   // Generate content boxes
   const boxes = Array(50)
     .fill(null)
     .map((_, index) => (
       <div
         key={index}
+        ref={index === 49 ? lastBoxRef : undefined}
+        className="h-[200px] m-5 rounded-lg flex items-center justify-center text-2xl text-gray-600"
         style={{
-          height: "200px",
-          margin: "20px",
           backgroundColor: `hsl(${(index * 7) % 360}, 70%, 80%)`,
-          borderRadius: "8px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "24px",
-          color: "#444",
         }}
       >
         Keep scrolling! {50 - index} boxes to go...
@@ -24,29 +40,20 @@ const ScrollVertical = () => {
     ));
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="p-5">
       <h1>Scroll to the Bottom</h1>
       <p>Keep scrolling down to reveal the secret password!</p>
 
       {boxes}
 
-      <div
-        style={{
-          padding: "20px",
-          backgroundColor: "#4CAF50",
-          color: "white",
-          borderRadius: "8px",
-          textAlign: "center",
-          marginTop: "20px",
-        }}
-      >
-        Congratulations! You've reached the bottom!
-        <div
-          style={{ marginTop: "10px", fontSize: "24px", fontWeight: "bold" }}
-        >
-          Password: {PASSWORD_ScrollVertical}
+      {isLastBoxVisible && (
+        <div className="p-5 bg-green-500 text-white rounded-lg text-center mt-5">
+          Congratulations! You've reached the bottom!
+          <div className="mt-2.5 text-2xl font-bold">
+            Password: {PASSWORD_ScrollVertical}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
