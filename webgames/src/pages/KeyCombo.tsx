@@ -1,6 +1,14 @@
 import confetti from "canvas-confetti";
 import { useEffect, useState } from "react";
 
+declare global {
+  interface Navigator {
+    userAgentData?: {
+      platform: string;
+    };
+  }
+}
+
 export const PASSWORD_KeyCombo = "KEY_MASTER_2024";
 
 const KeyCombo = () => {
@@ -8,47 +16,64 @@ const KeyCombo = () => {
   const [isComplete, setIsComplete] = useState(false);
 
   // Define the target key combination
-  const targetCombo = navigator.platform.toLowerCase().includes("mac")
-    ? ["Meta", "Shift", "P"]
-    : ["Control", "Shift", "P"];
-
-  const comboDisplay = navigator.platform.toLowerCase().includes("mac")
-    ? "Meta + Shift + P"
-    : "Control + Shift + P";
+  const comboDisplay = "Control + Shift + Y";
 
   useEffect(() => {
+    const targetCombo = ["Control", "Shift", "y"];
+
+    // Clear all pressed keys
+    const clearKeys = () => {
+      setPressedKeys(new Set());
+    };
+
+    // Normalize key names to handle shift combinations
+    const normalizeKey = (e: KeyboardEvent) => e.key.toLowerCase();
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      const key = e.key === "Meta" ? "Meta" : e.key;
-      const newPressedKeys = new Set([...Array.from(pressedKeys), key]);
+      const normalizedKey = normalizeKey(e);
+      // Prevent duplicate key down events
+      if (!pressedKeys.has(normalizedKey)) {
+        const newPressedKeys = new Set([
+          ...Array.from(pressedKeys),
+          normalizedKey,
+        ]);
 
-      // Only prevent default if it matches our target combo
-      const pressedArray = Array.from(newPressedKeys).map((k) =>
-        k.toLowerCase()
-      );
-      const targetArray = targetCombo.map((k) => k.toLowerCase());
-      const isTargetCombo = targetArray.every((key) =>
-        pressedArray.some(
-          (pressed) =>
-            pressed === key.toLowerCase() ||
-            (key.toLowerCase() === "meta" && pressed === "command") ||
-            (key.toLowerCase() === "control" && pressed === "control")
-        )
-      );
+        // Only prevent default if it matches our target combo
+        const pressedArray = Array.from(newPressedKeys).map((k) =>
+          k.toLowerCase()
+        );
+        const targetArray = targetCombo.map((k) => k.toLowerCase());
+        const isTargetCombo = targetArray.every((key) =>
+          pressedArray.includes(key.toLowerCase())
+        );
 
-      if (isTargetCombo) {
-        e.preventDefault();
+        if (isTargetCombo) {
+          e.preventDefault();
+        }
+
+        setPressedKeys(newPressedKeys);
       }
-
-      setPressedKeys(newPressedKeys);
     };
 
     const handleKeyUp = (e: KeyboardEvent) => {
-      const key = e.key === "Meta" ? "Meta" : e.key;
+      const normalizedKey = normalizeKey(e);
       setPressedKeys((prev) => {
         const newSet = new Set(prev);
-        newSet.delete(key);
+        newSet.delete(normalizedKey);
         return newSet;
       });
+    };
+
+    // Handle window blur
+    const handleBlur = () => {
+      clearKeys();
+    };
+
+    // Handle visibility change
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        clearKeys();
+      }
     };
 
     // Check if the pressed combination matches the target
@@ -58,12 +83,7 @@ const KeyCombo = () => {
 
       // Check if all required keys are pressed
       const hasAllKeys = targetArray.every((key) =>
-        pressedArray.some(
-          (pressed) =>
-            pressed === key.toLowerCase() ||
-            (key.toLowerCase() === "meta" && pressed === "command") ||
-            (key.toLowerCase() === "control" && pressed === "control")
-        )
+        pressedArray.includes(key.toLowerCase())
       );
 
       if (hasAllKeys) {
@@ -78,6 +98,8 @@ const KeyCombo = () => {
 
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
+    window.addEventListener("blur", handleBlur);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     // Check the combo whenever pressed keys change
     checkCombo();
@@ -85,8 +107,10 @@ const KeyCombo = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
+      window.removeEventListener("blur", handleBlur);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [pressedKeys, targetCombo]);
+  }, [pressedKeys]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-purple-100 to-blue-100 p-4">
