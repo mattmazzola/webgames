@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Bar,
   BarChart,
@@ -15,34 +15,28 @@ interface DataPoint {
   secondary: number;
 }
 
+function generateData(): DataPoint[] {
+  const points: DataPoint[] = [];
+  const hours = 4;
+
+  for (let i = 0; i < hours; i++) {
+    const hour = i.toString().padStart(2, "0");
+    points.push({
+      time: `${hour}:00`,
+      primary: Math.floor(Math.random() * 80) + 20,
+      secondary: Math.floor(Math.random() * 80) + 20,
+    });
+  }
+  return points;
+}
+
 export const PASSWORD_ChartTranscribe = "DataScribe2024";
 
 const ChartTranscribe: React.FC = () => {
-  const [data, setData] = useState<DataPoint[]>([]);
+  const data = generateData();
   const [userInput, setUserInput] = useState("");
   const [isComplete, setIsComplete] = useState(false);
   const [error, setError] = useState("");
-
-  // Generate random data when component mounts
-  useEffect(() => {
-    const generateData = () => {
-      const points: DataPoint[] = [];
-      const hours = 4;
-
-      for (let i = 0; i < hours; i++) {
-        const hour = i.toString().padStart(2, "0");
-        points.push({
-          time: `${hour}:00`,
-          primary: Math.floor(Math.random() * 80) + 20,
-          secondary: Math.floor(Math.random() * 80) + 20,
-        });
-      }
-      return points;
-    };
-
-    const newData = generateData();
-    setData(newData);
-  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,7 +86,8 @@ const ChartTranscribe: React.FC = () => {
             Study the bar chart and transcribe both series of data in CSV
             format. Each line should contain three values: time, primary value,
             secondary value (e.g., "00:00,45,32"). Include all data points to
-            complete the challenge!
+            complete the challenge! The primary series is the purple bar, and
+            the secondary series is the blue bar.
           </p>
         </div>
       </div>
