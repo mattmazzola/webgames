@@ -22,10 +22,11 @@ WebGames is a set of online tasks that are designed to be easy for humans to do 
 
 Each task will show you a password once it is successfully completed. Please attempt to complete each task, and the enter the password you get for each task into this answer sheet.
 
-The set of 50 tasks should take 60–90 minutes to complete. If you spend more than five minutes on a single task, please move on. You can complete the tasks in any order.
+The set of tasks should take 60–90 minutes to complete. If you spend more than five minutes on a single task, please move on. You can complete the tasks in any order.
 
-The 50 tasks are available at https://webgames.convergence.ai/
+The tasks are available at https://webgames.convergence.ai/
 """
+
 _CONSENT_TEXT = """
 Please read the following information carefully before deciding to participate in this research study:
 
@@ -47,6 +48,21 @@ Please read the following information carefully before deciding to participate i
 
 Do you consent to participate in this study?
 """
+
+_NON_CONSENT_TEXT = """As you do not wish to participate in this study, please return your submission on Prolific by selecting the 'Stop without completing' button 
+
+You can also use this code on Prolific: C187ONKF 
+
+Or click the link below:
+https://app.prolific.com/submissions/complete?cc=C187ONKF"""
+
+_PROLIFIC_ID_DESCRIPTION = (
+    "Please enter your Prolific ID, so that we can verify your submission."
+)
+
+_TASKS_SECTION_DESCRIPTION = """Each linked task The set of tasks should take 60–90 minutes to complete. If you spend more than five minutes on a single task, please move on. You can complete the tasks in any order.
+
+The tasks are all available at https://webgames.convergence.ai/ or linked to from each question."""
 
 
 def _get_credentials():
@@ -110,64 +126,9 @@ def _to_update_form_request(challenge: Challenge, index: int) -> dict:
     }
 
 
-def _create_consent_section() -> list[dict]:
-    return [
-        {
-            "createItem": {
-                "item": {
-                    "title": _CONSENT_TEXT,
-                    "questionItem": {
-                        "question": {
-                            "required": True,
-                            "choiceQuestion": {
-                                "type": "RADIO",
-                                "options": [
-                                    {"value": "Yes, I consent to participate"},
-                                    {"value": "No, I do not consent to participate"},
-                                ],
-                                "shuffle": False,
-                            },
-                        }
-                    },
-                    "questionGroupItem": {"questions": [], "grid": {}},
-                    "pageBreakItem": {},
-                    "navigationSettings": {
-                        "skipLogic": {
-                            "skipToQuestion": {
-                                "conditions": [
-                                    {
-                                        "questionId": "consent_question",
-                                        "answer": {
-                                            "text": "No, I do not consent to participate"
-                                        },
-                                    }
-                                ],
-                                "targetId": "non_consent_section",
-                            }
-                        }
-                    },
-                },
-                "location": {"index": 0},
-            }
-        }
-    ]
-
-
-def _create_non_consent_section() -> dict:
+def _create_sections_req() -> dict:
     return {
-        "createItem": {
-            "item": {
-                "title": "Study Participation Declined",
-                "description": "As you do not wish to participate in this study, please return your submission on Prolific by selecting the 'Stop without completing' button.",
-                "pageBreakItem": {},
-            },
-            "location": {"index": 1},
-        }
-    }
-
-
-def _form_batch_update_req() -> dict:
-    return {
+        "includeFormInResponse": True,
         "requests": [
             {
                 "updateFormInfo": {
@@ -179,50 +140,141 @@ def _form_batch_update_req() -> dict:
                     "updateMask": "*",
                 },
             },
-            _create_consent_section(),
-            _create_non_consent_section(),
             {
                 "createItem": {
                     "item": {
-                        "title": "Your Prolific ID:",
-                        "questionItem": {
-                            "question": {
-                                "required": True,
-                                "textQuestion": {"paragraph": False},
-                            },
-                        },
+                        "title": "Consent form",
+                        "pageBreakItem": {},
+                    },
+                    "location": {"index": 0},
+                },
+            },
+            {
+                "createItem": {
+                    "item": {
+                        "title": "Does not consent",
+                        "description": _NON_CONSENT_TEXT,
+                        "pageBreakItem": {},
+                    },
+                    "location": {"index": 1},
+                },
+            },
+            {
+                "createItem": {
+                    "item": {
+                        "title": "Prolific ID",
+                        "description": _PROLIFIC_ID_DESCRIPTION,
+                        "pageBreakItem": {},
                     },
                     "location": {"index": 2},
                 },
             },
-            *[
-                _to_update_form_request(challenge, index)
-                for index, challenge in enumerate(_load_challenges(), start=3)
-            ],
+            {
+                "createItem": {
+                    "item": {
+                        "title": "Please enter your Prolific ID:",
+                        "questionItem": {
+                            "question": {
+                                "required": True,
+                                "textQuestion": {},
+                            },
+                        },
+                    },
+                    "location": {"index": 3},
+                }
+            },
+            {
+                "createItem": {
+                    "item": {
+                        "title": "WebGames answer sheet",
+                        "description": _TASKS_SECTION_DESCRIPTION,
+                        "pageBreakItem": {},
+                    },
+                    "location": {"index": 4},
+                },
+            },
         ],
     }
+
+
+def _get_section_id(form_data: dict, title: str) -> str:
+    items = form_data.get("form", {}).get("items", [])
+    try:
+        return next(item["itemId"] for item in items if item["title"] == title)
+    except StopIteration:
+        raise ValueError(f"Section with title {title} not found in form data")
+
+
+def _get_non_consent_section_id(form_data: dict) -> str:
+    return _get_section_id(form_data, "Does not consent")
+
+
+def _get_prolific_id_section_id(form_data: dict) -> str:
+    return _get_section_id(form_data, "Prolific ID")
+
+
+def _create_questions_req(form_data: dict) -> dict:
+    non_consent_section_id = _get_non_consent_section_id(form_data)
+    prolific_id_section_id = _get_prolific_id_section_id(form_data)
+
+    requests = [
+        {
+            "createItem": {
+                "item": {
+                    "title": "Consent form",
+                    "description": _CONSENT_TEXT,
+                    "questionItem": {
+                        "question": {
+                            "required": True,
+                            "choiceQuestion": {
+                                "type": "RADIO",
+                                "options": [
+                                    {
+                                        "value": "Yes, I consent to participate",
+                                        "goToSectionId": prolific_id_section_id,
+                                    },
+                                    {
+                                        "value": "No, I do not consent to participate",
+                                        "goToSectionId": non_consent_section_id,
+                                    },
+                                ],
+                                "shuffle": False,
+                            },
+                        }
+                    },
+                },
+                "location": {"index": 1},
+            }
+        },
+    ]
+
+    for index, challenge in enumerate(_load_challenges(), start=6):
+        requests.append(_to_update_form_request(challenge, index))
+
+    return {"requests": requests}
 
 
 def create_form():
     creds = _get_credentials()
     service = build("forms", "v1", credentials=creds)
 
+    # First create the form with sections
     result = (
         service.forms()
-        .create(
-            body={
-                "info": {
-                    "title": "WebGames answer sheet",
-                    "documentTitle": "WebGames answer sheet",
-                },
-            },
-        )
+        .create(body={"info": {"title": "WebGames answer sheet"}})
         .execute()
     )
     form_id = result["formId"]
-    batch_update_req = _form_batch_update_req()
 
-    service.forms().batchUpdate(formId=form_id, body=batch_update_req).execute()
+    # Create sections and get their IDs
+    sections_req = _create_sections_req()
+    form_data = service.forms().batchUpdate(formId=form_id, body=sections_req).execute()
+
+    print(form_data)
+
+    # Add questions using section IDs
+    questions_req = _create_questions_req(form_data)
+    service.forms().batchUpdate(formId=form_id, body=questions_req).execute()
 
     print(f"Form created successfully! Form ID: {form_id}")
     print(f"You can view it at: https://docs.google.com/forms/d/{form_id}/edit")
