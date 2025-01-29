@@ -11,7 +11,8 @@ Each number in the sequence is a two-digit number. Think carefully about each cl
    to the legs of a spider. These creatures always fascinated me.
 
 2. The second number is the age I was when I wrote this note...
-   I was born in 1960, and I wrote this while watching the Y2K celebrations.
+   I was born on 1st January 1960, and I wrote this on the opening day of the
+   Sydney Olympics.
    
 3. For the final number, multiply the number of planets in our solar system 
    by the number of colors in a rainbow.
