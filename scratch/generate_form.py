@@ -26,6 +26,27 @@ The set of 50 tasks should take 60–90 minutes to complete. If you spend more t
 
 The 50 tasks are available at https://webgames.convergence.ai/
 """
+_CONSENT_TEXT = """
+Please read the following information carefully before deciding to participate in this research study:
+
+1. Purpose of the Study: This study aims to understand human performance on various web-based tasks.
+
+2. Study Procedures: You will be asked to complete a series of web-based tasks. Each task is designed to be completed within 5 minutes. We will collect information supplied in this form, to verify your completion of the tasks, and metadata about task completions.
+
+3. Duration: The complete study should take approximately 60-90 minutes.
+
+4. Data Usage and Storage:
+   - Your data will be used to analyze human performance on web-based tasks
+   - Anonymous, aggregated data may be reported in academic papers, white papers, and other publications
+
+5. You can withdraw your consent and request deletion of your data at any time by emailing support@convergence.ai
+
+6. Risks and Benefits: There are no known risks associated with participating in this study. The benefits include contributing to research on human-computer interaction.
+
+7. Questions: If you have any questions about this study or your rights as a participant, please contact the research team at support@convergence.ai
+
+Do you consent to participate in this study?
+"""
 
 
 def _get_credentials():
@@ -89,6 +110,62 @@ def _to_update_form_request(challenge: Challenge, index: int) -> dict:
     }
 
 
+def _create_consent_section() -> list[dict]:
+    return [
+        {
+            "createItem": {
+                "item": {
+                    "title": _CONSENT_TEXT,
+                    "questionItem": {
+                        "question": {
+                            "required": True,
+                            "choiceQuestion": {
+                                "type": "RADIO",
+                                "options": [
+                                    {"value": "Yes, I consent to participate"},
+                                    {"value": "No, I do not consent to participate"},
+                                ],
+                                "shuffle": False,
+                            },
+                        }
+                    },
+                    "questionGroupItem": {"questions": [], "grid": {}},
+                    "pageBreakItem": {},
+                    "navigationSettings": {
+                        "skipLogic": {
+                            "skipToQuestion": {
+                                "conditions": [
+                                    {
+                                        "questionId": "consent_question",
+                                        "answer": {
+                                            "text": "No, I do not consent to participate"
+                                        },
+                                    }
+                                ],
+                                "targetId": "non_consent_section",
+                            }
+                        }
+                    },
+                },
+                "location": {"index": 0},
+            }
+        }
+    ]
+
+
+def _create_non_consent_section() -> dict:
+    return {
+        "createItem": {
+            "item": {
+                "title": "Study Participation Declined",
+                "description": "As you do not wish to participate in this study, please return your submission on Prolific by selecting the 'Stop without completing' button.",
+                "pageBreakItem": {},
+            },
+            "location": {"index": 1},
+        }
+    }
+
+
 def _form_batch_update_req() -> dict:
     return {
         "requests": [
@@ -102,6 +179,8 @@ def _form_batch_update_req() -> dict:
                     "updateMask": "*",
                 },
             },
+            _create_consent_section(),
+            _create_non_consent_section(),
             {
                 "createItem": {
                     "item": {
@@ -113,12 +192,12 @@ def _form_batch_update_req() -> dict:
                             },
                         },
                     },
-                    "location": {"index": 0},
+                    "location": {"index": 2},
                 },
             },
             *[
                 _to_update_form_request(challenge, index)
-                for index, challenge in enumerate(_load_challenges(), start=1)
+                for index, challenge in enumerate(_load_challenges(), start=3)
             ],
         ],
     }
