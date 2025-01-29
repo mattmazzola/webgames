@@ -167,41 +167,51 @@ const WolfGoatCabbage = () => {
       <div className="bg-white rounded-lg shadow-md p-6">
         <h2 className="text-2xl font-bold mb-4">Wolf, Goat, and Cabbage</h2>
 
-        <div className="mb-4">
-          <p className="text-gray-700">
-            Help the farmer transport everything across the river! But be
-            careful:
-            <ul className="list-disc list-inside">
-              <li>The wolf will eat the goat if left alone</li>
-              <li>The goat will eat the cabbage if left alone</li>
-              <li>The boat can only carry one item at a time</li>
-            </ul>
-          </p>
-        </div>
-
-        <div className="relative mb-8">
-          <div className="absolute inset-0 bg-blue-200 mt-20 h-20"></div>
-          <div className="relative flex justify-between items-center">
-            {renderBank("left")}
-            {renderBoat()}
-            {renderBank("right")}
-          </div>
-        </div>
-
-        {renderControls()}
-
-        {isGameOver && (
-          <div className="mt-4 p-4 bg-red-100 border border-red-200 rounded text-red-700">
-            Game Over! The animals got hungry. Try again!
-          </div>
-        )}
-
-        {showPassword && (
-          <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded">
-            <p className="text-green-800 font-medium">
-              Congratulations! Secret Password: {PASSWORD_WolfGoatCabbage}
+        {showPassword ? (
+          <div className="p-8 bg-green-50 border-2 border-green-200 rounded-lg">
+            <h3 className="text-2xl font-bold text-green-800 mb-4">
+              🎉 Congratulations!
+            </h3>
+            <p className="text-lg text-green-700 mb-2">
+              You've successfully transported everyone across the river!
             </p>
+            <div className="mt-4 p-4 bg-green-100 rounded-lg">
+              <p className="text-xl font-semibold text-green-800">
+                Secret Password: {PASSWORD_WolfGoatCabbage}
+              </p>
+            </div>
           </div>
+        ) : (
+          <>
+            <div className="mb-4">
+              <p className="text-gray-700">
+                Help the farmer transport everything across the river! But be
+                careful:
+                <ul className="list-disc list-inside">
+                  <li>The wolf will eat the goat if left alone</li>
+                  <li>The goat will eat the cabbage if left alone</li>
+                  <li>The boat can only carry one item at a time</li>
+                </ul>
+              </p>
+            </div>
+
+            <div className="relative mb-8">
+              <div className="absolute inset-0 bg-blue-200 mt-20 h-20"></div>
+              <div className="relative flex justify-between items-center">
+                {renderBank("left")}
+                {renderBoat()}
+                {renderBank("right")}
+              </div>
+            </div>
+
+            {renderControls()}
+
+            {isGameOver && (
+              <div className="mt-4 p-4 bg-red-100 border border-red-200 rounded text-red-700">
+                Game Over! The animals got hungry. Try again!
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
