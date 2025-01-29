@@ -109,8 +109,8 @@ const ShoppingChallenge: React.FC = () => {
         Shopping Challenge
       </h1>
       <p className="text-center mb-6">
-        Add the required items to your cart and calculate the total price to
-        complete the challenge!
+        Add the required items to your cart and calculate the cheapest possible
+        total price to complete the challenge!
       </p>
 
       {/* Shopping List */}
