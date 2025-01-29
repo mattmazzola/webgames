@@ -121,25 +121,30 @@ const CanvasCatch = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
       <h1 className="text-2xl font-bold mb-4">Canvas Catch</h1>
-      <p className="mb-4">
-        {completed
-          ? "Well done! You've caught the circle!"
-          : "Drag the blue circle into the orange box"}
-      </p>
-      <canvas
-        ref={canvasRef}
-        className="border border-gray-300 rounded-lg shadow-lg"
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-      />
-      {completed && (
-        <div className="mt-6 p-4 bg-green-100 rounded-lg border border-green-200">
-          <p className="text-green-800 font-medium">
-            Secret Password: CircleMaster2024
+      {completed ? (
+        <div className="mt-6 p-8 bg-green-100 rounded-lg border border-green-200 text-center">
+          <p className="text-xl text-green-800 font-bold mb-2">
+            Congratulations!
+          </p>
+          <p className="text-green-800">
+            You've successfully completed the challenge!
+          </p>
+          <p className="text-2xl font-bold text-green-900 mt-4">
+            Secret Password: {PASSWORD_CanvasCatch}
           </p>
         </div>
+      ) : (
+        <>
+          <p className="mb-4">Drag the blue circle into the orange box</p>
+          <canvas
+            ref={canvasRef}
+            className="border border-gray-300 rounded-lg shadow-lg"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+          />
+        </>
       )}
     </div>
   );
