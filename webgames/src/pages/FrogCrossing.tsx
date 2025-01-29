@@ -14,9 +14,10 @@ interface Car {
   speed: number;
 }
 
-const GRID_SIZE = 15;
-const CAR_ROWS = [3, 6, 9, 12];
+const GRID_SIZE = 9;
+const CAR_ROWS = [1, 3, 5, 7];
 const CARS_PER_ROW = 3;
+const MOVE_INTERVAL = 400; // Slower interval for grid-based movement
 
 export default function FrogCrossing() {
   const [frog, setFrog] = useState<Position>({
@@ -36,7 +37,7 @@ export default function FrogCrossing() {
           x: Math.floor(Math.random() * GRID_SIZE),
           y: row,
           direction: index % 2 === 0 ? "left" : "right",
-          speed: 1 + Math.random(),
+          speed: 1, // Fixed speed for grid movement
         });
       }
     });
@@ -60,17 +61,15 @@ export default function FrogCrossing() {
           return { ...car, x: newX };
         })
       );
-    }, 200);
+    }, MOVE_INTERVAL);
 
     return () => clearInterval(interval);
   }, [gameOver, success]);
 
   // Check collisions and win condition
   useEffect(() => {
-    // Check for collisions
-    const collision = cars.some(
-      (car) => Math.abs(car.x - frog.x) < 1 && car.y === frog.y
-    );
+    // Check for collisions with exact grid positions
+    const collision = cars.some((car) => car.x === frog.x && car.y === frog.y);
 
     if (collision) {
       setGameOver(true);
@@ -118,40 +117,62 @@ export default function FrogCrossing() {
   }, [handleKeyDown]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-green-100 p-4">
-      <div className="mb-4 text-xl">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-emerald-900 p-8">
+      <div className="mb-6 text-2xl font-semibold">
         {gameOver ? (
-          <div className="text-red-500">Game Over! Press R to restart</div>
+          <div className="text-red-400">Game Over! Press R to restart</div>
         ) : success ? (
-          <div className="text-green-500">
+          <div className="text-emerald-400">
             Success! The password is: {PASSWORD_FrogCrossing}
           </div>
         ) : (
-          <div>Use arrow keys to guide the frog home!</div>
+          <div className="text-emerald-300">
+            Use arrow keys to guide the frog home! 🎮
+          </div>
         )}
       </div>
 
       <div
-        className="grid gap-1 bg-blue-200 p-4 rounded-lg"
+        className="grid gap-0 bg-emerald-800 p-4 rounded-xl shadow-lg border-4 border-emerald-700"
         style={{
           gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
-          width: `${GRID_SIZE * 30}px`,
-          height: `${GRID_SIZE * 30}px`,
+          width: `${GRID_SIZE * 40}px`,
+          height: `${GRID_SIZE * 40}px`,
         }}
       >
         {Array.from({ length: GRID_SIZE * GRID_SIZE }).map((_, index) => {
           const x = index % GRID_SIZE;
           const y = Math.floor(index / GRID_SIZE);
           const isFrog = x === frog.x && y === frog.y;
-          const car = cars.find((c) => Math.floor(c.x) === x && c.y === y);
+          const car = cars.find((c) => c.x === x && c.y === y);
 
           return (
             <div
               key={index}
-              className={`w-full h-full flex items-center justify-center
-                ${y === 0 ? "bg-green-300" : ""}`}
+              className={`w-full h-full flex items-center justify-center border-[0.5px] border-emerald-700/30
+                ${
+                  y === 0
+                    ? "bg-emerald-500"
+                    : y === GRID_SIZE - 1
+                    ? "bg-emerald-500"
+                    : CAR_ROWS.includes(y)
+                    ? "bg-slate-700"
+                    : "bg-emerald-700"
+                }
+                min-h-[36px] min-w-[36px]
+                text-2xl`}
             >
-              {isFrog ? "🐸" : car ? "🚗" : ""}
+              {isFrog ? (
+                <span className="text-3xl transform hover:scale-110 transition-transform absolute">
+                  🐸
+                </span>
+              ) : car ? (
+                <span className="text-3xl transform hover:scale-105 transition-transform absolute">
+                  {car.direction === "left" ? "🚙" : "🚗"}
+                </span>
+              ) : (
+                <span className="opacity-0 select-none absolute">·</span>
+              )}
             </div>
           );
         })}
