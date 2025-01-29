@@ -1,0 +1,6 @@
+scratch/*
+!scratch/generate_form.py
+
+.env
+logs/
+__pycache__/
