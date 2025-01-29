@@ -62,7 +62,7 @@ const BlockStack: React.FC = () => {
 
     const cw = window.innerWidth;
     const ch = window.innerHeight;
-    const targetY = ch * 0.3;
+    const targetY = ch * 0.4;
     setTargetLineY(targetY);
 
     // Create renderer
@@ -102,16 +102,19 @@ const BlockStack: React.FC = () => {
 
     // Create stack of boxes
     const boxes: Body[] = [];
-    const boxSize = 100;
-    const numBoxes = 24;
-    const boxesPerRow = 4;
+    // Make box size responsive to screen width and height
+    const boxSize = Math.min(Math.min(cw, ch) * 0.1, 80);
+    const boxesPerRow = Math.min(Math.floor(cw / (boxSize * 1.5)), 6);
+    const numRows = Math.min(Math.floor((ch - targetY) / (boxSize * 1.5)), 4);
+    const numBoxes = boxesPerRow * numRows;
     const startX = cw / 2 - (boxSize * boxesPerRow) / 2;
+    const startY = ch - boxSize;
 
     for (let i = 0; i < numBoxes; i++) {
       boxes.push(
         Bodies.rectangle(
-          startX + (i % boxesPerRow) * boxSize,
-          ch - 150 - Math.floor(i / boxesPerRow) * (boxSize + 5),
+          startX + (i % boxesPerRow) * (boxSize * 1.2),
+          startY - Math.floor(i / boxesPerRow) * (boxSize * 1.2),
           boxSize,
           boxSize,
           {
@@ -120,10 +123,10 @@ const BlockStack: React.FC = () => {
               strokeStyle: "#000",
               lineWidth: 2,
             },
-            chamfer: { radius: 8 },
-            density: 0.1,
-            friction: 0.5,
-            restitution: 0.2,
+            chamfer: { radius: boxSize * 0.08 },
+            density: 0.2,
+            friction: 0.8,
+            restitution: 0.1,
           }
         )
       );
