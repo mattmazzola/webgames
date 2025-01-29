@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -33,7 +33,10 @@ function generateData(): DataPoint[] {
 export const PASSWORD_ChartTranscribe = "DataScribe2024";
 
 const ChartTranscribe: React.FC = () => {
-  const data = generateData();
+  const [data, setData] = useState<DataPoint[]>([]);
+  useEffect(() => {
+    setData(generateData());
+  }, []);
   const [userInput, setUserInput] = useState("");
   const [isComplete, setIsComplete] = useState(false);
   const [error, setError] = useState("");
