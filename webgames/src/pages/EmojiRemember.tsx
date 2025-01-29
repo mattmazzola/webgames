@@ -60,7 +60,7 @@ const EmojiRemember: React.FC = () => {
       if (currentStep === EMOJI_SEQUENCE.length - 1) {
         setIsComplete(true);
         setMessage({
-          text: "Congratulations! You have completed the sequence! 🎉 The secret password is: {PASSWORD_EmojiRemember}",
+          text: `Congratulations! You have completed the sequence! 🎉 The secret password is: ${PASSWORD_EmojiRemember}`,
           type: "success",
         });
       } else {
