@@ -123,68 +123,65 @@ const ChartRead: React.FC = () => {
         </div>
       </div>
 
-      {/* Input Form */}
+      {/* Input Form or Password Reveal */}
       <div className="flex justify-center">
         <div className="bg-white rounded-xl p-6 w-full max-w-md shadow-lg">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Maximum Price
-              </label>
-              <input
-                type="number"
-                step="0.01"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                placeholder="Enter price..."
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Time of Maximum (HH:00)
-              </label>
-              <select
-                value={maxTime}
-                onChange={(e) => setMaxTime(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                required
+          {!isComplete ? (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Maximum Price
+                </label>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="Enter price..."
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Time of Maximum (HH:00)
+                </label>
+                <select
+                  value={maxTime}
+                  onChange={(e) => setMaxTime(e.target.value)}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  required
+                >
+                  <option value="">Select time...</option>
+                  {data.map((point) => (
+                    <option key={point.time} value={point.time}>
+                      {point.time}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
-                <option value="">Select time...</option>
-                {data.map((point) => (
-                  <option key={point.time} value={point.time}>
-                    {point.time}
-                  </option>
-                ))}
-              </select>
+                Submit
+              </button>
+              {error && (
+                <p className="text-red-500 text-sm text-center">{error}</p>
+              )}
+            </form>
+          ) : (
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-green-800 mb-2">
+                Congratulations!
+              </h2>
+              <p className="text-green-700">
+                The password is: {PASSWORD_ChartRead}
+              </p>
             </div>
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              Submit
-            </button>
-            {error && (
-              <p className="text-red-500 text-sm text-center">{error}</p>
-            )}
-          </form>
+          )}
         </div>
       </div>
-
-      {/* Password Reveal */}
-      {isComplete && (
-        <div className="mt-8 flex justify-center">
-          <div className="bg-green-100 border border-green-200 rounded-lg p-6 shadow-lg">
-            <h2 className="text-2xl font-bold text-green-800 mb-2">
-              Congratulations!
-            </h2>
-            <p className="text-green-700">
-              The password is: {PASSWORD_ChartRead}
-            </p>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
