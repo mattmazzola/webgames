@@ -60,7 +60,7 @@ _PROLIFIC_ID_DESCRIPTION = (
     "Please enter your Prolific ID, so that we can verify your submission."
 )
 
-_TASKS_SECTION_DESCRIPTION = """Each linked task The set of tasks should take 60–90 minutes to complete. If you spend more than five minutes on a single task, please move on. You can complete the tasks in any order.
+_TASKS_SECTION_DESCRIPTION = """The set of tasks should take 60–90 minutes to complete. If you spend more than five minutes on a single task, please move on. You can complete the tasks in any order.
 
 The tasks are all available at https://webgames.convergence.ai/ or linked to from each question."""
 
