@@ -107,7 +107,10 @@ def _form_batch_update_req() -> dict:
                     "item": {
                         "title": "Your Prolific ID:",
                         "questionItem": {
-                            "question": {"textQuestion": {"paragraph": False}},
+                            "question": {
+                                "required": True,
+                                "textQuestion": {"paragraph": False},
+                            },
                         },
                     },
                     "location": {"index": 0},
