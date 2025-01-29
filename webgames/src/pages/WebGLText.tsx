@@ -27,9 +27,29 @@ void main() {
 
 const WebGLText: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [userInput, setUserInput] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
+  const [scale, setScale] = useState(1);
   const targetText = "TRIANGLE";
+
+  // Add scale calculation effect
+  useEffect(() => {
+    const updateScale = () => {
+      if (containerRef.current?.parentElement) {
+        const parent = containerRef.current.parentElement;
+        const maxWidth = parent.clientWidth;
+        const maxHeight = window.innerHeight - 150;
+        const scaleX = maxWidth / 800;
+        const scaleY = maxHeight / 600;
+        setScale(Math.min(scaleX, scaleY));
+      }
+    };
+
+    updateScale();
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -176,82 +196,59 @@ const WebGLText: React.FC = () => {
   }, [userInput]);
 
   return (
-    <div
-      style={{
-        textAlign: "center",
-        padding: "20px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        minHeight: "100vh",
-      }}
-    >
-      <h1>WebGL Challenge</h1>
-      <p>
-        Type the word that describes the rotating shape to reveal the password!
-      </p>
+    <div className="w-full h-screen flex flex-col items-center bg-slate-100">
+      {!isCorrect ? (
+        <>
+          <h1 className="text-2xl font-bold mt-4 mb-2">WebGL Challenge</h1>
+          <p className="text-lg text-gray-700 mb-4">
+            Type the word that describes the rotating shape to reveal the
+            password!
+          </p>
 
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "800px",
-          aspectRatio: "4/3",
-          margin: "20px auto",
-        }}
-      >
-        <canvas
-          ref={canvasRef}
-          width={800}
-          height={600}
-          style={{
-            width: "100%",
-            height: "100%",
-            backgroundColor: "black",
-            borderRadius: "8px",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          }}
-        />
-      </div>
-
-      <div style={{ width: "100%", maxWidth: "400px" }}>
-        <input
-          type="text"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          placeholder="What shape do you see?"
-          style={{
-            width: "100%",
-            padding: "10px",
-            fontSize: "18px",
-            borderRadius: "4px",
-            border: "2px solid #ccc",
-            marginBottom: "20px",
-          }}
-        />
-
-        {isCorrect && (
-          <div
-            style={{
-              backgroundColor: "#4CAF50",
-              color: "white",
-              padding: "20px",
-              borderRadius: "8px",
-              marginTop: "20px",
-            }}
-          >
-            <div>Congratulations! You've identified the shape!</div>
+          <div className="flex-1 w-full relative overflow-hidden flex justify-center items-center">
             <div
+              ref={containerRef}
+              className="relative"
               style={{
-                fontSize: "24px",
-                fontWeight: "bold",
-                marginTop: "10px",
+                width: 800,
+                height: 600,
+                transform: `scale(${scale})`,
+                transformOrigin: "center",
               }}
             >
-              Password: {PASSWORD_WebGLText}
+              <canvas
+                ref={canvasRef}
+                width={800}
+                height={600}
+                className="bg-black rounded-lg shadow-lg"
+              />
             </div>
           </div>
-        )}
-      </div>
+
+          <div className="w-full max-w-md px-4 mb-8">
+            <input
+              type="text"
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+              placeholder="What shape do you see?"
+              className="w-full p-3 text-lg rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none"
+            />
+          </div>
+        </>
+      ) : (
+        <div className="flex flex-col items-center justify-center min-h-screen w-full">
+          <div className="text-4xl mb-4 text-green-600">
+            🎉 Congratulations! 🎉
+          </div>
+          <div className="text-2xl mb-8">
+            You've successfully identified the shape!
+          </div>
+          <div className="text-xl bg-yellow-100 p-6 rounded-lg border-2 border-yellow-400">
+            The secret password is:{" "}
+            <span className="font-bold">{PASSWORD_WebGLText}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
