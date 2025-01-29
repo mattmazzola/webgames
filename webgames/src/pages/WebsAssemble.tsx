@@ -73,7 +73,7 @@ const WebsAssemble: React.FC = () => {
         <div className="mb-6 text-center">
           <p className="text-lg mb-2">
             {wasmLoaded
-              ? "WebAssembly module loaded! The secret code is:"
+              ? "WebAssembly module loaded! Please enter the code you see into the box below, to get the final password:"
               : "Loading WebAssembly module..."}
           </p>
           {wasmLoaded && (
