@@ -32,9 +32,7 @@ import FileCredentials, {
   PASSWORD_FileCredentials,
 } from "../pages/FileCredentials";
 import FileUpload, { PASSWORD_FileUpload } from "../pages/FileUpload";
-import FrogCrossing, {
-  PASSWORD_Frogger as PASSWORD_FrogCrossing,
-} from "../pages/Frogger";
+import FrogCrossing, { PASSWORD_FrogCrossing } from "../pages/FrogCrossing";
 import Herding, { PASSWORD_Herding } from "../pages/Herding";
 import IAccept, { PASSWORD_IAccept } from "../pages/IAccept";
 import IframeContent, { PASSWORD_IframeContent } from "../pages/IframeContent";
