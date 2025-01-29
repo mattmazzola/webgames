@@ -31,6 +31,33 @@ export default function Home() {
     URL.revokeObjectURL(url);
   };
 
+  const downloadChallengesCSV = () => {
+    const headers = ["id", "title", "description", "path", "password", "tags"];
+    const csvContent = [
+      headers.join(","),
+      ...visibleRoutes.map((route) => {
+        return [
+          route.path,
+          `"${route.title.replace(/"/g, '""')}"`,
+          `"${route.description.replace(/"/g, '""')}"`,
+          route.path,
+          route.password,
+          `"${(route.tags || []).join(";")}"`,
+        ].join(",");
+      }),
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "webgames-v0-challenges.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div>
       <div className="bg-gradient-to-b from-[#1c9188]/10 via-[#1c9188]/5 to-white border-b border-[#1c9188]/10">
@@ -67,12 +94,20 @@ export default function Home() {
                   GitHub
                 </span>
               </a>
-              <button
-                onClick={downloadChallengesJSONL}
-                className="hidden sm:block px-4 py-2 text-sm font-mono text-gray-400 hover:text-gray-600 transition-colors duration-200"
-              >
-                ↓ Download challenges (.jsonl)
-              </button>
+              <div className="hidden sm:flex gap-2">
+                <button
+                  onClick={downloadChallengesJSONL}
+                  className="px-4 py-2 text-sm font-mono text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                >
+                  ↓ Challenges JSONL
+                </button>
+                <button
+                  onClick={downloadChallengesCSV}
+                  className="px-4 py-2 text-sm font-mono text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                >
+                  ↓ Challenges CSV
+                </button>
+              </div>
             </div>
           </div>
           <div className="max-w-2xl mx-auto text-center">
