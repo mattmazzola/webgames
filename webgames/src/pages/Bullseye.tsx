@@ -6,7 +6,7 @@ const Bullseye: React.FC = () => {
   const [position, setPosition] = useState({ x: 0, y: 50 });
   const [direction, setDirection] = useState(1);
   const [hits, setHits] = useState(0);
-  const [speed, setSpeed] = useState(0.6);
+  const [speed, setSpeed] = useState(0.3);
   const [isComplete, setIsComplete] = useState(false);
   const animationFrameRef = useRef<number>();
 
