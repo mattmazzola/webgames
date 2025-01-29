@@ -11,6 +11,7 @@ interface MenuItem {
 const MenuNavigator: React.FC = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const [completed, setCompleted] = useState(false);
   const [message, setMessage] = useState<{
     text: string;
     type: "success" | "error" | null;
@@ -147,6 +148,7 @@ const MenuNavigator: React.FC = () => {
         text: `Congratulations! The completion password is: ${PASSWORD_MenuNavigator}`,
         type: "success",
       });
+      setCompleted(true);
     } else if (item.items) {
       // Don't close the menu if there are subitems
       return;
@@ -158,15 +160,29 @@ const MenuNavigator: React.FC = () => {
     }
   };
 
+  if (completed) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500">
+        <div className="bg-white/90 backdrop-blur rounded-lg p-8 shadow-lg text-center">
+          <h2 className="text-2xl font-bold text-green-600 mb-2">Success!</h2>
+          <p className="text-xl">The password is:</p>
+          <p className="text-2xl font-mono mt-2 font-bold">
+            {PASSWORD_MenuNavigator}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Instructions Card */}
-      <div className="flex justify-center mt-8">
-        <div className="bg-white rounded-xl p-6 mb-8 max-w-2xl shadow-sm">
-          <h1 className="text-3xl font-bold text-center mb-4 text-gray-800">
+      <div className="flex justify-center mt-4">
+        <div className="bg-white rounded-lg p-4 mb-4 max-w-xl shadow-sm">
+          <h1 className="text-xl font-bold text-center mb-2 text-gray-800">
             Menu Navigator
           </h1>
-          <p className="text-center text-gray-600">
+          <p className="text-center text-sm text-gray-600">
             Navigate through the menu bar below to find the secret option. Click
             it to reveal the password!
           </p>
@@ -175,7 +191,7 @@ const MenuNavigator: React.FC = () => {
 
       {/* Desktop Window Container */}
       <div className="flex justify-center w-full">
-        <div className="w-[900px] h-[600px] bg-white border border-gray-300 rounded-lg overflow-hidden">
+        <div className="w-[800px] h-[500px] bg-white border border-gray-300 rounded-lg overflow-hidden">
           {/* Menu Bar */}
           <div className="bg-gray-800 text-white w-full">
             <div className="flex">
@@ -191,7 +207,7 @@ const MenuNavigator: React.FC = () => {
                   }}
                 >
                   <button
-                    className={`px-6 py-3 hover:bg-gray-700 ${
+                    className={`px-4 py-2 text-sm hover:bg-gray-700 ${
                       activeMenu === menu.label ? "bg-gray-700" : ""
                     }`}
                     onClick={() => handleMenuClick(menu.label)}
@@ -200,7 +216,7 @@ const MenuNavigator: React.FC = () => {
                   </button>
                   {activeMenu === menu.label && menu.items && (
                     <div
-                      className="absolute left-0 top-full bg-gray-800 min-w-[200px] z-50 rounded-b-lg"
+                      className="absolute left-0 top-full bg-gray-800 min-w-[180px] z-50 rounded-b-lg"
                       onMouseLeave={() => setActiveSubmenu(null)}
                     >
                       {menu.items.map((item) => (
@@ -210,18 +226,18 @@ const MenuNavigator: React.FC = () => {
                           onMouseEnter={() => setActiveSubmenu(item.label)}
                         >
                           <button
-                            className="block w-full text-left px-4 py-2 hover:bg-gray-700 flex justify-between items-center"
+                            className="block w-full text-left px-3 py-1.5 text-sm hover:bg-gray-700 flex justify-between items-center"
                             onClick={() => handleSubmenuClick(item)}
                           >
                             {item.label}
                             {item.items && <span className="ml-2">▶</span>}
                           </button>
                           {activeSubmenu === item.label && item.items && (
-                            <div className="absolute left-full top-0 bg-gray-800 min-w-[200px] rounded-lg">
+                            <div className="absolute left-full top-0 bg-gray-800 min-w-[180px] rounded-lg">
                               {item.items.map((subItem) => (
                                 <button
                                   key={subItem.label}
-                                  className="block w-full text-left px-4 py-2 hover:bg-gray-700"
+                                  className="block w-full text-left px-3 py-1.5 text-sm hover:bg-gray-700"
                                   onClick={() => handleSubmenuClick(subItem)}
                                 >
                                   {subItem.label}
@@ -241,9 +257,9 @@ const MenuNavigator: React.FC = () => {
           {/* Desktop Background Area */}
           <div className="h-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center">
             {message.text && (
-              <div className="bg-white/90 backdrop-blur rounded-lg p-6 max-w-md shadow-lg">
+              <div className="bg-white/90 backdrop-blur rounded-lg p-4 max-w-md shadow-lg">
                 <p
-                  className={`text-lg ${
+                  className={`text-base ${
                     message.type === "error" ? "text-red-600" : "text-green-600"
                   }`}
                 >
