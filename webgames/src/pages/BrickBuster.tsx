@@ -75,9 +75,9 @@ const createInitialState = (): GameState => {
   };
 };
 
-export const PASSWORD_Breakout = "BreakoutMaster2024";
+export const PASSWORD_BrickBuster = "BrickBusterMaster2025";
 
-const Breakout = () => {
+const BrickBuster = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameStateRef = useRef<GameState>(createInitialState());
   const [gameStarted, setGameStarted] = useState(false);
@@ -181,7 +181,7 @@ const Breakout = () => {
         setDisplayScore(state.score);
 
         if (state.score === BRICK_ROWS * BRICK_COLS) {
-          setPassword(PASSWORD_Breakout);
+          setPassword(PASSWORD_BrickBuster);
           setGameStarted(false);
           return;
         }
@@ -253,7 +253,7 @@ const Breakout = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-4xl">
         <div className="text-center mb-4">
-          <h1 className="text-3xl font-bold mb-2">Breakout</h1>
+          <h1 className="text-3xl font-bold mb-2">BrickBuster</h1>
           <p className="text-gray-600 mb-4">
             Break all the bricks to reveal the password! Use your mouse to
             control the paddle. The ball's bounce depends on where it hits the
@@ -287,4 +287,4 @@ const Breakout = () => {
   );
 };
 
-export default Breakout;
+export default BrickBuster;

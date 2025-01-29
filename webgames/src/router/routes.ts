@@ -1,9 +1,7 @@
 import { FC } from "react";
 import AdClicked from "../pages/AdClicked";
 import BlockStack, { PASSWORD_BlockStack } from "../pages/BlockStack";
-import BrickBuster, {
-  PASSWORD_Breakout as PASSWORD_BrickBuster,
-} from "../pages/Breakout";
+import BrickBuster, { PASSWORD_BrickBuster } from "../pages/BrickBuster";
 import Bullseye, { PASSWORD_Bullseye } from "../pages/Bullseye";
 import ButtonHold, { PASSWORD_ButtonHold } from "../pages/ButtonHold";
 import ButtonMegastar, {
