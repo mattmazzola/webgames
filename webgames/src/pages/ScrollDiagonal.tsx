@@ -1,13 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_ScrollDiagonal = "DIAGONALMASTER2024";
+export const TASK_ID_ScrollDiagonal = "scroll-diagonal";
 
 const ScrollDiagonal: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_ScrollDiagonal);
   const gridSize = 20;
   const furthestDistance = Math.sqrt(
     Math.pow((gridSize - 1) / gridSize, 2) +
       Math.pow((gridSize - 1) / gridSize, 2)
   );
+  const [hasReachedEnd, setHasReachedEnd] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasReachedEnd) {
+            setHasReachedEnd(true);
+            recordSuccess();
+          }
+        });
+      },
+      {
+        threshold: 0.5, // Trigger when at least 50% of element is visible
+      }
+    );
+
+    // Find the last box element
+    const lastBox = document.getElementById("last-box");
+
+    if (lastBox) {
+      observer.observe(lastBox);
+    }
+
+    return () => {
+      if (lastBox) {
+        observer.unobserve(lastBox);
+      }
+    };
+  }, [hasReachedEnd, recordSuccess]);
 
   const renderBox = (rowIndex: number, colIndex: number) => {
     const distance =
@@ -20,6 +53,7 @@ const ScrollDiagonal: React.FC = () => {
       return (
         <div
           key={colIndex}
+          id="last-box"
           className="inline-flex items-center justify-center w-96 h-48 m-3 rounded-lg bg-green-500 text-white"
         >
           <div className="text-center">

@@ -1,6 +1,9 @@
 import { FC } from "react";
 import AdClicked from "../pages/AdClicked";
-import BlockStack, { PASSWORD_BlockStack } from "../pages/BlockStack";
+import BlockStack, {
+  PASSWORD_BlockStack,
+  TASK_ID_BlockStack,
+} from "../pages/BlockStack";
 import BrickBuster, {
   PASSWORD_BrickBuster,
   TASK_ID_BrickBuster,
@@ -46,9 +49,11 @@ import ColorHarmony, {
 } from "../pages/ColorHarmony";
 import CombinationLock, {
   PASSWORD_CombinationLock,
+  TASK_ID_CombinationLock,
 } from "../pages/CombinationLock";
 import ContextBreaker, {
   PASSWORD_ContextBreaker,
+  TASK_ID_ContextBreaker,
 } from "../pages/ContextBreaker";
 import EmojiRemember, {
   PASSWORD_EmojiRemember,
@@ -69,9 +74,13 @@ import FrogCrossing, {
 import Herding, { PASSWORD_Herding, TASK_ID_Herding } from "../pages/Herding";
 import IAccept, { PASSWORD_IAccept, TASK_ID_IAccept } from "../pages/IAccept";
 import IframeContent, { PASSWORD_IframeContent } from "../pages/IframeContent";
-import IframeNest, { PASSWORD_IframeNest } from "../pages/IframeNest";
+import IframeNest, {
+  PASSWORD_IframeNest,
+  TASK_ID_IframeNest,
+} from "../pages/IframeNest";
 import IllegalMaterial, {
   PASSWORD_IllegalMaterial,
+  TASK_ID_IllegalMaterial,
 } from "../pages/IllegalMaterial";
 import KeyCombo, {
   PASSWORD_KeyCombo,
@@ -86,19 +95,29 @@ import MenuNavigator, {
   PASSWORD_MenuNavigator,
   TASK_ID_MenuNavigator,
 } from "../pages/MenuNavigator";
-import OTPEntry, { PASSWORD_OTPEntry } from "../pages/OTPEntry";
+import OTPEntry, {
+  PASSWORD_OTPEntry,
+  TASK_ID_OTPEntry,
+} from "../pages/OTPEntry";
 import Patience, {
   PASSWORD_Patience,
   TASK_ID_Patience,
 } from "../pages/Patience";
-import PixelCopy, { PASSWORD_PixelCopy } from "../pages/PixelCopy";
+import PixelCopy, {
+  PASSWORD_PixelCopy,
+  TASK_ID_PixelCopy,
+} from "../pages/PixelCopy";
 import PopupChaos, {
   PASSWORD_PopupChaos,
   TASK_ID_PopupChaos,
 } from "../pages/PopupChaos";
-import PrintReveal, { PASSWORD_PrintReveal } from "../pages/PrintReveal";
+import PrintReveal, {
+  PASSWORD_PrintReveal,
+  TASK_ID_PrintReveal,
+} from "../pages/PrintReveal";
 import PromptDefender, {
   PASSWORD_PromptDefender,
+  TASK_ID_PromptDefender,
 } from "../pages/PromptDefender";
 import RecipeCalculator, {
   PASSWORD_RecipeCalculator,
@@ -111,6 +130,7 @@ import RightClickReveal, {
 import RoboCheck, { PASSWORD_RoboCheck } from "../pages/RoboCheck";
 import ScrollDiagonal, {
   PASSWORD_ScrollDiagonal,
+  TASK_ID_ScrollDiagonal,
 } from "../pages/ScrollDiagonal";
 import ScrollHorizontal, {
   PASSWORD_ScrollHorizontal,
@@ -124,6 +144,7 @@ import ShopAdmin, { PASSWORD_ShopAdmin } from "../pages/ShopAdmin";
 import ShopAdminEdit from "../pages/ShopAdminEdit";
 import ShoppingChallenge, {
   PASSWORD_ShoppingChallenge,
+  TASK_ID_ShoppingChallenge,
 } from "../pages/ShoppingChallenge";
 import SliderSymphony, {
   PASSWORD_SliderSymphony,
@@ -132,7 +153,7 @@ import SliderSymphony, {
 import StockMarketScroll, {
   PASSWORD_StockMarketScroll,
 } from "../pages/StockMarketScroll";
-import TabSync, { PASSWORD_TabSync } from "../pages/TabSync";
+import TabSync, { PASSWORD_TabSync, TASK_ID_TabSync } from "../pages/TabSync";
 import TabSyncReceiver from "../pages/TabSyncReceiver";
 import TabSyncSender from "../pages/TabSyncSender";
 import TextMirror, {
@@ -454,7 +475,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ChartTranscribe,
   },
   {
-    path: "combination-lock",
+    path: TASK_ID_CombinationLock,
     title: "Combination Lock",
     description: "Solve Grampa's riddles to unlock the combination",
     icon: "🔒",
@@ -463,7 +484,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_CombinationLock,
   },
   {
-    path: "pixel-copy",
+    path: TASK_ID_PixelCopy,
     title: "Pixel Copy",
     description: "Recreate the pattern by toggling pixels in the grid",
     icon: "🎨",
@@ -472,7 +493,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_PixelCopy,
   },
   {
-    path: "illegal-material",
+    path: TASK_ID_IllegalMaterial,
     title: "Restricted Content",
     description:
       "Access this content at your own risk. Your actions are being monitored.",
@@ -482,7 +503,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_IllegalMaterial,
   },
   {
-    path: "prompt-defender",
+    path: TASK_ID_PromptDefender,
     title: "Prompt Defender",
     description: "Can you resist deception and find the real password?",
     icon: "🛡️",
@@ -491,7 +512,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_PromptDefender,
   },
   {
-    path: "shopping-challenge",
+    path: TASK_ID_ShoppingChallenge,
     title: "Shopping Challenge",
     description: "Add items to your cart and calculate the total price to win!",
     icon: "🛍️",
@@ -510,7 +531,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_MazeNavigator,
   },
   {
-    path: "context-breaker",
+    path: TASK_ID_ContextBreaker,
     title: "Context Breaker",
     description:
       "Can you scroll all the way to the bottom to find the secret password?",
@@ -520,7 +541,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ContextBreaker,
   },
   {
-    path: "scroll-diagonal",
+    path: TASK_ID_ScrollDiagonal,
     title: "Diagonal Scroll",
     description:
       "Navigate to the bottom-right corner through diagonal scrolling!",
@@ -530,7 +551,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ScrollDiagonal,
   },
   {
-    path: "block-stack",
+    path: TASK_ID_BlockStack,
     title: "Block Stack",
     description: "Stack blocks above the red line using physics to win!",
     icon: "🏗️",
@@ -539,7 +560,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_BlockStack,
   },
   {
-    path: "iframe-nest",
+    path: TASK_ID_IframeNest,
     title: "Nested Frames",
     description: "Navigate through nested iframes to find the hidden button",
     icon: "🖼️",
@@ -558,7 +579,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_IframeContent,
   },
   {
-    path: "tab-sync",
+    path: TASK_ID_TabSync,
     title: "Tab Sync",
     description:
       "Synchronize colors between browser tabs to reveal the password",
@@ -586,7 +607,7 @@ export const routes: RouteConfig[] = [
     hidden: true,
   },
   {
-    path: "otp-entry",
+    path: TASK_ID_OTPEntry,
     title: "OTP Entry",
     description: "Enter a 6-digit one-time password with auto-focusing inputs",
     icon: "🔢",
@@ -595,7 +616,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_OTPEntry,
   },
   {
-    path: "print-reveal",
+    path: TASK_ID_PrintReveal,
     title: "Print to Reveal",
     description: "Print this page to PDF to reveal the hidden password",
     icon: "🖨️",

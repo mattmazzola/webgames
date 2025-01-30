@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { PASSWORD_TabSync } from "./TabSync";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
+import { PASSWORD_TabSync, TASK_ID_TabSync } from "./TabSync";
 
 const CORRECT_SEQUENCE = ["#FF0000", "#0000FF", "#FFFF00", "#00FF00"]; // Red, Blue, Yellow, Green
 const PASSWORD = PASSWORD_TabSync;
 
 const TabSyncReceiver = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_TabSync);
   const [receivedColors, setReceivedColors] = useState<string[]>([]);
   const [showPassword, setShowPassword] = useState(false);
   const channel = useMemo(() => new BroadcastChannel("color-sync"), []);
@@ -21,6 +23,7 @@ const TabSyncReceiver = () => {
         // Check if the sequence matches
         if (newColors.join(",") === CORRECT_SEQUENCE.join(",")) {
           setShowPassword(true);
+          recordSuccess();
         }
         return newColors;
       });
@@ -28,7 +31,7 @@ const TabSyncReceiver = () => {
 
     channel.addEventListener("message", handleMessage);
     return () => channel.removeEventListener("message", handleMessage);
-  }, [channel]);
+  }, [channel, recordSuccess]);
 
   return (
     <div

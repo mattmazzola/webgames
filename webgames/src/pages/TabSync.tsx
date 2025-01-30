@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export const PASSWORD_TabSync = "ChromaticSync";
+export const TASK_ID_TabSync = "tab-sync";
 
 const TabSync: React.FC = () => {
   return (

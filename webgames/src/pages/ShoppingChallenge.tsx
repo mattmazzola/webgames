@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 import { Product, products } from "./shopping/products";
 
 interface ShoppingListItem {
@@ -24,8 +25,10 @@ interface CartItem extends Product {
 }
 
 export const PASSWORD_ShoppingChallenge = "SHOPPING_MASTER_2024";
+export const TASK_ID_ShoppingChallenge = "shopping-challenge";
 
 const ShoppingChallenge: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_ShoppingChallenge);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -93,6 +96,7 @@ const ShoppingChallenge: React.FC = () => {
     if (Math.abs(guessedPrice - expectedTotal) < 0.01) {
       setPassword(PASSWORD_ShoppingChallenge);
       setMessage("Correct! You've completed the challenge!");
+      recordSuccess();
     } else {
       setMessage("That's not the correct total. Try again!");
     }

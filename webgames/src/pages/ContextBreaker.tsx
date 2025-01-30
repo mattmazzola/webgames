@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_ContextBreaker = "CONTEXT_MASTER_2024";
+export const TASK_ID_ContextBreaker = "context-breaker";
 
 export default function ContextBreaker() {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_ContextBreaker);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [hasReachedBottom, setHasReachedBottom] = useState(false);
 
@@ -31,6 +34,7 @@ export default function ContextBreaker() {
 
     if (isAtBottom) {
       setHasReachedBottom(true);
+      recordSuccess();
     }
   };
 

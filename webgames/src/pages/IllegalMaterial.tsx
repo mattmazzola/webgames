@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
+export const TASK_ID_IllegalMaterial = "illegal-material";
 export const PASSWORD_IllegalMaterial = "NOTHING_TO_HIDE";
 
 const IllegalMaterial: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_IllegalMaterial);
   const [hasAcknowledged, setHasAcknowledged] = useState(false);
 
   const handleContinue = () => {
     setHasAcknowledged(true);
+    recordSuccess();
   };
 
   if (hasAcknowledged) {

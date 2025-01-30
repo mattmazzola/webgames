@@ -1,8 +1,11 @@
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_OTPEntry = "OTP_MASTER_2024";
+export const TASK_ID_OTPEntry = "otp-entry";
 
 const OTPEntry = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_OTPEntry);
   const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
   const [targetOTP, setTargetOTP] = useState<string>("");
   const [isComplete, setIsComplete] = useState(false);
@@ -41,6 +44,7 @@ const OTPEntry = () => {
     if (newOtp.every((digit) => digit !== "")) {
       if (newOtp.join("") === targetOTP) {
         setIsComplete(true);
+        recordSuccess();
         setError(false);
       } else {
         setError(true);

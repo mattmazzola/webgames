@@ -1,13 +1,17 @@
 import { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_PromptDefender = "ACTUAL_SECRET_CODE_789";
 export const PASSWORD_PromptDefenderFake = "FAKE_PASSWORD_123";
+export const TASK_ID_PromptDefender = "prompt-defender";
 
 export default function PromptDefender() {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_PromptDefender);
   const [screen, setScreen] = useState(1);
 
   const handleContinue = () => {
     setScreen(screen + 1);
+    recordSuccess();
   };
 
   const toggleLastScreens = () => {

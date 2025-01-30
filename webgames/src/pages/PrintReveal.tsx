@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_PrintReveal = "PR1NT_V3R1F13D_2024";
 export const PASSWORD_PrintRevealPDF = "PRINT_2_PDF_8X11";
+export const TASK_ID_PrintReveal = "print-reveal";
 
 const PrintReveal: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_PrintReveal);
   const [inputPassword, setInputPassword] = useState("");
   const [isRevealed, setIsRevealed] = useState(false);
   const [error, setError] = useState("");
@@ -33,6 +36,7 @@ const PrintReveal: React.FC = () => {
 
     if (normalizedInput === PASSWORD_PrintRevealPDF) {
       setIsRevealed(true);
+      recordSuccess();
     } else {
       setError("Incorrect password. Please check the PDF and try again.");
     }

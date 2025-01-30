@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 export const PASSWORD_IframeNest = "NestedVoyager";
+export const TASK_ID_IframeNest = "iframe-nest";
 
 const IframeNest: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_IframeNest);
   const [isComplete, setIsComplete] = useState(false);
   const iframeStyle = {
     width: "90%",
@@ -17,6 +19,7 @@ const IframeNest: React.FC = () => {
     const handleMessage = (event: MessageEvent) => {
       if (event.data?.type === "CHALLENGE_COMPLETE") {
         setIsComplete(true);
+        recordSuccess();
       }
     };
 

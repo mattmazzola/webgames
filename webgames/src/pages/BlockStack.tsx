@@ -11,10 +11,12 @@ import {
   World,
 } from "matter-js";
 import React, { useEffect, useRef, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_BlockStack = "EquilibriumAscended";
-
+export const TASK_ID_BlockStack = "block-stack";
 const BlockStack: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_BlockStack);
   const scene = useRef<HTMLDivElement>(null);
   const engine = useRef(Engine.create());
   const [isComplete, setIsComplete] = useState(false);
@@ -40,6 +42,7 @@ const BlockStack: React.FC = () => {
 
         if (currentTime >= 2) {
           setIsComplete(true);
+          recordSuccess();
           if (intervalId) {
             clearInterval(intervalId);
           }
@@ -55,7 +58,7 @@ const BlockStack: React.FC = () => {
         clearInterval(intervalId);
       }
     };
-  }, [isAboveLine, isComplete]);
+  }, [isAboveLine, isComplete, recordSuccess]);
 
   useEffect(() => {
     if (!scene.current) return;

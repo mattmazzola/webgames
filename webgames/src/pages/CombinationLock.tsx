@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
+export const TASK_ID_CombinationLock = "combination-lock";
 export const PASSWORD_CombinationLock = "COMBO_MASTER_2024";
 
 const NOTE_TEXT = `Dear future treasure hunter,
@@ -25,6 +27,7 @@ Grampa`;
 const CombinationLock: React.FC = () => {
   const [combination, setCombination] = useState(["00", "00", "00"]);
   const [isUnlocked, setIsUnlocked] = useState(false);
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_CombinationLock);
 
   // The correct combination based on the riddles:
   // 1. Alpaca (4) + Spider (8) legs = 12
@@ -50,9 +53,14 @@ const CombinationLock: React.FC = () => {
     setCombination(newCombination);
 
     // Check if the new combination is correct
-    setIsUnlocked(
-      newCombination.every((num, i) => num === correctCombination[i])
+
+    const isCorrect = newCombination.every(
+      (num, i) => num === correctCombination[i]
     );
+    if (isCorrect) {
+      recordSuccess();
+    }
+    setIsUnlocked(isCorrect);
   };
 
   const generateOptions = () => {

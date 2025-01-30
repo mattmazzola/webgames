@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
+export const TASK_ID_PixelCopy = "pixel-copy";
 export const PASSWORD_PixelCopy = "PixelPerfect2024";
 
 interface GridProps {
@@ -26,6 +28,7 @@ const Grid: React.FC<GridProps> = ({ grid, onToggle }) => {
 };
 
 const PixelCopy: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_PixelCopy);
   const [targetGrid, setTargetGrid] = useState<boolean[][]>([]);
   const [userGrid, setUserGrid] = useState<boolean[][]>([]);
   const [isComplete, setIsComplete] = useState(false);
@@ -74,6 +77,9 @@ const PixelCopy: React.FC = () => {
       row.every((cell, colIndex) => cell === targetGrid[rowIndex][colIndex])
     );
     setIsComplete(matches);
+    if (matches) {
+      recordSuccess();
+    }
   };
 
   return (
