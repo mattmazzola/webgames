@@ -1,3 +1,6 @@
+import { recordTaskCompletion, recordTaskView } from "../utils/analytics";
+
+export const TASK_ID_Patience = "patience";
 export const PASSWORD_Patience = "waitForIt2023";
 
 const REQUIRED_WAIT_TIME = 10000; // 10 seconds in milliseconds
@@ -28,6 +31,8 @@ function getElapsedTime(): number {
 }
 
 const PatienceInitial = () => {
+  recordTaskView(TASK_ID_Patience, Date.now());
+
   setStartTime(Date.now());
 
   return (
@@ -68,6 +73,8 @@ const PatienceSuccess = () => {
     clearStartTime();
     window.location.reload();
   };
+
+  recordTaskCompletion(TASK_ID_Patience, Date.now(), getStartTime());
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-500 to-teal-500">

@@ -52,7 +52,10 @@ import MapPanner, { PASSWORD_MapPanner } from "../pages/MapPanner";
 import MazeNavigator, { PASSWORD_MazeNavigator } from "../pages/MazeNavigator";
 import MenuNavigator, { PASSWORD_MenuNavigator } from "../pages/MenuNavigator";
 import OTPEntry, { PASSWORD_OTPEntry } from "../pages/OTPEntry";
-import Patience, { PASSWORD_Patience } from "../pages/Patience";
+import Patience, {
+  PASSWORD_Patience,
+  TASK_ID_Patience,
+} from "../pages/Patience";
 import PixelCopy, { PASSWORD_PixelCopy } from "../pages/PixelCopy";
 import PopupChaos, { PASSWORD_PopupChaos } from "../pages/PopupChaos";
 import PrintReveal, { PASSWORD_PrintReveal } from "../pages/PrintReveal";
@@ -147,7 +150,7 @@ export const routes: RouteConfig[] = [
     difficulty: "medium",
   },
   {
-    path: "patience",
+    path: TASK_ID_Patience,
     title: "Patience test",
     description: "Wait the perfect amount of time to reveal the password",
     icon: "⌛",
