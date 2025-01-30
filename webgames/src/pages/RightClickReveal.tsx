@@ -1,13 +1,17 @@
 import { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_RightClickReveal = "RIGHT_CLICK_MASTER";
+export const TASK_ID_RightClickReveal = "right-click";
 
 const RightClickReveal = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_RightClickReveal);
   const [password, setPassword] = useState("");
 
   const handleContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
     setPassword(PASSWORD_RightClickReveal);
+    recordSuccess();
   };
 
   return (

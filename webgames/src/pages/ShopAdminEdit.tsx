@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { PASSWORD_ShopAdmin } from "./ShopAdmin";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
+import { PASSWORD_ShopAdmin, TASK_ID_ShopAdmin } from "./ShopAdmin";
 import { Product, products as initialProducts } from "./shopping/products";
 
 interface EditableProduct {
@@ -11,6 +12,7 @@ interface EditableProduct {
 }
 
 export default function ShopAdminEdit() {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_ShopAdmin);
   const { productId } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState<Product | null>(null);
@@ -69,6 +71,7 @@ export default function ShopAdminEdit() {
       setMessage(
         "Congratulations! You've successfully updated the watermelon price to the correct value!"
       );
+      recordSuccess();
     } else {
       navigate("/shop-admin");
     }

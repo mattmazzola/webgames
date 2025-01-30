@@ -22,9 +22,11 @@ import ButtonMegastar, {
 } from "../pages/ButtonMegastar";
 import CalendarComprehension, {
   PASSWORD_CalendarComprehension,
+  TASK_ID_CalendarComprehension,
 } from "../pages/CalendarComprehension";
 import CalendarComprehension2, {
   PASSWORD_CalendarComprehension2,
+  TASK_ID_CalendarComprehension2,
 } from "../pages/CalendarComprehension2";
 import CanvasCatch, {
   PASSWORD_CanvasCatch,
@@ -42,7 +44,10 @@ import ClickCubed, {
   PASSWORD_ClickCubed,
   TASK_ID_ClickCubed,
 } from "../pages/ClickCubed";
-import ClickPixel, { PASSWORD_ClickPixel } from "../pages/ClickPixel";
+import ClickPixel, {
+  PASSWORD_ClickPixel,
+  TASK_ID_ClickPixel,
+} from "../pages/ClickPixel";
 import ColorHarmony, {
   PASSWORD_ColorHarmony,
   TASK_ID_ColorHarmony,
@@ -88,8 +93,12 @@ import KeyCombo, {
 } from "../pages/KeyCombo";
 import LadyBirdPlanner, {
   PASSWORD_LadyBirdPlanner,
+  TASK_ID_LadyBirdPlanner,
 } from "../pages/LadyBirdPlanner";
-import MapPanner, { PASSWORD_MapPanner } from "../pages/MapPanner";
+import MapPanner, {
+  PASSWORD_MapPanner,
+  TASK_ID_MapPanner,
+} from "../pages/MapPanner";
 import MazeNavigator, { PASSWORD_MazeNavigator } from "../pages/MazeNavigator";
 import MenuNavigator, {
   PASSWORD_MenuNavigator,
@@ -121,13 +130,18 @@ import PromptDefender, {
 } from "../pages/PromptDefender";
 import RecipeCalculator, {
   PASSWORD_RecipeCalculator,
+  TASK_ID_RecipeCalculator,
 } from "../pages/RecipeCalculator";
 import RecipeDetail from "../pages/RecipeDetail";
 import RecipeList from "../pages/RecipeList";
 import RightClickReveal, {
   PASSWORD_RightClickReveal,
+  TASK_ID_RightClickReveal,
 } from "../pages/RightClickReveal";
-import RoboCheck, { PASSWORD_RoboCheck } from "../pages/RoboCheck";
+import RoboCheck, {
+  PASSWORD_RoboCheck,
+  TASK_ID_RoboCheck,
+} from "../pages/RoboCheck";
 import ScrollDiagonal, {
   PASSWORD_ScrollDiagonal,
   TASK_ID_ScrollDiagonal,
@@ -140,7 +154,10 @@ import ScrollVertical, {
   PASSWORD_ScrollVertical,
   TASK_ID_ScrollVertical,
 } from "../pages/ScrollVertical";
-import ShopAdmin, { PASSWORD_ShopAdmin } from "../pages/ShopAdmin";
+import ShopAdmin, {
+  PASSWORD_ShopAdmin,
+  TASK_ID_ShopAdmin,
+} from "../pages/ShopAdmin";
 import ShopAdminEdit from "../pages/ShopAdminEdit";
 import ShoppingChallenge, {
   PASSWORD_ShoppingChallenge,
@@ -152,6 +169,7 @@ import SliderSymphony, {
 } from "../pages/SliderSymphony";
 import StockMarketScroll, {
   PASSWORD_StockMarketScroll,
+  TASK_ID_StockMarketScroll,
 } from "../pages/StockMarketScroll";
 import TabSync, { PASSWORD_TabSync, TASK_ID_TabSync } from "../pages/TabSync";
 import TabSyncReceiver from "../pages/TabSyncReceiver";
@@ -625,7 +643,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_PrintReveal,
   },
   {
-    path: "robo-check",
+    path: TASK_ID_RoboCheck,
     title: "Human Verification",
     description: "Complete a CAPTCHA challenge to prove you're human",
     icon: "🤖",
@@ -634,7 +652,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_RoboCheck,
   },
   {
-    path: "right-click",
+    path: TASK_ID_RightClickReveal,
     title: "Right Click Reveal",
     description: "Use your context menu skills to reveal the hidden password",
     icon: "🖱️",
@@ -643,7 +661,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_RightClickReveal,
   },
   {
-    path: "calendar-comprehension",
+    path: TASK_ID_CalendarComprehension,
     title: "Calendar Comprehension",
     description: "Study a calendar and answer questions about the events",
     icon: "📅",
@@ -652,7 +670,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_CalendarComprehension,
   },
   {
-    path: "map-panner",
+    path: TASK_ID_MapPanner,
     title: "Map Panner",
     description: "Pan around a mysterious map to find the hidden treasure",
     icon: "🗺️",
@@ -661,7 +679,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_MapPanner,
   },
   {
-    path: "ladybird",
+    path: TASK_ID_LadyBirdPlanner,
     title: "LadyBird Planner",
     description:
       "Plan the ladybird's path to reach the flower using directional emojis",
@@ -671,7 +689,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_LadyBirdPlanner,
   },
   {
-    path: "shop-admin",
+    path: TASK_ID_ShopAdmin,
     title: "Shop Admin",
     description: "Update product prices in the admin panel",
     icon: "🏪",
@@ -689,7 +707,7 @@ export const routes: RouteConfig[] = [
     hidden: true,
   },
   {
-    path: "click-pixel",
+    path: TASK_ID_ClickPixel,
     title: "Pixel Perfect",
     description: "Can you click on a single pixel target?",
     icon: "🎯",
@@ -716,7 +734,7 @@ export const routes: RouteConfig[] = [
     hidden: true,
   },
   {
-    path: "recipe-calculator",
+    path: TASK_ID_RecipeCalculator,
     title: "Recipe Calculator",
     description:
       "Help calculate the right amount of ingredients for a dinner party",
@@ -735,7 +753,7 @@ export const routes: RouteConfig[] = [
     hidden: true,
   },
   {
-    path: "calendar2",
+    path: TASK_ID_CalendarComprehension2,
     title: "Advanced Calendar Challenge",
     description:
       "Test your calendar comprehension skills with complex time calculations",
@@ -745,7 +763,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_CalendarComprehension2,
   },
   {
-    path: "stock-market",
+    path: TASK_ID_StockMarketScroll,
     title: "Stock Market Insight",
     description: "Discover the best tech stock to buy in 2025",
     icon: "📈",

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_LadyBirdPlanner = "LADYBIRD_NAVIGATOR";
+export const TASK_ID_LadyBirdPlanner = "ladybird";
 
 interface Position {
   x: number;
@@ -17,6 +19,7 @@ const MOVE_LEFT = "⬅️";
 const MOVE_RIGHT = "➡️";
 
 const LadyBirdPlanner: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_LadyBirdPlanner);
   const gridSize = 12;
   const [inputSequence, setInputSequence] = useState<string>("");
   const [isComplete, setIsComplete] = useState(false);
@@ -181,6 +184,7 @@ const LadyBirdPlanner: React.FC = () => {
     if (lastPos.x === flowerPosition.x && lastPos.y === flowerPosition.y) {
       setMoveStatus("valid");
       setIsComplete(true);
+      recordSuccess();
     } else {
       setMoveStatus("invalid");
     }

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 import { recipes } from "./recipes/recipes";
 
 export const PASSWORD_RecipeCalculator = "RECIPE_CALC_2024";
+export const TASK_ID_RecipeCalculator = "recipe-calculator";
 
 const RecipeCalculator: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_RecipeCalculator);
   const [answer, setAnswer] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -33,6 +36,7 @@ const RecipeCalculator: React.FC = () => {
       setMessage(
         "Congratulations! You've correctly calculated the amount of pancetta needed!"
       );
+      recordSuccess();
     } else {
       setMessage("That's not quite right. Try again!");
     }

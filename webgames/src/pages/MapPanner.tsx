@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_MapPanner = "CARTOGRAPHER2024";
+export const TASK_ID_MapPanner = "map-panner";
 
 interface Position {
   x: number;
@@ -8,6 +10,7 @@ interface Position {
 }
 
 const MapPanner: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_MapPanner);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
@@ -51,6 +54,7 @@ const MapPanner: React.FC = () => {
 
     if (distance < treasureRadius) {
       setIsComplete(true);
+      recordSuccess();
     }
   };
 

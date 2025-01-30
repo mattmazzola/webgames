@@ -1,16 +1,23 @@
 import React, { useCallback, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_RoboCheck = "ReCAPTCHA_MASTER_2024";
+export const TASK_ID_RoboCheck = "robo-check";
 
 const RoboCheck: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_RoboCheck);
   const [isComplete, setIsComplete] = useState(false);
 
-  const handleCaptchaChange = useCallback((token: string | null) => {
-    if (token) {
-      setIsComplete(true);
-    }
-  }, []);
+  const handleCaptchaChange = useCallback(
+    (token: string | null) => {
+      if (token) {
+        setIsComplete(true);
+        recordSuccess();
+      }
+    },
+    [recordSuccess]
+  );
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">

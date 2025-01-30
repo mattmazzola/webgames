@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import BannerAd from "../components/BannerAd";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_StockMarketScroll = "GG_GOOG_GAIN";
-
+export const TASK_ID_StockMarketScroll = "stock-market";
 const StockMarketScroll: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_StockMarketScroll);
   const [answer, setAnswer] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
   const [spacerHeight, setSpacerHeight] = useState(0);
@@ -13,6 +15,7 @@ const StockMarketScroll: React.FC = () => {
   const checkAnswer = () => {
     if (answer.toLowerCase() === "GOOG".toLowerCase()) {
       setIsCorrect(true);
+      recordSuccess();
     }
   };
 

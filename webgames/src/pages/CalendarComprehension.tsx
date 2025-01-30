@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import WeeklyCalendar, { calendarEvents } from "../components/WeeklyCalendar";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_CalendarComprehension = "CALENDAR_MASTER_2024";
+export const TASK_ID_CalendarComprehension = "calendar-comprehension";
 
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
@@ -34,6 +36,7 @@ const questions = [
 ];
 
 const CalendarComprehension: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_CalendarComprehension);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [showResults, setShowResults] = useState(false);
   const [message, setMessage] = useState("");
@@ -50,6 +53,7 @@ const CalendarComprehension: React.FC = () => {
       setMessage(
         `Congratulations! All answers are correct! The password is: ${PASSWORD_CalendarComprehension}`
       );
+      recordSuccess();
     } else {
       setMessage("Some answers are incorrect. Please try again.");
     }

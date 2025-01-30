@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { recordTaskView } from "../utils/analytics";
 import { Product, products as initialProducts } from "./shopping/products";
-
 export const PASSWORD_ShopAdmin = "SHOP_MASTER_2024";
-
+export const TASK_ID_ShopAdmin = "shop-admin";
 export default function ShopAdmin() {
+  recordTaskView(TASK_ID_ShopAdmin, Date.now());
   const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [currentPage, setCurrentPage] = useState(1);
