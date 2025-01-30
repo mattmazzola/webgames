@@ -1,9 +1,17 @@
+import { useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Balancer from "react-wrap-balancer";
 import Stopwatch from "../components/Stopwatch";
 import { routes } from "../router/routes";
+import { recordTaskView } from "../utils/analytics";
 
 export default function Home() {
+  useEffect(() => {
+    (async () => {
+      await recordTaskView("home", Date.now());
+    })();
+  }, []);
+
   const visibleRoutes = routes.filter((route) => !route.hidden);
   const [searchParams] = useSearchParams();
   const showDownloads = searchParams.get("showDownloads") === "true";
