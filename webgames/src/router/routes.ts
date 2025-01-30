@@ -19,7 +19,10 @@ import ChartRead, { PASSWORD_ChartRead } from "../pages/ChartRead";
 import ChartTranscribe, {
   PASSWORD_ChartTranscribe,
 } from "../pages/ChartTranscribe";
-import ClickCubed, { PASSWORD_ClickCubed } from "../pages/ClickCubed";
+import ClickCubed, {
+  PASSWORD_ClickCubed,
+  TASK_ID_ClickCubed,
+} from "../pages/ClickCubed";
 import ClickPixel, { PASSWORD_ClickPixel } from "../pages/ClickPixel";
 import ColorHarmony, { PASSWORD_ColorHarmony } from "../pages/ColorHarmony";
 import CombinationLock, {
@@ -134,7 +137,7 @@ export const routes: RouteConfig[] = [
     difficulty: "easy",
   },
   {
-    path: "click-cubed",
+    path: TASK_ID_ClickCubed,
     title: "Click³",
     description: "Click three times before time runs out",
     icon: "⏱️",

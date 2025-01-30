@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
+export const TASK_ID_ClickCubed = "click-cubed";
 export const PASSWORD_ClickCubed = "TripleClickChampion";
 
 const ClickCubed = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_ClickCubed);
   const [gameStarted, setGameStarted] = useState(false);
   const [button1Clicked, setButton1Clicked] = useState(false);
   const [button2Clicked, setButton2Clicked] = useState(false);
@@ -52,6 +55,12 @@ const ClickCubed = () => {
     setGameWon(false);
     setGameLost(false);
   };
+
+  useEffect(() => {
+    if (gameWon) {
+      recordSuccess();
+    }
+  }, [gameWon, recordSuccess]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
