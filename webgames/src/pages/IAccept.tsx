@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
+export const TASK_ID_IAccept = "i-accept";
 export const PASSWORD_IAccept = "BicentennialMan";
 
 const IAccept = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_IAccept);
   const [isChecked, setIsChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -10,6 +13,7 @@ const IAccept = () => {
     e.preventDefault();
     if (isChecked) {
       setShowPassword(true);
+      recordSuccess();
     }
   };
 

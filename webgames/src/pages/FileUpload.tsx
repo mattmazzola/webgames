@@ -1,14 +1,18 @@
 import React, { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_FileUpload = "FILE_UPLOAD_2024";
+export const TASK_ID_FileUpload = "file-upload";
 
 const FileUpload = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_FileUpload);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setSelectedFile(file);
+      recordSuccess();
     }
   };
 

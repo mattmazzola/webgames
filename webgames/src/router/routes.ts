@@ -1,8 +1,14 @@
 import { FC } from "react";
 import AdClicked from "../pages/AdClicked";
 import BlockStack, { PASSWORD_BlockStack } from "../pages/BlockStack";
-import BrickBuster, { PASSWORD_BrickBuster } from "../pages/BrickBuster";
-import Bullseye, { PASSWORD_Bullseye } from "../pages/Bullseye";
+import BrickBuster, {
+  PASSWORD_BrickBuster,
+  TASK_ID_BrickBuster,
+} from "../pages/BrickBuster";
+import Bullseye, {
+  PASSWORD_Bullseye,
+  TASK_ID_Bullseye,
+} from "../pages/Bullseye";
 import ButtonHold, { PASSWORD_ButtonHold } from "../pages/ButtonHold";
 import ButtonMegastar, {
   PASSWORD_ButtonMegastar,
@@ -14,7 +20,10 @@ import CalendarComprehension, {
 import CalendarComprehension2, {
   PASSWORD_CalendarComprehension2,
 } from "../pages/CalendarComprehension2";
-import CanvasCatch, { PASSWORD_CanvasCatch } from "../pages/CanvasCatch";
+import CanvasCatch, {
+  PASSWORD_CanvasCatch,
+  TASK_ID_CanvasCatch,
+} from "../pages/CanvasCatch";
 import ChartRead, { PASSWORD_ChartRead } from "../pages/ChartRead";
 import ChartTranscribe, {
   PASSWORD_ChartTranscribe,
@@ -24,21 +33,30 @@ import ClickCubed, {
   TASK_ID_ClickCubed,
 } from "../pages/ClickCubed";
 import ClickPixel, { PASSWORD_ClickPixel } from "../pages/ClickPixel";
-import ColorHarmony, { PASSWORD_ColorHarmony } from "../pages/ColorHarmony";
+import ColorHarmony, {
+  PASSWORD_ColorHarmony,
+  TASK_ID_ColorHarmony,
+} from "../pages/ColorHarmony";
 import CombinationLock, {
   PASSWORD_CombinationLock,
 } from "../pages/CombinationLock";
 import ContextBreaker, {
   PASSWORD_ContextBreaker,
 } from "../pages/ContextBreaker";
-import EmojiRemember, { PASSWORD_EmojiRemember } from "../pages/EmojiRemember";
+import EmojiRemember, {
+  PASSWORD_EmojiRemember,
+  TASK_ID_EmojiRemember,
+} from "../pages/EmojiRemember";
 import FileCredentials, {
   PASSWORD_FileCredentials,
 } from "../pages/FileCredentials";
-import FileUpload, { PASSWORD_FileUpload } from "../pages/FileUpload";
+import FileUpload, {
+  PASSWORD_FileUpload,
+  TASK_ID_FileUpload,
+} from "../pages/FileUpload";
 import FrogCrossing, { PASSWORD_FrogCrossing } from "../pages/FrogCrossing";
-import Herding, { PASSWORD_Herding } from "../pages/Herding";
-import IAccept, { PASSWORD_IAccept } from "../pages/IAccept";
+import Herding, { PASSWORD_Herding, TASK_ID_Herding } from "../pages/Herding";
+import IAccept, { PASSWORD_IAccept, TASK_ID_IAccept } from "../pages/IAccept";
 import IframeContent, { PASSWORD_IframeContent } from "../pages/IframeContent";
 import IframeNest, { PASSWORD_IframeNest } from "../pages/IframeNest";
 import IllegalMaterial, {
@@ -100,11 +118,15 @@ import TodaysDate, {
   PASSWORD_TodaysDate,
   TASK_ID_TodaysDate,
 } from "../pages/TodaysDate";
-import TowersOfHanoi, { PASSWORD_TowersOfHanoi } from "../pages/TowersOfHanoi";
+import TowersOfHanoi, {
+  PASSWORD_TowersOfHanoi,
+  TASK_ID_TowersOfHanoi,
+} from "../pages/TowersOfHanoi";
 import WebGLText, { PASSWORD_WebGLText } from "../pages/WebGLText";
 import WebsAssemble, { PASSWORD_WebsAssemble } from "../pages/WebsAssemble";
 import WolfGoatCabbage, {
   PASSWORD_WolfGoatCabbage,
+  TASK_ID_WolfGoatCabbage,
 } from "../pages/WolfGoatCabbage";
 
 export interface RouteConfig {
@@ -171,7 +193,7 @@ export const routes: RouteConfig[] = [
     difficulty: "medium",
   },
   {
-    path: "emoji-remember",
+    path: TASK_ID_EmojiRemember,
     title: "Emoji remember",
     description: "Remember the sequence of emojis to unlock the secret",
     icon: "🧠",
@@ -181,7 +203,7 @@ export const routes: RouteConfig[] = [
     difficulty: "hard",
   },
   {
-    path: "bullseye",
+    path: TASK_ID_Bullseye,
     title: "Bullseye",
     description:
       "Click the moving target three times - but watch out, it gets faster!",
@@ -192,7 +214,7 @@ export const routes: RouteConfig[] = [
     difficulty: "hard",
   },
   {
-    path: "i-accept",
+    path: TASK_ID_IAccept,
     title: "I Accept",
     description: "Prove you're human by agreeing to our terms",
     icon: "✅",
@@ -202,7 +224,7 @@ export const routes: RouteConfig[] = [
     difficulty: "easy",
   },
   {
-    path: "wolf-goat-cabbage",
+    path: TASK_ID_WolfGoatCabbage,
     title: "River Crossing",
     description: "Transport a wolf, goat, and cabbage across the river safely",
     icon: "⛵",
@@ -212,7 +234,7 @@ export const routes: RouteConfig[] = [
     difficulty: "medium",
   },
   {
-    path: "towers-of-hanoi",
+    path: TASK_ID_TowersOfHanoi,
     title: "Towers of Hanoi",
     description: "Stack the disks on the rightmost peg following the rules",
     icon: "🗼",
@@ -222,7 +244,7 @@ export const routes: RouteConfig[] = [
     difficulty: "medium",
   },
   {
-    path: "color-harmony",
+    path: TASK_ID_ColorHarmony,
     title: "Color Harmony",
     description: "Mix the perfect color combination using RGB sliders",
     icon: "🎨",
@@ -232,7 +254,7 @@ export const routes: RouteConfig[] = [
     difficulty: "medium",
   },
   {
-    path: "herding",
+    path: TASK_ID_Herding,
     title: "Sheep Herding",
     description:
       "Guide the wandering sheep into their pen by hovering with your cursor",
@@ -243,7 +265,7 @@ export const routes: RouteConfig[] = [
     difficulty: "hard",
   },
   {
-    path: "file-upload",
+    path: TASK_ID_FileUpload,
     title: "File Upload",
     description: "Upload any file to complete this challenge",
     icon: "📎",
@@ -253,7 +275,7 @@ export const routes: RouteConfig[] = [
     difficulty: "easy",
   },
   {
-    path: "canvas-catch",
+    path: TASK_ID_CanvasCatch,
     title: "Canvas Catch",
     description:
       "Drag the circle into the target zone to complete the challenge",
@@ -264,7 +286,7 @@ export const routes: RouteConfig[] = [
     difficulty: "medium",
   },
   {
-    path: "brick-buster",
+    path: TASK_ID_BrickBuster,
     title: "Brick buster",
     description: "Break all the bricks to win!",
     icon: "🧱",

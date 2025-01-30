@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
+export const TASK_ID_Bullseye = "bullseye";
 export const PASSWORD_Bullseye = "BullseyeBonanza2024";
 
 const Bullseye: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_Bullseye);
   const [position, setPosition] = useState({ x: 0, y: 50 });
   const [direction, setDirection] = useState(1);
   const [hits, setHits] = useState(0);
@@ -42,7 +45,10 @@ const Bullseye: React.FC = () => {
   }, [direction, speed]);
 
   const handleClick = () => {
-    if (isComplete) return;
+    if (isComplete) {
+      recordSuccess();
+      return;
+    }
 
     setHits((prev) => {
       const newHits = prev + 1;

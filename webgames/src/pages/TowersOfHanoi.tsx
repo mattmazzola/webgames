@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 interface Disk {
   size: number;
@@ -7,6 +8,7 @@ interface Disk {
 
 type Peg = Disk[];
 
+export const TASK_ID_TowersOfHanoi = "towers-of-hanoi";
 export const PASSWORD_TowersOfHanoi = "RecursionMasterTower";
 
 const TowersOfHanoi = () => {
@@ -30,6 +32,7 @@ const TowersOfHanoi = () => {
     [], // Third peg (empty)
   ]);
 
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_TowersOfHanoi);
   const [showPassword, setShowPassword] = useState(false);
   const [selectedPeg, setSelectedPeg] = useState<number | null>(null);
   const [moves, setMoves] = useState(0);
@@ -62,6 +65,7 @@ const TowersOfHanoi = () => {
         // Check win condition
         if (pegIndex === 2 && pegs[2].length === numDisks - 1) {
           setShowPassword(true);
+          recordSuccess();
         }
       }
       setSelectedPeg(null);

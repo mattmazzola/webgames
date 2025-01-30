@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 interface Item {
   name: string;
@@ -6,9 +7,11 @@ interface Item {
   location: "left" | "right" | "boat";
 }
 
+export const TASK_ID_WolfGoatCabbage = "wolf-goat-cabbage";
 export const PASSWORD_WolfGoatCabbage = "CabbagesAreYummy";
 
 const WolfGoatCabbage = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_WolfGoatCabbage);
   const [boatPosition, setBoatPosition] = useState<"left" | "right">("left");
   const [items, setItems] = useState<Item[]>([
     { name: "wolf", emoji: "🐺", location: "left" },
@@ -24,6 +27,7 @@ const WolfGoatCabbage = () => {
     const allOnRight = items.every((item) => item.location === "right");
     if (allOnRight) {
       setShowPassword(true);
+      recordSuccess();
     }
   };
 

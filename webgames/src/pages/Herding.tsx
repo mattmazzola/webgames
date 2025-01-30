@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 interface Sheep {
   x: number;
   y: number;
@@ -19,9 +19,11 @@ interface Pen {
 const GAME_WIDTH = 800;
 const GAME_HEIGHT = 600;
 
+export const TASK_ID_Herding = "herding";
 export const PASSWORD_Herding = "HerdTooMuch";
 
 const Herding = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_Herding);
   const [sheep, setSheep] = useState<Sheep[]>([]);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [score, setScore] = useState(0);
@@ -155,6 +157,7 @@ const Herding = () => {
         // Check for victory
         if (sheepInPen === newSheep.length && newSheep.length > 0) {
           setHasWon(true);
+          recordSuccess();
         }
 
         return newSheep;
@@ -169,7 +172,7 @@ const Herding = () => {
         cancelAnimationFrame(frameRef.current);
       }
     };
-  }, [mousePos, pen.x, pen.y, pen.width, pen.height]);
+  }, [mousePos, pen.x, pen.y, pen.width, pen.height, recordSuccess]);
 
   return (
     <div className="w-full h-screen flex flex-col items-center bg-green-100">

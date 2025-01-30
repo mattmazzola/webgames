@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
+export const TASK_ID_ColorHarmony = "color-harmony";
 export const PASSWORD_ColorHarmony = "chromatic_conqueror";
 
 interface RGB {
@@ -18,6 +20,7 @@ function getColorDifference(color1: RGB, color2: RGB): number {
 }
 
 const ColorHarmony = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_ColorHarmony);
   const [userColor, setUserColor] = useState<RGB>({ r: 128, g: 128, b: 128 });
   const [targetColor, setTargetColor] = useState<RGB>({ r: 0, g: 0, b: 0 });
   const [gameActive, setGameActive] = useState(false);
@@ -44,6 +47,7 @@ const ColorHarmony = () => {
       if (difference < 30) {
         setHasWon(true);
         setGameActive(false);
+        recordSuccess();
       }
     }
   };

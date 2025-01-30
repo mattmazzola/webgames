@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 interface Circle {
   x: number;
@@ -14,8 +15,10 @@ interface TargetZone {
 }
 
 export const PASSWORD_CanvasCatch = "CircleMaster2024";
+export const TASK_ID_CanvasCatch = "canvas-catch";
 
 const CanvasCatch = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_CanvasCatch);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [completed, setCompleted] = useState(false);
@@ -114,6 +117,7 @@ const CanvasCatch = () => {
   const handleMouseUp = () => {
     if (isDragging && isInTargetZone()) {
       setCompleted(true);
+      recordSuccess();
     }
     setIsDragging(false);
   };

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 const EMOJI_SEQUENCE = [
   "🌟",
@@ -30,9 +31,11 @@ const DECOY_EMOJIS = [
   "🎟️",
 ];
 
+export const TASK_ID_EmojiRemember = "emoji-remember";
 export const PASSWORD_EmojiRemember = "MemoryIsKey";
 
 const EmojiRemember: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_EmojiRemember);
   const [currentStep, setCurrentStep] = useState(0);
   const [displayedEmojis, setDisplayedEmojis] = useState<string[]>([]);
   const [message, setMessage] = useState<{
@@ -72,6 +75,12 @@ const EmojiRemember: React.FC = () => {
       setCurrentStep(0);
     }
   };
+
+  useEffect(() => {
+    if (isComplete) {
+      recordSuccess();
+    }
+  }, [isComplete, recordSuccess]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-purple-100 to-pink-100 p-4">

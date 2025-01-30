@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 interface GameState {
   paddle: {
@@ -76,13 +77,14 @@ const createInitialState = (): GameState => {
 };
 
 export const PASSWORD_BrickBuster = "BrickBusterMaster2025";
-
+export const TASK_ID_BrickBuster = "brick-buster";
 const BrickBuster = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameStateRef = useRef<GameState>(createInitialState());
   const [gameStarted, setGameStarted] = useState(false);
   const [displayScore, setDisplayScore] = useState(0);
   const [password, setPassword] = useState("");
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_BrickBuster);
   const requestRef = useRef<number>();
   const lastTimeRef = useRef<number>(0);
 
@@ -182,6 +184,7 @@ const BrickBuster = () => {
 
         if (state.score === BRICK_ROWS * BRICK_COLS) {
           setPassword(PASSWORD_BrickBuster);
+          recordSuccess();
           setGameStarted(false);
           return;
         }
