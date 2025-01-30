@@ -88,7 +88,10 @@ import TabSync, { PASSWORD_TabSync } from "../pages/TabSync";
 import TabSyncReceiver from "../pages/TabSyncReceiver";
 import TabSyncSender from "../pages/TabSyncSender";
 import TextMirror, { PASSWORD_TextMirror } from "../pages/TextMirror";
-import TodaysDate, { PASSWORD_TodaysDate } from "../pages/TodaysDate";
+import TodaysDate, {
+  PASSWORD_TodaysDate,
+  TASK_ID_TodaysDate,
+} from "../pages/TodaysDate";
 import TowersOfHanoi, { PASSWORD_TowersOfHanoi } from "../pages/TowersOfHanoi";
 import WebGLText, { PASSWORD_WebGLText } from "../pages/WebGLText";
 import WebsAssemble, { PASSWORD_WebsAssemble } from "../pages/WebsAssemble";
@@ -110,7 +113,7 @@ export interface RouteConfig {
 
 export const routes: RouteConfig[] = [
   {
-    path: "date",
+    path: TASK_ID_TodaysDate,
     title: "Today's date",
     description: "Enter today's date",
     icon: "📅",

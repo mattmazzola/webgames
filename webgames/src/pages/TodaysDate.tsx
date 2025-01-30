@@ -1,16 +1,20 @@
 import React, { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_TodaysDate = "DATE_MASTER_2024";
+export const TASK_ID_TodaysDate = "date";
 
 const TodaysDate: React.FC = () => {
   const [date, setDate] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_TodaysDate);
 
-  const handleDateSubmit = (e: React.FormEvent) => {
+  const handleDateSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const today = new Date().toISOString().split("T")[0];
     if (date === today) {
       setShowPassword(true);
+      await recordSuccess();
     } else {
       setShowPassword(false);
     }
