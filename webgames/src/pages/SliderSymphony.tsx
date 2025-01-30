@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
+export const TASK_ID_SliderSymphony = "slider-symphony";
 export const PASSWORD_SliderSymphony = "SMOOTHSLIDER42";
 
 const SliderSymphony = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_SliderSymphony);
   const [sliderValues, setSliderValues] = useState([50, 50, 50, 50]);
   const [targetPositions] = useState(() => {
     // Generate random target positions between 10 and 250 to keep within bounds
@@ -24,7 +27,10 @@ const SliderSymphony = () => {
         Math.abs(getBoxPosition(value) - targetPositions[index]) < 10
     );
     setIsComplete(aligned);
-  }, [sliderValues, targetPositions]);
+    if (aligned) {
+      recordSuccess();
+    }
+  }, [sliderValues, targetPositions, recordSuccess]);
 
   const handleSliderChange = (index: number, value: number) => {
     setSliderValues((prev) => {

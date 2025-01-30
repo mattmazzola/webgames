@@ -87,6 +87,7 @@ import ShoppingChallenge, {
 } from "../pages/ShoppingChallenge";
 import SliderSymphony, {
   PASSWORD_SliderSymphony,
+  TASK_ID_SliderSymphony,
 } from "../pages/SliderSymphony";
 import StockMarketScroll, {
   PASSWORD_StockMarketScroll,
@@ -160,7 +161,7 @@ export const routes: RouteConfig[] = [
     difficulty: "medium",
   },
   {
-    path: "slider-symphony",
+    path: TASK_ID_SliderSymphony,
     title: "Slider symphony",
     description: "Align the boxes by mastering the vertical sliders!",
     icon: "🎚️",
