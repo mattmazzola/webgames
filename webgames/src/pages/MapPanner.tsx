@@ -52,7 +52,7 @@ const MapPanner: React.FC = () => {
         Math.pow(viewportCenter.y - treasureLocation.y, 2)
     );
 
-    if (distance < treasureRadius) {
+    if (distance < treasureRadius && !isComplete) {
       setIsComplete(true);
       recordSuccess();
     }
