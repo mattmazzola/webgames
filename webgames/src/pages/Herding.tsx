@@ -157,7 +157,6 @@ const Herding = () => {
         // Check for victory
         if (sheepInPen === newSheep.length && newSheep.length > 0) {
           setHasWon(true);
-          recordSuccess();
         }
 
         return newSheep;
@@ -172,7 +171,14 @@ const Herding = () => {
         cancelAnimationFrame(frameRef.current);
       }
     };
-  }, [mousePos, pen.x, pen.y, pen.width, pen.height, recordSuccess]);
+  }, [mousePos, pen.x, pen.y, pen.width, pen.height]);
+
+  // Add new effect to handle recording success once
+  useEffect(() => {
+    if (hasWon) {
+      recordSuccess();
+    }
+  }, [hasWon, recordSuccess]);
 
   return (
     <div className="w-full h-screen flex flex-col items-center bg-green-100">
