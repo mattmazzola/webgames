@@ -6,6 +6,7 @@ import Bullseye, { PASSWORD_Bullseye } from "../pages/Bullseye";
 import ButtonHold, { PASSWORD_ButtonHold } from "../pages/ButtonHold";
 import ButtonMegastar, {
   PASSWORD_ButtonMegastar,
+  TASK_ID_ButtonMegastar,
 } from "../pages/ButtonMegastar";
 import CalendarComprehension, {
   PASSWORD_CalendarComprehension,
@@ -123,7 +124,7 @@ export const routes: RouteConfig[] = [
     difficulty: "easy",
   },
   {
-    path: "buttons",
+    path: TASK_ID_ButtonMegastar,
     title: "Button megastar",
     description: "Click everything on the page to reveal the password",
     icon: "🔘",

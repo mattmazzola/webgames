@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
+export const TASK_ID_ButtonMegastar = "buttons";
 export const PASSWORD_ButtonMegastar = "ClickityClickBoom2024";
 
 const ButtonMegastar: React.FC = () => {
   const [checked, setChecked] = useState(false);
   const [showSecret, setShowSecret] = useState(false);
-
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_ButtonMegastar);
   return (
     <div className="min-h-screen p-8">
       <div className="mb-8 max-w-2xl mx-auto">
@@ -136,7 +138,12 @@ const ButtonMegastar: React.FC = () => {
         <div className="col-span-2 col-start-9 row-start-7">
           <div className="relative">
             <span
-              onClick={() => setShowSecret(!showSecret)}
+              onClick={() => {
+                if (!showSecret) {
+                  recordSuccess();
+                  setShowSecret(true);
+                }
+              }}
               className="text-gray-600"
               style={{ userSelect: "none" }}
             >
