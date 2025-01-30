@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const TASK_ID_PopupChaos = "popup-chaos";
@@ -103,9 +103,11 @@ const PopupChaos: React.FC = () => {
   const [popups, setPopups] = useState<Popup[]>(makePopups());
   const isComplete = popups.length === 0;
 
-  if (isComplete) {
-    recordSuccess();
-  }
+  useEffect(() => {
+    if (isComplete) {
+      recordSuccess();
+    }
+  }, [isComplete, recordSuccess]);
 
   const bringToFront = (id: number) => {
     setPopups((prev) => {
