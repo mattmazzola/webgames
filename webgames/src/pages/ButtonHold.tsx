@@ -1,6 +1,8 @@
 import confetti from "canvas-confetti";
 import { useEffect, useRef, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
+export const TASK_ID_ButtonHold = "button-hold";
 export const PASSWORD_ButtonHold = "HOLD_STEADY_2024";
 
 const ButtonHold = () => {
@@ -9,7 +11,7 @@ const ButtonHold = () => {
   const [isComplete, setIsComplete] = useState(false);
   const intervalRef = useRef<number>();
   const startTimeRef = useRef<number>(0);
-
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_ButtonHold);
   useEffect(() => {
     if (isComplete) {
       confetti({
@@ -17,8 +19,9 @@ const ButtonHold = () => {
         spread: 70,
         origin: { y: 0.6 },
       });
+      recordSuccess();
     }
-  }, [isComplete]);
+  }, [isComplete, recordSuccess]);
 
   const startHolding = () => {
     if (isComplete) return;

@@ -1,5 +1,6 @@
 import confetti from "canvas-confetti";
 import { useEffect, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 declare global {
   interface Navigator {
@@ -10,8 +11,10 @@ declare global {
 }
 
 export const PASSWORD_KeyCombo = "KEY_MASTER_2024";
+export const TASK_ID_KeyCombo = "key-combo";
 
 const KeyCombo = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_KeyCombo);
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
   const [isComplete, setIsComplete] = useState(false);
 
@@ -87,6 +90,9 @@ const KeyCombo = () => {
       );
 
       if (hasAllKeys) {
+        if (!isComplete) {
+          recordSuccess();
+        }
         setIsComplete(true);
         confetti({
           particleCount: 100,
@@ -110,7 +116,7 @@ const KeyCombo = () => {
       window.removeEventListener("blur", handleBlur);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [pressedKeys]);
+  }, [pressedKeys, recordSuccess, isComplete]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-purple-100 to-blue-100 p-4">

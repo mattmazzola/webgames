@@ -8,6 +8,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 interface DataPoint {
   time: string;
@@ -30,9 +31,11 @@ function generateData(): DataPoint[] {
   return points;
 }
 
+export const TASK_ID_ChartTranscribe = "chart-transcribe";
 export const PASSWORD_ChartTranscribe = "DataScribe2024";
 
 const ChartTranscribe: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_ChartTranscribe);
   const [data, setData] = useState<DataPoint[]>([]);
   useEffect(() => {
     setData(generateData());
@@ -69,6 +72,7 @@ const ChartTranscribe: React.FC = () => {
 
     if (isCorrect && parsedInput.length === data.length) {
       setIsComplete(true);
+      recordSuccess();
       setError("");
     } else {
       setError(

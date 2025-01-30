@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_ScrollHorizontal = "SIDEWAYSCROLL2024";
+export const TASK_ID_ScrollHorizontal = "scroll-horizontal";
 
 const ScrollHorizontal = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_ScrollHorizontal);
   const [isLastBoxVisible, setIsLastBoxVisible] = useState(false);
   const lastBoxRef = useRef<HTMLDivElement>(null);
 
@@ -10,6 +13,9 @@ const ScrollHorizontal = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsLastBoxVisible(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          recordSuccess();
+        }
       },
       {
         threshold: 0.1,
@@ -21,7 +27,7 @@ const ScrollHorizontal = () => {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [recordSuccess]);
 
   // Generate content boxes
   const boxes = Array(50)

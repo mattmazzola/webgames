@@ -9,7 +9,10 @@ import Bullseye, {
   PASSWORD_Bullseye,
   TASK_ID_Bullseye,
 } from "../pages/Bullseye";
-import ButtonHold, { PASSWORD_ButtonHold } from "../pages/ButtonHold";
+import ButtonHold, {
+  PASSWORD_ButtonHold,
+  TASK_ID_ButtonHold,
+} from "../pages/ButtonHold";
 import ButtonMegastar, {
   PASSWORD_ButtonMegastar,
   TASK_ID_ButtonMegastar,
@@ -24,9 +27,13 @@ import CanvasCatch, {
   PASSWORD_CanvasCatch,
   TASK_ID_CanvasCatch,
 } from "../pages/CanvasCatch";
-import ChartRead, { PASSWORD_ChartRead } from "../pages/ChartRead";
+import ChartRead, {
+  PASSWORD_ChartRead,
+  TASK_ID_ChartRead,
+} from "../pages/ChartRead";
 import ChartTranscribe, {
   PASSWORD_ChartTranscribe,
+  TASK_ID_ChartTranscribe,
 } from "../pages/ChartTranscribe";
 import ClickCubed, {
   PASSWORD_ClickCubed,
@@ -49,12 +56,16 @@ import EmojiRemember, {
 } from "../pages/EmojiRemember";
 import FileCredentials, {
   PASSWORD_FileCredentials,
+  TASK_ID_FileCredentials,
 } from "../pages/FileCredentials";
 import FileUpload, {
   PASSWORD_FileUpload,
   TASK_ID_FileUpload,
 } from "../pages/FileUpload";
-import FrogCrossing, { PASSWORD_FrogCrossing } from "../pages/FrogCrossing";
+import FrogCrossing, {
+  PASSWORD_FrogCrossing,
+  TASK_ID_FrogCrossing,
+} from "../pages/FrogCrossing";
 import Herding, { PASSWORD_Herding, TASK_ID_Herding } from "../pages/Herding";
 import IAccept, { PASSWORD_IAccept, TASK_ID_IAccept } from "../pages/IAccept";
 import IframeContent, { PASSWORD_IframeContent } from "../pages/IframeContent";
@@ -62,20 +73,29 @@ import IframeNest, { PASSWORD_IframeNest } from "../pages/IframeNest";
 import IllegalMaterial, {
   PASSWORD_IllegalMaterial,
 } from "../pages/IllegalMaterial";
-import KeyCombo, { PASSWORD_KeyCombo } from "../pages/KeyCombo";
+import KeyCombo, {
+  PASSWORD_KeyCombo,
+  TASK_ID_KeyCombo,
+} from "../pages/KeyCombo";
 import LadyBirdPlanner, {
   PASSWORD_LadyBirdPlanner,
 } from "../pages/LadyBirdPlanner";
 import MapPanner, { PASSWORD_MapPanner } from "../pages/MapPanner";
 import MazeNavigator, { PASSWORD_MazeNavigator } from "../pages/MazeNavigator";
-import MenuNavigator, { PASSWORD_MenuNavigator } from "../pages/MenuNavigator";
+import MenuNavigator, {
+  PASSWORD_MenuNavigator,
+  TASK_ID_MenuNavigator,
+} from "../pages/MenuNavigator";
 import OTPEntry, { PASSWORD_OTPEntry } from "../pages/OTPEntry";
 import Patience, {
   PASSWORD_Patience,
   TASK_ID_Patience,
 } from "../pages/Patience";
 import PixelCopy, { PASSWORD_PixelCopy } from "../pages/PixelCopy";
-import PopupChaos, { PASSWORD_PopupChaos } from "../pages/PopupChaos";
+import PopupChaos, {
+  PASSWORD_PopupChaos,
+  TASK_ID_PopupChaos,
+} from "../pages/PopupChaos";
 import PrintReveal, { PASSWORD_PrintReveal } from "../pages/PrintReveal";
 import PromptDefender, {
   PASSWORD_PromptDefender,
@@ -94,9 +114,11 @@ import ScrollDiagonal, {
 } from "../pages/ScrollDiagonal";
 import ScrollHorizontal, {
   PASSWORD_ScrollHorizontal,
+  TASK_ID_ScrollHorizontal,
 } from "../pages/ScrollHorizontal";
 import ScrollVertical, {
   PASSWORD_ScrollVertical,
+  TASK_ID_ScrollVertical,
 } from "../pages/ScrollVertical";
 import ShopAdmin, { PASSWORD_ShopAdmin } from "../pages/ShopAdmin";
 import ShopAdminEdit from "../pages/ShopAdminEdit";
@@ -113,7 +135,10 @@ import StockMarketScroll, {
 import TabSync, { PASSWORD_TabSync } from "../pages/TabSync";
 import TabSyncReceiver from "../pages/TabSyncReceiver";
 import TabSyncSender from "../pages/TabSyncSender";
-import TextMirror, { PASSWORD_TextMirror } from "../pages/TextMirror";
+import TextMirror, {
+  PASSWORD_TextMirror,
+  TASK_ID_TextMirror,
+} from "../pages/TextMirror";
 import TodaysDate, {
   PASSWORD_TodaysDate,
   TASK_ID_TodaysDate,
@@ -122,8 +147,14 @@ import TowersOfHanoi, {
   PASSWORD_TowersOfHanoi,
   TASK_ID_TowersOfHanoi,
 } from "../pages/TowersOfHanoi";
-import WebGLText, { PASSWORD_WebGLText } from "../pages/WebGLText";
-import WebsAssemble, { PASSWORD_WebsAssemble } from "../pages/WebsAssemble";
+import WebGLText, {
+  PASSWORD_WebGLText,
+  TASK_ID_WebGLText,
+} from "../pages/WebGLText";
+import WebsAssemble, {
+  PASSWORD_WebsAssemble,
+  TASK_ID_WebsAssemble,
+} from "../pages/WebsAssemble";
 import WolfGoatCabbage, {
   PASSWORD_WolfGoatCabbage,
   TASK_ID_WolfGoatCabbage,
@@ -296,7 +327,7 @@ export const routes: RouteConfig[] = [
     difficulty: "hard",
   },
   {
-    path: "text-mirror",
+    path: TASK_ID_TextMirror,
     title: "Text Mirror",
     description: "Perfectly copy the text",
     icon: "📝",
@@ -306,7 +337,7 @@ export const routes: RouteConfig[] = [
     difficulty: "easy",
   },
   {
-    path: "frog-crossing",
+    path: TASK_ID_FrogCrossing,
     title: "Frog Crossing",
     description: "Guide your frog safely across the busy road",
     icon: "🐸",
@@ -316,7 +347,7 @@ export const routes: RouteConfig[] = [
     difficulty: "hard",
   },
   {
-    path: "button-hold",
+    path: TASK_ID_ButtonHold,
     title: "Button Hold",
     description: "Hold the button for exactly 3 seconds",
     icon: "⏱️",
@@ -326,7 +357,7 @@ export const routes: RouteConfig[] = [
     difficulty: "easy",
   },
   {
-    path: "key-combo",
+    path: TASK_ID_KeyCombo,
     title: "Key Combo",
     description: "Press the correct key combination to unlock the secret",
     icon: "⌨️",
@@ -336,7 +367,7 @@ export const routes: RouteConfig[] = [
     difficulty: "easy",
   },
   {
-    path: "scroll-vertical",
+    path: TASK_ID_ScrollVertical,
     title: "Scroll vertical",
     description: "Scroll down to find the password",
     icon: "📜",
@@ -346,7 +377,7 @@ export const routes: RouteConfig[] = [
     difficulty: "easy",
   },
   {
-    path: "scroll-horizontal",
+    path: TASK_ID_ScrollHorizontal,
     title: "Scroll horizontal",
     description: "Scroll right to find the password",
     icon: "➡️",
@@ -356,7 +387,7 @@ export const routes: RouteConfig[] = [
     difficulty: "easy",
   },
   {
-    path: "webgl-text",
+    path: TASK_ID_WebGLText,
     title: "WebGL Text",
     description: "Recognise the WebGL shape",
     icon: "🎮",
@@ -366,7 +397,7 @@ export const routes: RouteConfig[] = [
     difficulty: "easy",
   },
   {
-    path: "file-credentials",
+    path: TASK_ID_FileCredentials,
     title: "File Credentials",
     description: "Download a credentials file and use it to log in",
     icon: "🔑",
@@ -376,7 +407,7 @@ export const routes: RouteConfig[] = [
     difficulty: "easy",
   },
   {
-    path: "webs-assemble",
+    path: TASK_ID_WebsAssemble,
     title: "Webs, Assemble!",
     description: "Find the secret code hidden in the WebAssembly module",
     icon: "🕸️",
@@ -386,7 +417,7 @@ export const routes: RouteConfig[] = [
     difficulty: "easy",
   },
   {
-    path: "menu-navigator",
+    path: TASK_ID_MenuNavigator,
     title: "Menu Navigator",
     description: "Navigate through a menu bar to find the secret option",
     icon: "🗺️",
@@ -395,7 +426,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_MenuNavigator,
   },
   {
-    path: "popup-chaos",
+    path: TASK_ID_PopupChaos,
     title: "Popup Chaos",
     description:
       "Close the annoying popup windows to reveal the secret password",
@@ -405,7 +436,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_PopupChaos,
   },
   {
-    path: "chart-read",
+    path: TASK_ID_ChartRead,
     title: "Chart Read",
     description: "Find the maximum price and time in the stock chart",
     icon: "📈",
@@ -414,7 +445,7 @@ export const routes: RouteConfig[] = [
     password: PASSWORD_ChartRead,
   },
   {
-    path: "chart-transcribe",
+    path: TASK_ID_ChartTranscribe,
     title: "Chart Transcribe",
     description: "Transcribe the bar chart data into CSV format",
     icon: "📊",

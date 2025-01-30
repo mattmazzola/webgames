@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_FrogCrossing = "HOPPY_CROSSING";
+export const TASK_ID_FrogCrossing = "frog-crossing";
 
 interface Position {
   x: number;
@@ -20,6 +22,7 @@ const CARS_PER_ROW = 3;
 const MOVE_INTERVAL = 400; // Slower interval for grid-based movement
 
 export default function FrogCrossing() {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_FrogCrossing);
   const [frog, setFrog] = useState<Position>({
     x: Math.floor(GRID_SIZE / 2),
     y: GRID_SIZE - 1,
@@ -78,6 +81,7 @@ export default function FrogCrossing() {
     // Check for win condition (reached top)
     if (frog.y === 0) {
       setSuccess(true);
+      recordSuccess(); // Record success when the frog reaches the top
     }
   }, [frog, cars]);
 

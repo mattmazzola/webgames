@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_WebGLText = "WEBGLSHAPES2024";
-
+export const TASK_ID_WebGLText = "webgl-text";
 // Vertex shader source
 const vertexShaderSource = `#version 300 es
 precision highp float;
@@ -26,6 +27,7 @@ void main() {
 }`;
 
 const WebGLText: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_WebGLText);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [userInput, setUserInput] = useState("");
@@ -192,8 +194,9 @@ const WebGLText: React.FC = () => {
   useEffect(() => {
     if (userInput.toUpperCase() === targetText) {
       setIsCorrect(true);
+      recordSuccess();
     }
-  }, [userInput]);
+  }, [userInput, recordSuccess]);
 
   return (
     <div className="w-full h-screen flex flex-col items-center bg-slate-100">

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_TextMirror = "TextualPrecision2024";
+export const TASK_ID_TextMirror = "text-mirror";
 
 const sampleText = `The quick brown fox jumps over the lazy dog. This pangram contains every letter of the English alphabet at least once. Pangrams are often used to display font samples and test keyboards. While "The quick brown fox" is the most famous pangram, there are many others such as "Pack my box with five dozen liquor jugs" and "How vexingly quick daft zebras jump."
 
 This particular text is designed to test attention to detail, punctuation, and spacing. Notice the periods, commas, and quotation marks. Every character matters in this challenge.`;
 
 const TextMirror: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_TextMirror);
   const [userInput, setUserInput] = useState("");
   const [isComplete, setIsComplete] = useState(false);
   const [password] = useState(PASSWORD_TextMirror);
@@ -15,6 +18,7 @@ const TextMirror: React.FC = () => {
     e.preventDefault();
     if (userInput.trim() === sampleText.trim()) {
       setIsComplete(true);
+      recordSuccess();
     }
   };
 

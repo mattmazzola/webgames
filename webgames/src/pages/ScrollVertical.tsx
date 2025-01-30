@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
+export const TASK_ID_ScrollVertical = "scroll-vertical";
 export const PASSWORD_ScrollVertical = "SCROLLMASTER2024";
 
 const ScrollVertical = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_ScrollVertical);
   const [isLastBoxVisible, setIsLastBoxVisible] = useState(false);
   const lastBoxRef = useRef<HTMLDivElement>(null);
 
@@ -10,6 +13,9 @@ const ScrollVertical = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsLastBoxVisible(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          recordSuccess();
+        }
       },
       {
         threshold: 0.8, // 100% of the element must be visible
@@ -21,7 +27,7 @@ const ScrollVertical = () => {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [recordSuccess]);
 
   // Generate content boxes
   const boxes = Array(50)

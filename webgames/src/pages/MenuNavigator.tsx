@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_MenuNavigator = "MenuMaster2024";
+export const TASK_ID_MenuNavigator = "menu-navigator";
 
 interface MenuItem {
   label: string;
@@ -16,6 +18,7 @@ const MenuNavigator: React.FC = () => {
     text: string;
     type: "success" | "error" | null;
   }>({ text: "", type: null });
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_MenuNavigator);
 
   const menuItems: MenuItem[] = [
     {
@@ -161,6 +164,7 @@ const MenuNavigator: React.FC = () => {
   };
 
   if (completed) {
+    recordSuccess();
     return (
       <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500">
         <div className="bg-white/90 backdrop-blur rounded-lg p-8 shadow-lg text-center">

@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_FileCredentials = "FileSecrets2024";
+export const TASK_ID_FileCredentials = "file-credentials";
 
 const FileCredentials: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_FileCredentials);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState<{
@@ -16,6 +19,7 @@ const FileCredentials: React.FC = () => {
 
     if (username === "WebGames" && password === "hunter2") {
       setIsComplete(true);
+      recordSuccess();
       setMessage({
         text: `Login successful! The completion password is: ${PASSWORD_FileCredentials}`,
         type: "success",

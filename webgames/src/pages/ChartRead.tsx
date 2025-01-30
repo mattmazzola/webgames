@@ -8,15 +8,17 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 interface DataPoint {
   time: string;
   price: number;
 }
 
+export const TASK_ID_ChartRead = "chart-read";
 export const PASSWORD_ChartRead = "CHART_MASTER_2024";
 
 const ChartRead: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_ChartRead);
   const [data, setData] = useState<DataPoint[]>([]);
   const [maxPrice, setMaxPrice] = useState("");
   const [maxTime, setMaxTime] = useState("");
@@ -81,6 +83,7 @@ const ChartRead: React.FC = () => {
       maxTime === actualMax.time
     ) {
       setIsComplete(true);
+      recordSuccess();
       setError("");
     } else {
       setError("Incorrect values. Try again!");

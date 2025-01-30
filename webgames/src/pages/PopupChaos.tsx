@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
+export const TASK_ID_PopupChaos = "popup-chaos";
 export const PASSWORD_PopupChaos = "PopupSlayer2024";
 
 interface Popup {
@@ -97,8 +99,13 @@ function makePopups(): Popup[] {
 }
 
 const PopupChaos: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_PopupChaos);
   const [popups, setPopups] = useState<Popup[]>(makePopups());
   const isComplete = popups.length === 0;
+
+  if (isComplete) {
+    recordSuccess();
+  }
 
   const bringToFront = (id: number) => {
     setPopups((prev) => {

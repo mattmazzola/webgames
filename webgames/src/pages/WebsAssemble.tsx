@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
+import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 import wasmUrl from "/code_gen.wasm?url";
 
 export const PASSWORD_WebsAssemble = "WebAssemblyMaster";
-
+export const TASK_ID_WebsAssemble = "webs-assemble";
 interface WasmExports {
   get_code: () => number;
   memory: WebAssembly.Memory;
 }
 
 const WebsAssemble: React.FC = () => {
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_WebsAssemble);
   const [wasmLoaded, setWasmLoaded] = useState(false);
   const [code, setCode] = useState("");
   const [userInput, setUserInput] = useState("");
@@ -55,6 +57,7 @@ const WebsAssemble: React.FC = () => {
         text: `Correct! The completion password is: ${PASSWORD_WebsAssemble}`,
         type: "success",
       });
+      recordSuccess();
     } else {
       setMessage({
         text: "Incorrect code. Try inspecting the WebAssembly module more carefully.",
