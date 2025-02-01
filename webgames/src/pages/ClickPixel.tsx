@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
-export const PASSWORD_ClickPixel = "PIXEL_MASTER_2024";
+export const PASSWORD_ClickPixel = "PIXEL_PERFECT_2024";
 export const TASK_ID_ClickPixel = "click-pixel";
 
 export default function ClickPixel() {
@@ -36,7 +36,7 @@ export default function ClickPixel() {
       clickY >= targetPosition.y && clickY <= targetPosition.y + 5;
 
     if (isWithinX && isWithinY) {
-      setPassword("PIXEL_PERFECT_2024");
+      setPassword(PASSWORD_ClickPixel);
       recordSuccess();
     }
   };
