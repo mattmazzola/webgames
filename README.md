@@ -22,3 +22,11 @@ cd webgames
 pnpm install
 pnpm run dev
 ```
+
+## Download tasks
+
+To download the tasks and solutions:
+
+1. Go to [webgames.convergence.ai?showDownloads=true](https://webgames.convergence.ai?showDownloads=true)
+2. Click the download buttons in the top-right corner (csv or jsonl available)
+3. Verify your agent solutions using `solution in messages[-1]` or equivalent, or use the Inspect AI eval scaffolding in the eval folder.
