@@ -11,6 +11,8 @@ They're designed to be:
 - easy to evaluate
   - each task provides a unique password on successful completion
 
+_Read the annoucement blog on the Convergence website: [https://convergence.ai/introducing-webgames/](https://convergence.ai/introducing-webgames/)_
+
 ## Try it now
 
 🎮 [webgames.convergence.ai](https://webgames.convergence.ai)
