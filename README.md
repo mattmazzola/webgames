@@ -1,5 +1,13 @@
 # WebGames
 
+## Get Navigation Games
+
+```sh
+node scripts/getGamesByTags.js \
+--file /workspaces/webgames/data/webgames-v0-challenges.jsonl \
+--or navigation
+```
+
 This is a collection of challenges for general-purpose web-browsing AI agents.
 
 They're designed to be:
