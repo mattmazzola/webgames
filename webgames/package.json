@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:build": "vite build --watch",
+    "dev": "vite --host 0.0.0.0",
+    "dev:build": "vite build --watch --host 0.0.0.0",
     "dev:serve": "wrangler pages dev dist --d1 DB",
     "dev:all": "concurrently \"pnpm run dev:build\" \"pnpm run dev:serve\"",
     "build": "tsc -b && vite build",
