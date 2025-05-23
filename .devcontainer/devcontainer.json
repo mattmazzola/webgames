@@ -16,8 +16,11 @@
 			"installBicep": true,
 		},
 		"ghcr.io/azure/azure-dev/azd:latest": {},
+        "ghcr.io/va-h/devcontainers-features/uv": {},
 	},
+	"onCreateCommand": "bash ./.devcontainer/onCreateCommand.sh",
 	"postCreateCommand": "bash ./.devcontainer/postCreateCommand.sh",
+	"postStartCommand": "bash ./.devcontainer/postStartCommand.sh",
 	"customizations": {
 		"vscode": {
 			"settings": {

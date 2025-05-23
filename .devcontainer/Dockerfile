@@ -9,3 +9,6 @@ RUN sudo apt-get update
 
 # Install AzCopy
 RUN sudo apt-get install azcopy
+
+# Install dependencies for cv2
+RUN sudo apt-get install -y libgl1-mesa-glx
