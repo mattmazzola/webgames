@@ -2,15 +2,13 @@ const fs = require('fs');
 const path = require('path');
 const { Command } = require('commander');
 
-console.log('Script started at', new Date().toISOString());
+console.log('Script started at', new Date().toLocaleString("en-US", { }));
 
 function loadGamesFromJsonl(filePath) {
   try {
-    console.log('Attempting to read file:', filePath);
+    console.debug('Attempting to read file:', filePath);
     const fileContent = fs.readFileSync(filePath, 'utf8');
-    console.log('File read successfully, size:', fileContent.length, 'bytes');
     const lines = fileContent.split('\n').filter(line => line.trim() !== '');
-    console.log('Number of non-empty lines:', lines.length);
     
     return lines.map(line => {
       try {
@@ -50,12 +48,10 @@ function getDefaultDataFilePath() {
 
 function getGamesByTags(jsonlPath, andTags = [], orTags = []) {
   const dataFilePath = jsonlPath || getDefaultDataFilePath();
-  console.log('Looking for data file at:', dataFilePath);
   const allGames = loadGamesFromJsonl(dataFilePath);
   return filterGamesByTags(allGames, andTags, orTags);
 }
 
-console.log('Starting script...');
 
 const program = new Command();
 
