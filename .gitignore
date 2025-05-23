@@ -11,3 +11,9 @@ node_modules/
 
 data/
 datasets/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
