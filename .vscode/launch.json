@@ -10,12 +10,18 @@
             "request": "launch",
             "justMyCode": false,
             "python": "${workspaceFolder}/evals/.venv/bin/python",
-            "program": "${workspaceFolder}/evals/run_inspect_ai.py",
+            "program": "${workspaceFolder}/evals/.venv/bin/inspect",
             "args": [
+                "eval",
+                "run_inspect_ai.py",
+                "--model",
+                "openai/gpt-4o",
             ],
+            "cwd": "${workspaceFolder}/evals",
+            "envFile": "${workspaceFolder}/evals/.env",
             "env": {
                 "LOG_LEVEL": "DEBUG",
-            }
+            },
         },
     ]
 }
