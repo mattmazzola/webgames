@@ -1,0 +1,5 @@
+Do not use material UI. We already have Tailwind UI installed.
+
+This project uses pnpm, not npm or bun or yarn.
+
+The python project in the evals folder uses the UV python tool.
