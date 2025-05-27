@@ -1,34 +1,111 @@
-import React, { useState } from "react";
-import { useTaskAnalytics } from "../utils/useTaskAnalytics";
+import React, { useState, useEffect } from "react"
+import { useTaskAnalytics } from "../utils/useTaskAnalytics"
 
-export const PASSWORD_LadyBirdPlannerCustom = "LADYBIRD_CUSTOM";
-export const TASK_ID_LadyBirdPlannerCustom = "ladybird-custom";
+export const PASSWORD_LadyBirdPlannerCustom = "LADYBIRD_CUSTOM"
+export const TASK_ID_LadyBirdPlannerCustom = "ladybird-custom"
 
 interface Position {
-  x: number;
-  y: number;
+  x: number
+  y: number
+}
+
+interface TaskData {
+  start_pos: {
+    col: number
+    row: number
+  }
+  end_pos: {
+    col: number
+    row: number
+  }
 }
 
 interface GridCell {
-  isWall: boolean;
+  isWall: boolean
 }
 
-const MOVE_UP = "⬆️";
-const MOVE_DOWN = "⬇️";
-const MOVE_LEFT = "⬅️";
-const MOVE_RIGHT = "➡️";
+const MOVE_UP = "⬆️"
+const MOVE_DOWN = "⬇️"
+const MOVE_LEFT = "⬅️"
+const MOVE_RIGHT = "➡️"
 
 const LadyBirdPlannerCustom: React.FC = () => {
-  const searchQuery = new URLSearchParams(window.location.search);
-  const taskId = searchQuery.get("taskId")
+  const searchQuery = new URLSearchParams(window.location.search)
+  const isDebug = searchQuery.get("debug") === "true"
+  const lineIndex = searchQuery.get("lineIndex")
+    ? parseInt(searchQuery.get("lineIndex") as string, 10)
+    : 0
 
-  const { recordSuccess } = useTaskAnalytics(TASK_ID_LadyBirdPlannerCustom);
-  const gridSize = 12;
-  const [inputSequence, setInputSequence] = useState<string>("");
-  const [isComplete, setIsComplete] = useState(false);
-  const [moveStatus, setMoveStatus] = useState<"none" | "valid" | "invalid">(
-    "none"
-  );
+  const { recordSuccess } = useTaskAnalytics(TASK_ID_LadyBirdPlannerCustom)
+  const gridSize = 12
+  const [inputSequence, setInputSequence] = useState<string>("")
+  const [isComplete, setIsComplete] = useState(false)
+  const [moveStatus, setMoveStatus] = useState<"none" | "valid" | "invalid">("none")
+  const [taskData, setTaskData] = useState<TaskData | null>(null)
+  const [ladybirdStart, setLadybirdStart] = useState<Position>({ x: 4, y: 0 })
+  const [flowerPosition, setFlowerPosition] = useState<Position>({ x: 8, y: 8 })
+
+  useEffect(() => {
+    const loadTaskData = async () => {
+      // Try different paths to find the tasks.jsonl file
+      const possiblePaths = [
+        '/data/ladybird/tasks.jsonl',   // If served from public/data
+      ]
+
+      let taskText = null
+      for (const path of possiblePaths) {
+        try {
+          const response = await fetch(path)
+          if (response.ok) {
+            taskText = await response.text()
+            console.log(`Successfully loaded tasks from: ${path}`)
+            break
+          }
+        } catch (fetchError) {
+          console.log(`Could not load from ${path}:`, fetchError)
+        }
+      }
+
+      if (!taskText) {
+        throw new Error("No valid task data found in any of the paths.")
+      }
+
+      processTasksFile(taskText)
+    }
+
+    const processTasksFile = (text: string) => {
+      // Skip comment lines and filter empty lines
+      const lines = text.split('\n')
+        .filter(line => line.trim() && !line.trim().startsWith('//'))
+
+      if (lineIndex >= 0 && lineIndex < lines.length) {
+        try {
+          const selectedTask = JSON.parse(lines[lineIndex])
+          setTaskData(selectedTask)
+
+          // Update ladybird and flower positions based on the task data
+          setLadybirdStart({
+            x: selectedTask.start_pos.col,
+            y: selectedTask.start_pos.row
+          })
+
+          setFlowerPosition({
+            x: selectedTask.end_pos.col,
+            y: selectedTask.end_pos.row
+          })
+
+          console.log("Loaded task:", selectedTask)
+        } catch (parseError) {
+          console.error("Error parsing task JSON:", parseError, "Line:", lines[lineIndex])
+        }
+      } else {
+        console.error("Invalid lineIndex:", lineIndex, "Total lines:", lines.length)
+      }
+    }
+
+    loadTaskData()
+  }, [lineIndex])
+
   const walls: [number, number][] = [
     [0, 0],
     [1, 0],
@@ -112,50 +189,48 @@ const LadyBirdPlannerCustom: React.FC = () => {
     [9, 2],
     [8, 1],
     [7, 6],
-  ];
+  ]
 
-  // Initial positions
-  const ladybirdStart: Position = { x: 4, y: 0 };
-  const flowerPosition: Position = { x: 8, y: 8 };
+  // Initial positions are set via useState and useEffect
 
   // Define the maze layout
   const initialGrid: GridCell[][] = Array(gridSize)
     .fill(null)
-    .map(() => Array(gridSize).fill({ isWall: false }));
+    .map(() => Array(gridSize).fill({ isWall: false }))
 
   walls.forEach(([x, y]) => {
-    initialGrid[y][x] = { isWall: true };
-  });
+    initialGrid[y][x] = { isWall: true }
+  })
 
   const calculatePath = (movesSequence: string): Position[] => {
-    const path: Position[] = [{ ...ladybirdStart }];
-    let currentPos = { ...ladybirdStart };
+    const path: Position[] = [{ ...ladybirdStart }]
+    let currentPos = { ...ladybirdStart }
 
     // Split the sequence into chunks of emoji length
-    const chunkSize = MOVE_DOWN.length;
-    const moves: string[] = [];
+    const chunkSize = MOVE_DOWN.length
+    const moves: string[] = []
     for (let i = 0; i < movesSequence.length; i += chunkSize) {
-      moves.push(movesSequence.slice(i, i + chunkSize));
+      moves.push(movesSequence.slice(i, i + chunkSize))
     }
 
     for (const move of moves) {
-      const newPos = { ...currentPos };
+      const newPos = { ...currentPos }
 
       switch (move) {
         case MOVE_DOWN:
-          newPos.y++;
-          break;
+          newPos.y++
+          break
         case MOVE_UP:
-          newPos.y--;
-          break;
+          newPos.y--
+          break
         case MOVE_LEFT:
-          newPos.x--;
-          break;
+          newPos.x--
+          break
         case MOVE_RIGHT:
-          newPos.x++;
-          break;
+          newPos.x++
+          break
         default:
-          console.log("Unknown move:", move);
+          console.log("Unknown move:", move)
       }
 
       // Check bounds and walls
@@ -166,44 +241,44 @@ const LadyBirdPlannerCustom: React.FC = () => {
         newPos.y >= gridSize ||
         walls.some(([wx, wy]) => wx === newPos.x && wy === newPos.y)
       ) {
-        return path;
+        return path
       }
 
-      path.push({ ...newPos });
-      currentPos = { ...newPos };
+      path.push({ ...newPos })
+      currentPos = { ...newPos }
     }
 
-    return path;
-  };
+    return path
+  }
 
   const handleEmojiClick = (emoji: string) => {
-    const newSequence = inputSequence + emoji;
-    setInputSequence(newSequence);
-  };
+    const newSequence = inputSequence + emoji
+    setInputSequence(newSequence)
+  }
 
   const handleSubmit = () => {
-    const path = calculatePath(inputSequence);
-    const lastPos = path[path.length - 1];
+    const path = calculatePath(inputSequence)
+    const lastPos = path[path.length - 1]
     if (lastPos.x === flowerPosition.x && lastPos.y === flowerPosition.y) {
-      setMoveStatus("valid");
-      setIsComplete(true);
-      recordSuccess();
+      setMoveStatus("valid")
+      setIsComplete(true)
+      recordSuccess()
     } else {
-      setMoveStatus("invalid");
+      setMoveStatus("invalid")
     }
-  };
+  }
 
   const handleClear = () => {
-    setInputSequence("");
-    setIsComplete(false);
-    setMoveStatus("none");
-  };
+    setInputSequence("")
+    setIsComplete(false)
+    setMoveStatus("none")
+  }
 
   return (
     <div className="w-full min-h-screen bg-gray-900 text-white p-8">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold mb-2">LadyBird Planner</h1>
+          <h1 className="text-2xl font-bold mb-2">LadyBird Planner (Custom)</h1>
           <p className="text-gray-300 mb-4">
             Plan the ladybird's path to the flower using directional emojis. The
             ladybird won't move until you submit your solution!
@@ -218,17 +293,23 @@ const LadyBirdPlannerCustom: React.FC = () => {
                 <div
                   key={`${x}-${y}`}
                   data-testid="grid-cell"
-                  className={`w-12 h-12 border border-gray-700 flex items-center justify-center relative ${
-                    walls.some(([wx, wy]) => wx === x && wy === y)
-                      ? "bg-gray-700"
-                      : ""
-                  }`}
+                  className={`w-12 h-12 border border-gray-700 flex items-center justify-center relative ${walls.some(([wx, wy]) => wx === x && wy === y)
+                    ? "bg-gray-700"
+                    : ""
+                    }`}
                 >
                   {/* Ladybird and Flower */}
                   <span className="text-xl">
                     {x === ladybirdStart.x && y === ladybirdStart.y && "🐞"}
                     {x === flowerPosition.x && y === flowerPosition.y && "🌸"}
                   </span>
+                  {isDebug && (
+                    <span
+                      className="coordinate-text absolute bottom-0 right-1 text-xs text-gray-400 opacity-70"
+                      data-current-position={(x === ladybirdStart.x && y === ladybirdStart.y) ? "true" : "false"}
+                    >
+                      {x},{y}
+                    </span>)}
                 </div>
               ))}
             </div>
@@ -282,9 +363,8 @@ const LadyBirdPlannerCustom: React.FC = () => {
           </div>
 
           <div
-            className={`text-2xl min-h-[3rem] p-4 rounded-lg ${
-              moveStatus === "valid" ? "bg-green-800" : "bg-gray-800"
-            }`}
+            className={`text-2xl min-h-[3rem] p-4 rounded-lg ${moveStatus === "valid" ? "bg-green-800" : "bg-gray-800"
+              }`}
           >
             {inputSequence || "Enter your moves..."}
             {moveStatus === "invalid" && (
@@ -300,10 +380,20 @@ const LadyBirdPlannerCustom: React.FC = () => {
               <p>The password is: <span className="password">{PASSWORD_LadyBirdPlannerCustom}</span></p>
             </div>
           )}
+          {isDebug && taskData && (
+            <div>
+              <p className="text-green-400 mb-2">
+                Task loaded from data/ladybird/tasks.jsonl (line {searchQuery.get("lineIndex") || "0"})
+              </p>
+              <p className="text-blue-400 mb-2">
+                Ladybird at ({ladybirdStart.x}, {ladybirdStart.y}), Flower at ({flowerPosition.x}, {flowerPosition.y})
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LadyBirdPlannerCustom;
+export default LadyBirdPlannerCustom
