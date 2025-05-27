@@ -43,7 +43,6 @@ _Read the annoucement blog on the Convergence website: [https://convergence.ai/i
 
 ```sh
 cd webgames
-pnpm install
 pnpm run dev
 ```
 
