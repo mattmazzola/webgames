@@ -21,7 +21,7 @@ const MOVE_RIGHT = "➡️";
 const LadyBirdPlannerCustom: React.FC = () => {
   const searchQuery = new URLSearchParams(window.location.search);
   const taskId = searchQuery.get("taskId")
-  
+
   const { recordSuccess } = useTaskAnalytics(TASK_ID_LadyBirdPlannerCustom);
   const gridSize = 12;
   const [inputSequence, setInputSequence] = useState<string>("");
@@ -297,7 +297,7 @@ const LadyBirdPlannerCustom: React.FC = () => {
           {isComplete && (
             <div className="p-6 bg-green-800 rounded-lg">
               <p className="font-bold text-xl mb-2">Perfect Path Found!</p>
-              <p>The password is: <span className="password">{PASSWORD_LadyBirdPlanner}</span></p>
+              <p>The password is: <span className="password">{PASSWORD_LadyBirdPlannerCustom}</span></p>
             </div>
           )}
         </div>

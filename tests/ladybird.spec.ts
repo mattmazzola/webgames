@@ -23,7 +23,7 @@ test('Ladybird game navigation and submission', async ({ page }) => {
     await fs.promises.mkdir(datasetImagesDir, { recursive: true })
 
     // Set viewport to include full game area
-    await page.setViewportSize({ width: 650, height: 800 })
+    await page.setViewportSize({ width: 650, height: 1052 })
 
     // Navigate to the ladybird game
     await page.goto('http://localhost:5173/ladybird-custom')
@@ -35,22 +35,16 @@ test('Ladybird game navigation and submission', async ({ page }) => {
         const imageIndexStr = imageIndex.toString().padStart(2, '0')
         const screenshotPath = `${screenshotDir}/${imageIndexStr}_${imageName}.png`
         const datasetImagePath = `${datasetImagesDir}/${imageIndexStr}_${imageName}.png`
-        await page.screenshot({ path: screenshotPath, fullPage: true })
+        await page.screenshot({ path: screenshotPath, fullPage: false })
         await fs.promises.copyFile(screenshotPath, datasetImagePath)
 
         imageIndex += 1
     }
 
     async function getXYOffset(element: any) {
-        const x_offset = await element.evaluate(el => {
-            const rect = el.getBoundingClientRect()
-            return rect.left + rect.width / 2
-        })
-
-        const y_offset = await element.evaluate(el => {
-            const rect = el.getBoundingClientRect()
-            return rect.top + rect.height / 2
-        })
+        const boundingBox = await element.boundingBox()
+        const x_offset = boundingBox.x + boundingBox.width / 2
+        const y_offset = boundingBox.y + boundingBox.height / 2
 
         return { x_offset, y_offset }
     }
