@@ -16,7 +16,7 @@
 			"installBicep": true,
 		},
 		"ghcr.io/azure/azure-dev/azd:latest": {},
-        "ghcr.io/va-h/devcontainers-features/uv": {},
+		"ghcr.io/va-h/devcontainers-features/uv": {},
 	},
 	"onCreateCommand": "bash ./.devcontainer/onCreateCommand.sh",
 	"postCreateCommand": "bash ./.devcontainer/postCreateCommand.sh",
@@ -29,6 +29,7 @@
 			"extensions": [
 				"aaron-bond.better-comments",
 				"charliermarsh.ruff",
+				"dotenv.dotenv-vscode",
 				"eamodio.gitlens",
 				"EditorConfig.EditorConfig",
 				"foxundermoon.shell-format",
