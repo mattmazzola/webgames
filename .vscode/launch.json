@@ -23,5 +23,18 @@
                 "LOG_LEVEL": "DEBUG",
             },
         },
+        {
+            "name": "LadyBird: Visualize Dataset",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/datagen/.venv/bin/streamlit",
+            "python": "${workspaceFolder}/datagen/.venv/bin/python",
+            "cwd": "${workspaceFolder}/datagen/ladybird",
+            "args": [
+                "run",
+                "visualize_dataset.py",
+                "../../datasets/ladybird/ladybird_20250528T164140/dataset.jsonl",
+            ]
+        },
     ]
 }
