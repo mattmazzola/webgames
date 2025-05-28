@@ -1,0 +1,40 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Evaluate",
+            "type": "debugpy",
+            "request": "launch",
+            "justMyCode": false,
+            "python": "${workspaceFolder}/evals/.venv/bin/python",
+            "program": "${workspaceFolder}/evals/.venv/bin/inspect",
+            "args": [
+                "eval",
+                "run_inspect_ai.py",
+                "--model",
+                "openai/gpt-4o",
+            ],
+            "cwd": "${workspaceFolder}/evals",
+            "envFile": "${workspaceFolder}/evals/.env",
+            "env": {
+                "LOG_LEVEL": "DEBUG",
+            },
+        },
+        {
+            "name": "LadyBird: Visualize Dataset",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/datagen/.venv/bin/streamlit",
+            "python": "${workspaceFolder}/datagen/.venv/bin/python",
+            "cwd": "${workspaceFolder}/datagen/ladybird",
+            "args": [
+                "run",
+                "visualize_dataset.py",
+                "../../datasets/ladybird/ladybird_20250528T164140/dataset.jsonl",
+            ]
+        },
+    ]
+}

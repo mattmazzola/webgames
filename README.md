@@ -1,5 +1,27 @@
 # WebGames
 
+## Get games which have spatial understanding potential
+
+```sh
+node scripts/getGamesByTags.js \
+--file /workspaces/webgames/data/webgames-v0-challenges.jsonl \
+--or navigation maze planning physics
+```
+
+## Playwright
+
+### Run Tests
+
+```sh
+pnpm playwright test "example"
+```
+
+### Show Report
+
+```sh
+pnpm showreport
+```
+
 This is a collection of challenges for general-purpose web-browsing AI agents.
 
 They're designed to be:
@@ -19,9 +41,8 @@ _Read the annoucement blog on the Convergence website: [https://convergence.ai/i
 
 ## Run locally
 
-```
+```sh
 cd webgames
-pnpm install
 pnpm run dev
 ```
 

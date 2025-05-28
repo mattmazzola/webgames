@@ -7,3 +7,14 @@ __pycache__/
 .wrangler/
 node_modules/
 .DS_Store
+.pnpm-store/
+
+data/
+datasets/
+
+# Playwright
+/test-results/
+/test-screenshots/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

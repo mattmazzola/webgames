@@ -291,6 +291,10 @@ import LadyBirdPlannerHard, {
   PASSWORD_LadyBirdPlannerHard,
   TASK_ID_LadyBirdPlannerHard,
 } from "../pages/LadyBirdPlannerHard";
+import LadyBirdPlannerCustom, {
+  PASSWORD_LadyBirdPlannerCustom,
+  TASK_ID_LadyBirdPlannerCustom,
+} from "../pages/LadyBirdPlannerCustom";
 import MapPanner, {
   PASSWORD_MapPanner,
   TASK_ID_MapPanner,
@@ -2224,6 +2228,18 @@ export const routes: RouteConfig[] = [
     component: LadyBirdPlannerHard,
     tags: ["planning", "puzzle", "maze", "hard"],
     password: PASSWORD_LadyBirdPlannerHard,
+    difficulty: "hard",
+    variant: "hard",
+    base_task: TASK_ID_LadyBirdPlanner,
+  },
+  {
+    path: TASK_ID_LadyBirdPlannerCustom,
+    title: "LadyBird Planner (Custom)",
+    description: "Plan the ladybird's path on a larger, more complex grid.",
+    icon: "🐞",
+    component: LadyBirdPlannerCustom,
+    tags: ["planning", "puzzle", "maze", "hard", "datagen"],
+    password: PASSWORD_LadyBirdPlannerCustom,
     difficulty: "hard",
     variant: "hard",
     base_task: TASK_ID_LadyBirdPlanner,
