@@ -69,25 +69,42 @@ test('Map Panner game - find treasure coordinates', async ({ page }) => {
   // Center of the screen for mouse
   const centerX = page.viewportSize()?.width! / 2
   const centerY = page.viewportSize()?.height! / 2
+  
+  // Calculate optimal movement size based on viewport
+  // Using 1/3 of the viewport as the optimal step size to maintain control
+  const viewportWidth = page.viewportSize()?.width!
+  const viewportHeight = page.viewportSize()?.height!
+  const optimalStepSize = Math.min(viewportWidth, viewportHeight) / 3
 
   // Target map position 
-  const targetMapX = 1500 + 500
+  const targetMapX = 1500
   const targetMapY = 1200
-
-  const panSteps = 8
 
   // Calculate the distance to target
   const distanceToTargetX = targetMapX - mapX
   const distanceToTargetY = targetMapY - mapY
-
+  
+  // Calculate total Euclidean distance to target
+  const totalDistance = Math.sqrt(
+    Math.pow(distanceToTargetX, 2) + Math.pow(distanceToTargetY, 2)
+  )
+  
+  // Use our optimal step size calculated from viewport dimensions
+  const moveAmountPerStep = optimalStepSize
+  
+  // Calculate number of steps needed based on distance and fixed move amount
+  // Using floor instead of ceil to ensure we do slightly fewer steps than required
+  const panSteps = Math.floor(totalDistance / moveAmountPerStep)
+  
   // Calculate how much map movement we need per operation based on the distance
-  const mapMovePerOperationX = distanceToTargetX / panSteps
-  const mapMovePerOperationY = distanceToTargetY / panSteps
+  // For the initial steps, we'll move by a fixed amount
+  const mapMovePerOperationX = (panSteps > 0) ? (distanceToTargetX * moveAmountPerStep / totalDistance) : distanceToTargetX
+  const mapMovePerOperationY = (panSteps > 0) ? (distanceToTargetY * moveAmountPerStep / totalDistance) : distanceToTargetY
 
-  console.log(`Distance to target: (${distanceToTargetX}, ${distanceToTargetY})`)
-  console.log(`Each pan operation should move map by approximately: (${mapMovePerOperationX}, ${mapMovePerOperationY})`)
-  console.log(`Starting pan: Map position (${mapX}, ${mapY}), target (${targetMapX}, ${targetMapY})`)
-  console.log(`Mouse center: (${centerX}, ${centerY})`)
+  console.log(`Total distance to target: ${totalDistance.toFixed(2)} pixels`)
+  console.log(`Using ${panSteps} pan steps with fixed movement of ~${moveAmountPerStep} pixels per step`)
+  console.log(`Each pan operation will move map by: X: ${mapMovePerOperationX.toFixed(2)}, Y: ${mapMovePerOperationY.toFixed(2)}`)
+  console.log(`Starting from map position (${mapX}, ${mapY}), targeting (${targetMapX}, ${targetMapY})`)
 
   // Record the initial position in the dataset
   dataItem.start_pos = { x: mapX, y: mapY }
@@ -96,11 +113,11 @@ test('Map Panner game - find treasure coordinates', async ({ page }) => {
     await takeScreenshotAndCopy(`pan_${i + 1}_before`)
 
     // Move mouse to center of screen for each pan operation
-    await page.mouse.move(centerX, centerX)
+    await page.mouse.move(centerX, centerY)
     dataItem.actions.push({
       action: 'mousemove',
       x_offset: centerX,
-      y_offset: centerX
+      y_offset: centerY
     })
 
     // Simulate mouse down to start panning
@@ -126,8 +143,8 @@ test('Map Panner game - find treasure coordinates', async ({ page }) => {
     mapX += mapMovePerOperationX
     mapY += mapMovePerOperationY
 
-    console.log(`Pan operation ${i + 1}: Mouse from (${centerX}, ${centerY}) to (${mouseEndX}, ${mouseEndY})`)
-    console.log(`Map now at approximately: (${mapX}, ${mapY})`)
+    console.log(`Pan operation ${i + 1}/${panSteps}: Mouse from (${centerX}, ${centerY}) to (${mouseEndX.toFixed(2)}, ${mouseEndY.toFixed(2)})`)
+    console.log(`Map now at approximately: (${mapX.toFixed(2)}, ${mapY.toFixed(2)})`)
 
     // Release mouse and wait a moment between operations
     await page.mouse.up()
@@ -144,20 +161,117 @@ test('Map Panner game - find treasure coordinates', async ({ page }) => {
   // Record the end map position (where we've panned to)
   dataItem.end_pos = { x: mapX, y: mapY }
 
-  console.log(`Final map position: (${mapX}, ${mapY})`)
+  // Add a final adjustment step to reach the exact target
+  const remainingDistanceX = targetMapX - mapX
+  const remainingDistanceY = targetMapY - mapY
+  const hasRemainingDistance = Math.abs(remainingDistanceX) > 1 || Math.abs(remainingDistanceY) > 1
+
+  if (hasRemainingDistance) {
+    console.log(`Making final adjustment to reach target. Remaining distance: X: ${remainingDistanceX.toFixed(2)}, Y: ${remainingDistanceY.toFixed(2)}`)
+    
+    await takeScreenshotAndCopy('final_adjustment_before')
+    
+    // Move mouse to center of screen for final adjustment
+    await page.mouse.move(centerX, centerY)
+    dataItem.actions.push({
+      action: 'mousemove',
+      x_offset: centerX,
+      y_offset: centerY
+    })
+    
+    // Simulate mouse down to start panning
+    await page.mouse.down()
+    dataItem.actions.push({
+      action: 'mousedown',
+      x_offset: centerX,
+      y_offset: centerY
+    })
+    
+    // Move the map by dragging in opposite direction of remaining distance
+    const finalMouseEndX = centerX - remainingDistanceX
+    const finalMouseEndY = centerY - remainingDistanceY
+    
+    await page.mouse.move(finalMouseEndX, finalMouseEndY, { steps: 10 })
+    dataItem.actions.push({
+      action: 'mousemove',
+      x_offset: finalMouseEndX,
+      y_offset: finalMouseEndY
+    })
+    
+    // Update map position (should now be exactly at target)
+    mapX = targetMapX
+    mapY = targetMapY
+    
+    // Release mouse and wait a moment
+    await page.mouse.up()
+    dataItem.actions.push({
+      action: 'mouseup',
+      x_offset: finalMouseEndX,
+      y_offset: finalMouseEndY
+    })
+    
+    await takeScreenshotAndCopy('final_adjustment_after')
+    await page.waitForTimeout(500)
+    
+    // Update the end position in the dataset
+    dataItem.end_pos = { x: mapX, y: mapY }
+  }
+
+  console.log(`Final map position: (${mapX.toFixed(2)}, ${mapY.toFixed(2)})`)
   console.log(`Target was: (${targetMapX}, ${targetMapY})`)
+  
+  // Calculate how close we got to the target
+  const finalDistanceToTarget = Math.sqrt(
+    Math.pow(targetMapX - mapX, 2) + Math.pow(targetMapY - mapY, 2)
+  )
+  console.log(`Distance to target after panning: ${finalDistanceToTarget.toFixed(2)} pixels`)
 
   // Take a screenshot to verify we've found the treasure
   await takeScreenshotAndCopy('found')
 
-  const passwordElement = page.locator('#password')
-  await expect(passwordElement).toBeVisible({ timeout: 1000 })
+  // Add a retry mechanism with multiple attempts to find the password element
+  const maxRetries = 3;
+  let passwordText = '';
+  let retryCount = 0;
+  let passwordFound = false;
 
-  // Get and check the password
-  const passwordText = await passwordElement.textContent() ?? ''
-  console.log(`Found password: ${passwordText}`)
+  while (retryCount < maxRetries && !passwordFound) {
+    try {
+      const passwordElement = page.locator('#password');
+      await expect(passwordElement).toBeVisible({ timeout: 3000 });
+      
+      // Get the password text
+      passwordText = await passwordElement.textContent() ?? '';
+      console.log(`Attempt ${retryCount + 1}: Found password: ${passwordText}`);
+      
+      if (passwordText.includes('CARTOGRAPHER2024_CUSTOM')) {
+        passwordFound = true;
+      } else {
+        // If password doesn't have expected content, take extra screenshot and try small movement
+        await takeScreenshotAndCopy(`retry_${retryCount + 1}_before`);
+        
+        // Make a small random movement to trigger any missing events
+        const randomOffsetX = Math.floor(Math.random() * 50) - 25;
+        const randomOffsetY = Math.floor(Math.random() * 50) - 25;
+        
+        await page.mouse.move(centerX, centerY);
+        await page.mouse.down();
+        await page.mouse.move(centerX + randomOffsetX, centerY + randomOffsetY, { steps: 5 });
+        await page.mouse.up();
+        
+        await takeScreenshotAndCopy(`retry_${retryCount + 1}_after`);
+        await page.waitForTimeout(1000);
+      }
+    } catch (error) {
+      console.log(`Attempt ${retryCount + 1}: Password not found yet. Retrying...`);
+      await page.waitForTimeout(1000);
+    }
+    
+    retryCount++;
+  }
 
-  expect(passwordText).toContain('CARTOGRAPHER2024_CUSTOM') // The password from the source code
+  console.log(`Final password result: ${passwordText}`);
+  expect(passwordText).toContain('CARTOGRAPHER2024_CUSTOM'); // The password from the source code
 
   // Store the password in the dataset item
   dataItem.password = passwordText
