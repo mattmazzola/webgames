@@ -35,7 +35,7 @@ test('Map Panner game - find treasure coordinates', async ({ page }) => {
   await page.setViewportSize({ width: 1024, height: 768 })
 
   // Navigate to the map panner game
-  await page.goto('http://localhost:5173/map-panner')
+  await page.goto('http://localhost:5173/map-panner-custom')
 
   // Wait for the page to load completely
   await page.waitForSelector('h1:has-text("Map Panner")')
@@ -63,118 +63,83 @@ test('Map Panner game - find treasure coordinates', async ({ page }) => {
   }
 
   // Starting map position (this is an estimate as we don't know the exact map position)
-  let mapX = 0
-  let mapY = 0
+  let mapX = 500
+  let mapY = 400
 
   // Center of the screen for mouse
   const centerX = page.viewportSize()?.width! / 2
   const centerY = page.viewportSize()?.height! / 2
 
   // Target map position 
-  const targetMapX = 1500
+  const targetMapX = 1500 + 500
   const targetMapY = 1200
-  
+
+  const panSteps = 8
+
+  // Calculate the distance to target
+  const distanceToTargetX = targetMapX - mapX
+  const distanceToTargetY = targetMapY - mapY
+
+  // Calculate how much map movement we need per operation based on the distance
+  const mapMovePerOperationX = distanceToTargetX / panSteps
+  const mapMovePerOperationY = distanceToTargetY / panSteps
+
+  console.log(`Distance to target: (${distanceToTargetX}, ${distanceToTargetY})`)
+  console.log(`Each pan operation should move map by approximately: (${mapMovePerOperationX}, ${mapMovePerOperationY})`)
   console.log(`Starting pan: Map position (${mapX}, ${mapY}), target (${targetMapX}, ${targetMapY})`)
   console.log(`Mouse center: (${centerX}, ${centerY})`)
 
   // Record the initial position in the dataset
   dataItem.start_pos = { x: mapX, y: mapY }
 
-  // We'll do multiple panning operations to get closer to the target
-  const numberOfPanningOperations = 5
+  for (let i = 0; i < panSteps; i++) {
+    await takeScreenshotAndCopy(`pan_${i + 1}_before`)
 
-  // Calculate how much map movement we need to achieve in each operation
-  const mapMovePerOperationX = targetMapX / numberOfPanningOperations
-  const mapMovePerOperationY = targetMapY / numberOfPanningOperations
-  
-  console.log(`Each pan operation should move map by approximately: (${mapMovePerOperationX}, ${mapMovePerOperationY})`)
-
-  for (let op = 0; op < numberOfPanningOperations; op++) {
     // Move mouse to center of screen for each pan operation
-    await page.mouse.move(centerX, centerY)
+    await page.mouse.move(centerX, centerX)
+    dataItem.actions.push({
+      action: 'mousemove',
+      x_offset: centerX,
+      y_offset: centerX
+    })
+
+    // Simulate mouse down to start panning
     await page.mouse.down()
-    
-    // Record the mouse down action
     dataItem.actions.push({
       action: 'mousedown',
       x_offset: centerX,
       y_offset: centerY
     })
-    
-    // Calculate pan distance for this operation
-    // To move the map in the positive direction, we need to move the mouse in the negative direction
+
+    // Move the map by dragging in opposite direction of the target
     const mouseEndX = centerX - mapMovePerOperationX
     const mouseEndY = centerY - mapMovePerOperationY
-    
-    // Pan in one smooth motion
-    await page.mouse.move(mouseEndX, mouseEndY, { steps: 20 })
-    await takeScreenshotAndCopy(`pan_op_${op + 1}`)
-    
-    // Record the mouse move action
+
+    await page.mouse.move(mouseEndX, mouseEndY, { steps: 10 })
     dataItem.actions.push({
       action: 'mousemove',
       x_offset: mouseEndX,
       y_offset: mouseEndY
     })
-    
+
     // Update map position (moves in opposite direction of mouse)
     mapX += mapMovePerOperationX
     mapY += mapMovePerOperationY
-    
-    console.log(`Pan operation ${op + 1}: Mouse from (${centerX}, ${centerY}) to (${mouseEndX}, ${mouseEndY})`)
+
+    console.log(`Pan operation ${i + 1}: Mouse from (${centerX}, ${centerY}) to (${mouseEndX}, ${mouseEndY})`)
     console.log(`Map now at approximately: (${mapX}, ${mapY})`)
-    
+
     // Release mouse and wait a moment between operations
     await page.mouse.up()
-    
-    // Record the mouse up action
     dataItem.actions.push({
       action: 'mouseup',
       x_offset: mouseEndX,
       y_offset: mouseEndY
     })
-    
-    await takeScreenshotAndCopy(`after_pan_${op + 1}`)
+
+    await takeScreenshotAndCopy(`pan_${i + 1}_after`)
     await page.waitForTimeout(500)
   }
-
-  // One final large pan to ensure we reach the target
-  await page.mouse.move(centerX, centerY)
-  await page.mouse.down()
-  
-  // Record action
-  dataItem.actions.push({
-    action: 'mousedown',
-    x_offset: centerX,
-    y_offset: centerY
-  })
-  
-  // Big drag to final target area
-  const finalMouseX = centerX - 400
-  const finalMouseY = centerY - 400
-  
-  await page.mouse.move(finalMouseX, finalMouseY, { steps: 30 })
-  
-  // Record action
-  dataItem.actions.push({
-    action: 'mousemove',
-    x_offset: finalMouseX,
-    y_offset: finalMouseY
-  })
-  
-  // Update the map position after the final pan
-  mapX += 400
-  mapY += 400
-  
-  await page.waitForTimeout(500)
-  await page.mouse.up()
-  
-  // Record action
-  dataItem.actions.push({
-    action: 'mouseup',
-    x_offset: finalMouseX,
-    y_offset: finalMouseY
-  })
 
   // Record the end map position (where we've panned to)
   dataItem.end_pos = { x: mapX, y: mapY }
@@ -185,8 +150,8 @@ test('Map Panner game - find treasure coordinates', async ({ page }) => {
   // Take a screenshot to verify we've found the treasure
   await takeScreenshotAndCopy('found')
 
-  const passwordElement = page.locator('.password')
-  await expect(passwordElement).toBeVisible({ timeout: 5000 })
+  const passwordElement = page.locator('#password')
+  await expect(passwordElement).toBeVisible({ timeout: 1000 })
 
   // Get and check the password
   const passwordText = await passwordElement.textContent() ?? ''

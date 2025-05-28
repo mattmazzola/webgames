@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useTaskAnalytics } from "../utils/useTaskAnalytics";
 
 export const PASSWORD_MapPannerCustom = "CARTOGRAPHER2024_CUSTOM";
-export const TASK_ID_MapPannerCustom = "map-panner-cusom";
+export const TASK_ID_MapPannerCustom = "map-panner-custom";
 
 interface Position {
   x: number;
@@ -95,7 +95,7 @@ const MapPannerCustom: React.FC = () => {
         </p>
         {isComplete && (
           <div className="mt-4 p-4 bg-green-800 rounded-lg">
-            <p className="font-bold">Password: <span className="password">{PASSWORD_MapPannerCustom}</span></p>
+            <p className="font-bold">Password: <span id="password">{PASSWORD_MapPannerCustom}</span></p>
           </div>
         )}
       </div>
