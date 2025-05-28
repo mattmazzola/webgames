@@ -307,6 +307,10 @@ import MapPannerHard, {
   PASSWORD_MapPannerHard,
   TASK_ID_MapPannerHard,
 } from "../pages/MapPannerHard";
+import MapPannerCustom, {
+  PASSWORD_MapPannerCustom,
+  TASK_ID_MapPannerCustom,
+} from "../pages/MapPannerCustom";
 import MazeNavigator, { PASSWORD_MazeNavigator } from "../pages/MazeNavigator";
 import MazeNavigatorEasy, {
   PASSWORD_MazeNavigatorEasy,
@@ -2190,6 +2194,19 @@ export const routes: RouteConfig[] = [
     component: MapPannerHard,
     tags: ["drag", "exploration", "coordination", "hard"],
     password: PASSWORD_MapPannerHard,
+    difficulty: "hard",
+    variant: "hard",
+    base_task: TASK_ID_MapPanner,
+  },
+  {
+    path: TASK_ID_MapPannerCustom,
+    title: "Map Panner (Custom)",
+    description:
+      "Pan around a vast and treacherous map to find the elusive treasure. Good luck!",
+    icon: "🗺️",
+    component: MapPannerCustom,
+    tags: ["drag", "exploration", "coordination", "datagen"],
+    password: PASSWORD_MapPannerCustom,
     difficulty: "hard",
     variant: "hard",
     base_task: TASK_ID_MapPanner,
