@@ -20,7 +20,12 @@ type LadybirdDatasetItem = {
     start_pos: { row: number, col: number }
     end_pos: { row: number, col: number }
     paths: { row: number, col: number }[]
-    actions: { direction: string, x_offset: number, y_offset: number }[]
+    actions: {
+        action: string,
+        direction?: string,
+        x_offset: number,
+        y_offset: number,
+    }[]
     password: string
 }
 
@@ -28,6 +33,7 @@ type TaskData = {
     start_pos: { row: number, col: number }
     end_pos: { row: number, col: number }
     movesSequence: string
+    password: string
 }
 
 // Load tasks from the JSONL file
@@ -148,6 +154,7 @@ tasks.forEach((task, lineIndex) => {
 
             const { x_offset, y_offset } = await getXYOffset(buttonToClick)
             const actionItem = {
+                action: "click",
                 direction,
                 x_offset,
                 y_offset,
@@ -161,6 +168,13 @@ tasks.forEach((task, lineIndex) => {
         // Submit the solution
         const submitButton = page.getByRole('button', { name: 'Submit' })
         await submitButton.click()
+        const { x_offset, y_offset } = await getXYOffset(submitButton)
+        const actionItem = {
+            action: "click",
+            x_offset,
+            y_offset,
+        }
+        dataItem.actions.push(actionItem)
 
         // Take a screenshot of the result after submitting
         await takeScreenshotAndCopy('result')
@@ -169,6 +183,7 @@ tasks.forEach((task, lineIndex) => {
         const passwordElement = page.locator('.password')
         await expect(passwordElement).toBeVisible({ timeout: 1000 })
         const passwordText = await passwordElement.textContent() ?? ''
+        await expect(passwordText).toBe(task.password)
 
         // Get only this task's images
         const lineIndexStr = lineIndex.toString().padStart(2, '0')

@@ -17,7 +17,8 @@ interface TaskData {
   end_pos: {
     col: number
     row: number
-  }
+  },
+  password: string
 }
 
 interface GridCell {
@@ -377,7 +378,7 @@ const LadyBirdPlannerCustom: React.FC = () => {
           {isComplete && (
             <div className="p-6 bg-green-800 rounded-lg">
               <p className="font-bold text-xl mb-2">Perfect Path Found!</p>
-              <p>The password is: <span className="password">{PASSWORD_LadyBirdPlannerCustom}</span></p>
+              <p>The password is: <span className="password">{taskData?.password}</span></p>
             </div>
           )}
           {isDebug && taskData && (
