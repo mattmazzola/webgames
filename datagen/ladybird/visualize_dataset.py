@@ -29,7 +29,7 @@ def main():
         st.session_state.displayed_image = None
 
     # Use first command line argument as dataset path if provided
-    default_dataset_path = "../../datasets/ladybird/ladybird_20250528T164140/dataset.jsonl"
+    default_dataset_path = "../datasets/ladybird/ladybird_20250528T164140/dataset.jsonl"
     if len(sys.argv) > 1:
         default_dataset_path = sys.argv[1]
 
@@ -50,7 +50,6 @@ def main():
     ):
         try:
             dataset = load_jsonl(dataset_path_str)
-            st.success(f"Dataset loaded successfully! Found {len(dataset)} entries.")
         except json.JSONDecodeError:
             st.error(
                 "Error parsing the JSONL file. Make sure it contains valid JSON lines."

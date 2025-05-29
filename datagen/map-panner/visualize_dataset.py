@@ -51,18 +51,6 @@ def main():
         
     if "show_shortcuts" not in st.session_state:
         st.session_state.show_shortcuts = False
-        
-    # Toggle keyboard shortcuts help
-    if st.button("Keyboard Shortcuts"):
-        st.session_state.show_shortcuts = not st.session_state.show_shortcuts
-        
-    if st.session_state.show_shortcuts:
-        with st.expander("Keyboard Shortcuts", expanded=True):
-            st.markdown("""
-            ### Keyboard Navigation:
-            - <span class="keyboard-shortcut">←</span> Previous item
-            - <span class="keyboard-shortcut">→</span> Next item
-            """, unsafe_allow_html=True)
 
     # Use first command line argument as dataset path if provided
     default_dataset_path = "../../datasets/map-panner/map-panner_20250529T194005/dataset.jsonl"
@@ -88,7 +76,6 @@ def main():
     ):
         try:
             dataset = load_jsonl(dataset_path_str)
-            st.success(f"Dataset loaded successfully! Found {len(dataset)} entries.")
         except json.JSONDecodeError:
             st.error(
                 "Error parsing the JSONL file. Make sure it contains valid JSON lines."
@@ -148,44 +135,15 @@ def main():
     # Previous and Next buttons adjacent to each other
     with col_prev:
         prev_disabled = st.session_state.current_index <= 0
-        st.button("⬅️ Previous (←)", key="prev_btn", on_click=go_previous, disabled=prev_disabled)
-        # Handle left arrow key press
-        if not prev_disabled and st.session_state.get('key_pressed') == 'left':
-            go_previous()
-            st.session_state.key_pressed = None
+        st.button("⬅️ Previous", key="prev_btn", on_click=go_previous, disabled=prev_disabled)
 
     with col_next:
         next_disabled = st.session_state.current_index >= num_items - 1
-        st.button("Next ➡️ (→)", key="next_btn", on_click=go_next, disabled=next_disabled)
-        # Handle right arrow key press
-        if not next_disabled and st.session_state.get('key_pressed') == 'right':
-            go_next()
-            st.session_state.key_pressed = None
+        st.button("Next ➡️", key="next_btn", on_click=go_next, disabled=next_disabled)
 
     # Show entry number and total
     with col_counter:
         st.write(f"Line {st.session_state.current_index + 1} of {num_items}")
-    
-    # Add JavaScript for keyboard shortcuts
-    st.markdown("""
-        <script>
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft') {
-                window.parent.postMessage({
-                    type: 'streamlit:setComponentValue',
-                    key: 'key_pressed',
-                    value: 'left'
-                }, '*');
-            } else if (e.key === 'ArrowRight') {
-                window.parent.postMessage({
-                    type: 'streamlit:setComponentValue',
-                    key: 'key_pressed',
-                    value: 'right'
-                }, '*');
-            }
-        });
-        </script>
-    """, unsafe_allow_html=True)
 
     # Jump to specific line with label on the left
     with col_goto:
