@@ -53,8 +53,7 @@ https://magmardata.blob.core.windows.net/data/ladybird \
 --dry-run
 ```
 
-
-
+## Existing Usage Guide
 
 This is a collection of challenges for general-purpose web-browsing AI agents.
 
