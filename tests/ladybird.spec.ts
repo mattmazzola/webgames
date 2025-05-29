@@ -52,6 +52,8 @@ const tasks: TaskData[] = tasksContent
     })
     .filter(task => task !== null)
 
+console.log(`Loaded ${tasks.length} map panner tasks for testing`)
+
 tasks.forEach((task, lineIndex) => {
     test(`Ladybird game task #${lineIndex}`, async ({ page }) => {
         // Reset imageIndex for each test
