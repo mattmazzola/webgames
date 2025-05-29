@@ -9,8 +9,8 @@ node_modules/
 .DS_Store
 .pnpm-store/
 
-data/
-datasets/
+/data/
+/datasets/
 
 # Playwright
 /test-results/
