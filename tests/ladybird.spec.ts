@@ -1,19 +1,21 @@
 import { test, expect, Locator } from '@playwright/test'
 import fs from 'fs'
 import path from 'path'
+import { 
+  createDirectories, 
+  loadTasksFromJsonl, 
+  createScreenshotHandler, 
+  getTaskImages,
+  appendToDataset,
+  getXYOffset
+} from './helpers'
 
-const datetimeStr = new Date().toISOString().slice(0, -4).replaceAll('-', '').replaceAll(':', '').replaceAll('.', '')
-const screenshotDir = `test-screenshots/ladybird/${datetimeStr}`
-const datasetDir = `datasets/ladybird/ladybird_${datetimeStr}`
-const datasetImagesDir = `${datasetDir}/images`
-const datasetJsonlPath = path.join(datasetDir, 'dataset.jsonl')
-
-// Create directories for screenshots and dataset images
-fs.mkdirSync(screenshotDir, { recursive: true })
-fs.mkdirSync(datasetImagesDir, { recursive: true })
-
-// Create an empty dataset.jsonl file
-fs.writeFileSync(datasetJsonlPath, '')
+// Create directories and get paths
+const { 
+  screenshotDir, 
+  datasetImagesDir, 
+  datasetJsonlPath 
+} = createDirectories('ladybird')
 
 type LadybirdDatasetItem = {
     images: string[]
@@ -38,27 +40,10 @@ type TaskData = {
 
 // Load tasks from the JSONL file
 const tasksFilePath = path.join(process.cwd(), 'webgames', 'public', 'data', 'ladybird', 'tasks.jsonl')
-const tasksContent = fs.readFileSync(tasksFilePath, 'utf8')
-const tasks: TaskData[] = tasksContent
-    .split('\n')
-    .filter(line => line.trim() && !line.trim().startsWith('//'))
-    .map((line, index) => {
-        try {
-            return JSON.parse(line)
-        } catch (error) {
-            console.error(`Error parsing line ${index}: ${error}`)
-            return null
-        }
-    })
-    .filter(task => task !== null)
-
-console.log(`Loaded ${tasks.length} map panner tasks for testing`)
+const tasks = loadTasksFromJsonl<TaskData>(tasksFilePath)
 
 tasks.forEach((task, lineIndex) => {
     test(`Ladybird game task #${lineIndex}`, async ({ page }) => {
-        // Reset imageIndex for each test
-        let imageIndex = 1
-
         // Set viewport to include full game area
         await page.setViewportSize({ width: 650, height: 1052 })
 
@@ -68,24 +53,7 @@ tasks.forEach((task, lineIndex) => {
         // Wait for the page to load completely
         await page.waitForSelector('h1:has-text("LadyBird Planner")')
 
-        async function takeScreenshotAndCopy(imageName: string) {
-            const lineIndexStr = lineIndex.toString().padStart(2, '0')
-            const imageIndexStr = imageIndex.toString().padStart(2, '0')
-            const screenshotPath = `${screenshotDir}/task_${lineIndexStr}_${imageIndexStr}_${imageName}.png`
-            const datasetImagePath = `${datasetImagesDir}/task_${lineIndexStr}_${imageIndexStr}_${imageName}.png`
-            await page.screenshot({ path: screenshotPath, fullPage: false })
-            await fs.promises.copyFile(screenshotPath, datasetImagePath)
-
-            imageIndex += 1
-        }
-
-        async function getXYOffset(element: any) {
-            const boundingBox = await element.boundingBox()
-            const x_offset = boundingBox.x + boundingBox.width / 2
-            const y_offset = boundingBox.y + boundingBox.height / 2
-
-            return { x_offset, y_offset }
-        }
+        const takeScreenshotAndCopy = createScreenshotHandler(page, screenshotDir, datasetImagesDir, lineIndex)
 
         // Take a screenshot of the initial game state
         await takeScreenshotAndCopy('initial')
@@ -187,18 +155,10 @@ tasks.forEach((task, lineIndex) => {
         const passwordText = await passwordElement.textContent() ?? ''
         await expect(passwordText).toBe(task.password)
 
-        // Get only this task's images
-        const lineIndexStr = lineIndex.toString().padStart(2, '0')
-        const taskPattern = `task_${lineIndexStr}_`
-        const imagePaths = fs.readdirSync(datasetImagesDir)
-            .filter(file => file.includes(taskPattern))
-            .map(file => path.join('images', file))
-
-        // Include images and password in the data item
-        dataItem.images = imagePaths
+        dataItem.images = getTaskImages(datasetImagesDir, lineIndex)
         dataItem.password = passwordText.trim()
 
-        // Append game data to shared dataset.jsonl file
+        // Append game data to dataset.jsonl file
         await fs.promises.appendFile(datasetJsonlPath, JSON.stringify(dataItem) + '\n')
         console.log(`Data for task #${lineIndex} written to ${datasetJsonlPath}`)
     })
