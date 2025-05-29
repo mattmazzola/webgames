@@ -40,7 +40,7 @@ const tasks = loadTasksFromJsonl<TaskData>(tasksFilePath)
 tasks.forEach((task, lineIndex) => {
   test(`Map Panner game task #${lineIndex}`, async ({ page }) => {
     // Set viewport size for the test
-    await page.setViewportSize({ width: 1024, height: 768 })
+    await page.setViewportSize({ width: 1024, height: 1024 })
 
     // Navigate to the map panner game with the specific lineIndex
     await page.goto(`http://localhost:5173/map-panner-custom?lineIndex=${lineIndex}`)
