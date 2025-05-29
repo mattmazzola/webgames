@@ -16,6 +16,7 @@ const {
 } = createDirectories('map-panner')
 
 type MapPannerDatasetItem = {
+  taskIndex: number
   images: string[]
   targetPos: { x: number, y: number }
   actions: {
@@ -55,6 +56,7 @@ tasks.forEach((task, lineIndex) => {
 
     // Create dataset item
     const dataItem: MapPannerDatasetItem = {
+      taskIndex: lineIndex,
       images: [],
       targetPos: { 
         x: task.targetPos.x,
