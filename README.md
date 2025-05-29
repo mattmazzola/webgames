@@ -20,6 +20,12 @@ node scripts/getGamesByTags.js \
 pnpm playwright test ladybird
 ```
 
+#### Visual Sequential for Debugging
+
+```sh
+pnpm playwright test map-panner -j 1 --headed
+```
+
 ### Show Report
 
 ```sh
