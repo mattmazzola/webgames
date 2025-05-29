@@ -1,5 +1,9 @@
 # WebGames
 
+## Get tags (properties of games)
+
+<a href="https://huggingface.co/datasets/convergence-ai/webgames/sql-console/0GiqaZI" target="_blank">HF Dataset SQL Query</a>
+
 ## Get games which have spatial understanding potential
 
 ```sh
@@ -13,7 +17,19 @@ node scripts/getGamesByTags.js \
 ### Run Tests
 
 ```sh
-pnpm playwright test "example"
+pnpm playwright test ladybird
+```
+
+### Run Specific Test
+
+```sh
+pnpm playwright test tests/map-panner.spec.ts --grep "task #2"
+```
+
+#### Run test sequentially showing Browser for Visual Debugging
+
+```sh
+pnpm playwright test map-panner -j 1 --headed
 ```
 
 ### Show Report
@@ -21,6 +37,29 @@ pnpm playwright test "example"
 ```sh
 pnpm showreport
 ```
+
+## Upload Dataset
+
+### Acquire credentials
+
+```sh
+az login
+
+azcopy login --login-type azcli
+export AZCOPY_AUTO_LOGIN_TYPE=AZCLI
+```
+
+### Copy
+
+```sh
+azcopy copy \
+--recursive \
+"datasets/ladybird/ladybird_20250528T164140" \
+https://magmardata.blob.core.windows.net/data/ladybird \
+--dry-run
+```
+
+## Existing Usage Guide
 
 This is a collection of challenges for general-purpose web-browsing AI agents.
 
