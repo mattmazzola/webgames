@@ -17,7 +17,7 @@ node scripts/getGamesByTags.js \
 ### Run Tests
 
 ```sh
-pnpm playwright test "example"
+pnpm playwright test ladybird
 ```
 
 ### Show Report

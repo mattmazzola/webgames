@@ -200,5 +200,6 @@ tasks.forEach((task, lineIndex) => {
 
         // Append game data to shared dataset.jsonl file
         await fs.promises.appendFile(datasetJsonlPath, JSON.stringify(dataItem) + '\n')
+        console.log(`Data for task #${lineIndex} written to ${datasetJsonlPath}`)
     })
 })
