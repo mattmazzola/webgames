@@ -20,7 +20,13 @@ node scripts/getGamesByTags.js \
 pnpm playwright test ladybird
 ```
 
-#### Visual Sequential for Debugging
+### Run Specific Test
+
+```sh
+pnpm playwright test tests/map-panner.spec.ts --grep "task #2"
+```
+
+#### Run test sequentially showing Browser for Visual Debugging
 
 ```sh
 pnpm playwright test map-panner -j 1 --headed
