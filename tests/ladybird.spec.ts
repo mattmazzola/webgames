@@ -6,7 +6,6 @@ import {
   loadTasksFromJsonl, 
   createScreenshotHandler, 
   getTaskImages,
-  appendToDataset,
   getXYOffset
 } from './helpers'
 
@@ -18,6 +17,7 @@ const {
 } = createDirectories('ladybird')
 
 type LadybirdDatasetItem = {
+    taskIndex: number
     images: string[]
     start_pos: { row: number, col: number }
     end_pos: { row: number, col: number }
@@ -65,6 +65,7 @@ tasks.forEach((task, lineIndex) => {
         const leftButton = page.getByRole('button', { name: '⬅️' })
 
         const dataItem: LadybirdDatasetItem = {
+            taskIndex: lineIndex,
             images: [],
             start_pos: task.start_pos,
             end_pos: task.end_pos,

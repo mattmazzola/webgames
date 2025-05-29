@@ -29,7 +29,7 @@ def main():
         st.session_state.displayed_image = None
 
     # Use first command line argument as dataset path if provided
-    default_dataset_path = "../datasets/ladybird/ladybird_20250528T164140/dataset.jsonl"
+    default_dataset_path = "../datasets/ladybird/ladybird_20250529T230516/dataset.jsonl"
     if len(sys.argv) > 1:
         default_dataset_path = sys.argv[1]
 
@@ -96,9 +96,12 @@ def main():
         next_disabled = st.session_state.current_index >= num_items - 1
         st.button("Next ➡️", on_click=go_next, disabled=next_disabled)
 
-    # Show entry number and total
+    current_data = items[st.session_state.current_index]
+
+    # Show entry number, total, and task index
     with col_counter:
-        st.write(f"Line {st.session_state.current_index + 1} of {num_items}")
+        task_index = current_data.get("taskIndex", "N/A")
+        st.write(f"Line {st.session_state.current_index + 1} of {num_items} (Task Index: {task_index})")
 
     # Jump to specific line with label on the left
     with col_goto:
@@ -116,8 +119,6 @@ def main():
                 key="jump_input",
                 on_change=jump_to_line,
             )
-
-    current_data = items[st.session_state.current_index]
 
     # Display image and data in two columns
     col_img, col_data = st.columns(2)

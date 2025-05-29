@@ -20,22 +20,6 @@ def main():
         page_title="Map Panner Dataset Visualizer",
         layout="wide",
     )
-    
-    # Add CSS for keyboard shortcut help
-    st.markdown("""
-        <style>
-        .keyboard-shortcut {
-            padding: 4px 8px;
-            margin: 0 2px;
-            background-color: #f1f1f1;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            font-family: monospace;
-            display: inline-block;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-
     # Initialize session state variables if they don't exist
     if "current_index" not in st.session_state:
         st.session_state.current_index = 0
@@ -45,15 +29,9 @@ def main():
     
     if "image_category" not in st.session_state:
         st.session_state.image_category = "initial"
-        
-    if "key_pressed" not in st.session_state:
-        st.session_state.key_pressed = None
-        
-    if "show_shortcuts" not in st.session_state:
-        st.session_state.show_shortcuts = False
 
     # Use first command line argument as dataset path if provided
-    default_dataset_path = "../../datasets/map-panner/map-panner_20250529T194005/dataset.jsonl"
+    default_dataset_path = "../datasets/map-panner/map-panner_20250529T225847/dataset.jsonl"
     if len(sys.argv) > 1:
         default_dataset_path = sys.argv[1]
 
