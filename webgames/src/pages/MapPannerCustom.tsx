@@ -5,8 +5,10 @@ export const PASSWORD_MapPannerCustom = "CARTOGRAPHER2024_CUSTOM";
 export const TASK_ID_MapPannerCustom = "map-panner-custom";
 
 interface TaskData {
-  target_x: number;
-  target_y: number;
+  targetPos: {
+    x: number;
+    y: number;
+  };
   password: string;
 }
 
@@ -75,8 +77,8 @@ const MapPannerCustom: React.FC = () => {
 
           // Update treasure location based on the task data
           setTreasureLocation({
-            x: selectedTask.target_x,
-            y: selectedTask.target_y
+            x: selectedTask.targetPos.x,
+            y: selectedTask.targetPos.y
           })
 
           console.log("Loaded task:", selectedTask)

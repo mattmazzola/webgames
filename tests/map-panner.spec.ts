@@ -5,8 +5,7 @@ import {
   createDirectories, 
   loadTasksFromJsonl, 
   createScreenshotHandler, 
-  getTaskImages,
-  appendToDataset,
+  getTaskImages
 } from './helpers'
 
 // Create directories and get paths
@@ -18,21 +17,19 @@ const {
 
 type MapPannerDatasetItem = {
   images: string[]
-  target_x: number
-  target_y: number
+  targetPos: { x: number, y: number }
   actions: {
     action: string,
     x_offset: number,
     y_offset: number,
   }[]
   password: string
-  start_pos: { x: number, y: number }
-  end_pos: { x: number, y: number }
+  startPos: { x: number, y: number }
+  endPos: { x: number, y: number }
 }
 
 type TaskData = {
-  target_x: number
-  target_y: number
+  targetPos: { x: number, y: number }
   password: string
 }
 
@@ -59,12 +56,14 @@ tasks.forEach((task, lineIndex) => {
     // Create dataset item
     const dataItem: MapPannerDatasetItem = {
       images: [],
-      target_x: task.target_x,
-      target_y: task.target_y,
+      targetPos: { 
+        x: task.targetPos.x,
+        y: task.targetPos.y
+      },
       actions: [],
       password: '',
-      start_pos: { x: 0, y: 0 },
-      end_pos: { x: 0, y: 0 }
+      startPos: { x: 0, y: 0 },
+      endPos: { x: 0, y: 0 }
     }
 
     // Center of the screen for mouse
@@ -79,7 +78,7 @@ tasks.forEach((task, lineIndex) => {
     let mapY = centerY
 
     // Record the initial position in the dataset
-    dataItem.start_pos = { x: mapX, y: mapY }
+    dataItem.startPos = { x: mapX, y: mapY }
 
     // Calculate optimal movement size based on viewport
     // Using 1/3 of the viewport as the optimal step size to maintain control
@@ -88,8 +87,8 @@ tasks.forEach((task, lineIndex) => {
     const optimalStepSize = Math.min(viewportWidth, viewportHeight) / 3
 
     // Target map position from task data
-    const targetMapX = task.target_x
-    const targetMapY = task.target_y
+    const targetMapX = task.targetPos.x
+    const targetMapY = task.targetPos.y
 
     // Calculate the distance to target
     const distanceToTargetX = targetMapX - mapX
@@ -173,7 +172,7 @@ tasks.forEach((task, lineIndex) => {
     }
 
     // Record the end map position (where we've panned to)
-    dataItem.end_pos = { x: mapX, y: mapY }
+    dataItem.endPos = { x: mapX, y: mapY }
 
     // Add a final adjustment step to reach the exact target
     const remainingDistanceX = targetMapX - mapX
@@ -248,7 +247,7 @@ tasks.forEach((task, lineIndex) => {
       await page.waitForTimeout(500)
 
       // Update the end position in the dataset
-      dataItem.end_pos = { x: mapX, y: mapY }
+      dataItem.endPos = { x: mapX, y: mapY }
     }
 
     console.log(`Final map position: (${mapX.toFixed(2)}, ${mapY.toFixed(2)})`)
