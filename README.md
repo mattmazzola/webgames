@@ -23,7 +23,7 @@ pnpm playwright test ladybird
 ### Run Specific Test
 
 ```sh
-pnpm playwright test tests/map-panner.spec.ts --grep "task #2"
+pnpm playwright test map-panner --grep "task #2"
 ```
 
 #### Run test sequentially showing Browser for Visual Debugging
