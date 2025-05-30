@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 import { useTaskAnalytics } from "../utils/useTaskAnalytics"
+import { SeededRandom } from "../utils/seededRandom"
 
 export const PASSWORD_FrogCrossingCustom = "HOPPY_CROSSING_CUSTOM"
 export const TASK_ID_FrogCrossingCustom = "frog-crossing-custom"
@@ -20,6 +21,7 @@ const GRID_SIZE = 9
 const CAR_ROWS = [1, 3, 5, 7]
 const CARS_PER_ROW = 3
 const MOVE_INTERVAL = 400 // Slower interval for grid-based movement
+const DEFAULT_SEED = 12345 // Default seed for consistent gameplay
 
 export default function FrogCrossingCustom() {
   const { recordSuccess } = useTaskAnalytics(TASK_ID_FrogCrossingCustom)
@@ -32,14 +34,17 @@ export default function FrogCrossingCustom() {
   const [cars, setCars] = useState<Car[]>([])
   const [gameOver, setGameOver] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [seed, setSeed] = useState<number>(DEFAULT_SEED)
 
-  // Initialize cars
+  // Initialize cars with seeded random number generator
   useEffect(() => {
+    const rng = new SeededRandom(seed)
     const initialCars: Car[] = []
+    
     CAR_ROWS.forEach((row, row_index) => {
       for (let i = 0; i < CARS_PER_ROW; i += 1) {
         initialCars.push({
-          x: Math.floor(Math.random() * GRID_SIZE),
+          x: rng.getRandomInt(0, GRID_SIZE - 1),
           y: row,
           // All cars in row move in same direction, alternating by row
           direction: row_index % 2 === 0 ? "left" : "right",
@@ -87,12 +92,14 @@ export default function FrogCrossingCustom() {
       setSuccess(true)
       recordSuccess() // Record success when the frog reaches the top
     }
-  }, [frog, cars])
+  }, [frog, cars, recordSuccess])
 
   // Handle keyboard input
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (gameOver || success) return
+      if (gameOver || success) {
+        return;
+      }
 
       setFrog((prev) => {
         let newX = prev.x
@@ -185,6 +192,13 @@ export default function FrogCrossingCustom() {
             </div>
           )
         })}
+      </div>
+      
+      <div className="mt-4 text-emerald-300">
+        <p>Current seed: {seed}</p>
+        <p className="text-sm mt-2">
+          * Using the same seed will generate the same game pattern every time.
+        </p>
       </div>
     </div>
   )
