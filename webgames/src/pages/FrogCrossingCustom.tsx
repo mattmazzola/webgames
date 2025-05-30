@@ -50,7 +50,7 @@ export default function FrogCrossingCustom() {
     const lineIndex = searchQuery.get("lineIndex")
       ? parseInt(searchQuery.get("lineIndex") as string, 10)
       : null
-    
+
     // If seed is provided directly, use it without loading task data
     if (urlSeed) {
       const parsedSeed = parseInt(urlSeed, 10)
@@ -65,7 +65,7 @@ export default function FrogCrossingCustom() {
           const response = await fetch('/data/frog-crossing/tasks.jsonl')
           if (response.ok) {
             const text = await response.text()
-            
+
             // Skip comment lines and filter empty lines
             const lines = text.split('\n')
               .filter(line => line.trim() && !line.trim().startsWith('//'))
@@ -73,12 +73,12 @@ export default function FrogCrossingCustom() {
             if (lineIndex >= 0 && lineIndex < lines.length) {
               const selectedTask = JSON.parse(lines[lineIndex])
               setTaskData(selectedTask)
-              
+
               // Set seed from task data
               if (selectedTask.seed) {
                 setSeed(selectedTask.seed)
               }
-              
+
               console.log("Loaded task:", selectedTask)
             }
           }
@@ -86,7 +86,7 @@ export default function FrogCrossingCustom() {
           console.error("Error loading task data:", error)
         }
       }
-      
+
       loadTaskData()
     }
   }, [])
@@ -95,7 +95,7 @@ export default function FrogCrossingCustom() {
   useEffect(() => {
     const rng = new SeededRandom(seed)
     const initialCars: Car[] = []
-    
+
     CAR_ROWS.forEach((row, row_index) => {
       for (let i = 0; i < CARS_PER_ROW; i += 1) {
         initialCars.push({
@@ -153,7 +153,7 @@ export default function FrogCrossingCustom() {
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (gameOver || success) {
-        return;
+        return
       }
 
       setFrog((prev) => {
@@ -201,18 +201,20 @@ export default function FrogCrossingCustom() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-emerald-900 p-8">
       <h1 className="text-4xl font-bold text-emerald-200 mb-8">Frog Crossing</h1>
       <div className="mb-6 text-2xl font-semibold">
-        {gameOver ? (
-          <div className="text-red-400">Game Over! Press Ctrl+R to restart (refresh)</div>
-        ) : success ? (
-          <div className="text-emerald-400">
-            Success! The password is: {getPassword()}
-          </div>
-        ) : (
-          <div className="text-emerald-300">
-            Use arrow keys to guide the frog home! 🎮 <br />
-            Navigate to the top row without getting hit by cars.
-          </div>
-        )}
+        <div className="text-emerald-300">
+          Use arrow keys to guide the frog home! 🎮 <br />
+          Navigate to the top row without getting hit by cars.
+        </div>
+        {gameOver
+          ? (
+            <div className="text-red-400" id="gameover">Game Over! Press Ctrl+R to restart (refresh)</div>
+          )
+          : success
+            ? (
+              <div className="text-emerald-400">
+                Success! The password is: <span id="password">{getPassword()}</span>
+              </div>
+            ) : null}
       </div>
 
       <div
@@ -259,7 +261,7 @@ export default function FrogCrossingCustom() {
           )
         })}
       </div>
-      
+
       <div className="mt-4 text-emerald-300">
         <p>Current seed: {seed}</p>
         <p className="text-sm mt-2">

@@ -1,4 +1,4 @@
-import { test, expect, keyboard } from '@playwright/test'
+import { test, expect } from '@playwright/test'
 import fs from 'fs'
 import path from 'path'
 import {
@@ -80,7 +80,7 @@ tasks.forEach((task, lineIndex) => {
             return page.evaluate(() => {
                 const grid = []
                 const cells = document.querySelectorAll('[class*="grid"] > div')
-                const gridSize = 9 // Same as GRID_SIZE
+                const gridSize = 9
 
                 for (let y = 0; y < gridSize; y++) {
                     const row = []
@@ -136,7 +136,7 @@ tasks.forEach((task, lineIndex) => {
         }
 
         // Function to decide the next move based on the current game state
-        async function decideNextMove(gameState: any) {
+        function decideNextMove(gameState: any) {
             // If we're at the top row, we've won
             if (gameState.frogPos.y === 0) {
                 return null
@@ -200,6 +200,7 @@ tasks.forEach((task, lineIndex) => {
         let moveCount = 0
         let gameOver = false
         let success = false
+        let passwordText = ''
 
         while (moveCount < maxMoves && !gameOver && !success) {
             // Get current state
@@ -212,7 +213,7 @@ tasks.forEach((task, lineIndex) => {
             }
 
             // Decide next move
-            const nextMove = await decideNextMove(gameState)
+            const nextMove = decideNextMove(gameState)
             if (!nextMove) {
                 break // No valid moves
             }
@@ -226,8 +227,8 @@ tasks.forEach((task, lineIndex) => {
                 key: nextMove
             })
 
-            // Wait for the game to process the move
-            await page.waitForTimeout(200)
+            // Wait for the game to process the move - give it more time to detect collisions
+            await page.waitForTimeout(300)
 
             // Check game status
             const newGameState = await getGameState()
@@ -237,23 +238,38 @@ tasks.forEach((task, lineIndex) => {
                 newGameState.frogPos.y === gameState.frogPos.y) {
                 // Take a screenshot to see what happened
                 await takeScreenshotAndCopy(`move_${moveCount}_failed`)
+                
+                // If position didn't change, explicitly check for game over
+                const immediateGameOverCheck = await page.locator('#gameover').count()
+                if (immediateGameOverCheck > 0) {
+                    gameOver = true
+                    console.log(`Game over detected after failed move ${moveCount}`)
+                    break
+                }
             } else {
                 // Take a screenshot after successful move
-                await takeScreenshotAndCopy(`move_${moveCount}`)
+                await takeScreenshotAndCopy(`move_${moveCount}_success`)
             }
 
+            console.log(`Move ${moveCount}: Frog moved to (${newGameState.frogPos.x}, ${newGameState.frogPos.y})`)
             // Check for game over (we can detect this by looking for the game over text)
-            const gameOverText = await page.locator('text=Game Over').count()
+            const gameOverText = await page.locator('#gameover').count()
             if (gameOverText > 0) {
                 gameOver = true
+                console.log(`Game over detected at move ${moveCount}`)
                 break
             }
 
             // Check for success (look for password display)
-            const successText = await page.locator('text=Success').count()
-            if (successText > 0) {
-                success = true
-                break
+            // First check if the password element exists
+            const passwordElementCount = await page.locator('#password').count()
+            if (passwordElementCount > 0) {
+                passwordText = (await page.locator('#password').textContent())?.trim() ?? ''
+                if (passwordText && passwordText.length > 0) {
+                    success = true
+                    console.log(`Success detected at move ${moveCount} with password: ${passwordText}`)
+                    break
+                }
             }
 
             moveCount++
@@ -262,22 +278,16 @@ tasks.forEach((task, lineIndex) => {
             await page.waitForTimeout(MOVE_INTERVAL / 2)
         }
 
-        // Take final screenshot
+        // Take final screenshot regardless of outcome
         await takeScreenshotAndCopy('final')
 
         // Get final frog position
         const finalGameState = await getGameState()
         dataItem.finalFrogPos = finalGameState.frogPos
 
-        if (success) {
-            // Check for success message and password display
-            const passwordElement = await page.getByText(task.password)
-            await expect(passwordElement).toBeVisible({ timeout: 1000 })
-            const passwordText = await passwordElement.textContent() ?? ''
-
+        if (success && passwordText) {
             // Verify the displayed password matches the expected one from tasks.jsonl
             expect(passwordText).toContain(task.password)
-
             dataItem.password = passwordText.trim()
         }
 
@@ -287,10 +297,16 @@ tasks.forEach((task, lineIndex) => {
         // Append game data to dataset.jsonl file
         await fs.promises.appendFile(datasetJsonlPath, JSON.stringify(dataItem) + '\n')
         console.log(`Data for task #${lineIndex} written to ${datasetJsonlPath}`)
-
-        // Assert success if we expect it
+        
+        // Fail the test if game over was detected
+        if (gameOver) {
+            // Using throw instead of test.fail() for immediate exit
+            throw new Error("Game over - Frog hit a car");
+        }
+        
+        // This test will pass if we reached success
         if (success) {
-            await expect(page.locator('text=Success')).toBeVisible()
+            console.log(`Successfully completed game with password: ${passwordText}`)
         }
     })
 })
