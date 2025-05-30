@@ -35,9 +35,69 @@ type TaskData = {
     password: string
 }
 
-// Game constants (matching the game's implementation)
-const GRID_SIZE = 9
-const CAR_ROWS = [1, 3, 5, 7]
+function getFrogPosition(gameState: { grid: string[][], gridSize: number, carRows: number[] }) {
+    const grid = gameState.grid;
+    for (let y = 0; y < grid.length; y++) {
+        for (let x = 0; x < grid[y].length; x++) {
+            if (grid[y][x] === 'F') {
+                return { x, y }
+            }
+        }
+    }
+    return { x: -1, y: -1 }
+}
+
+// Helper function to identify car rows - we don't need this anymore as car rows come from the DOM
+// But keeping a modified version in case we need to calculate them from the grid
+function identifyCarRowsFromGrid(gameState: { grid: string[][], gridSize: number, carRows: number[] }) {
+    const grid = gameState.grid;
+    const carRows: number[] = []
+    for (let y = 0; y < grid.length; y++) {
+        if (grid[y].some(cell => cell === 'C') && !carRows.includes(y)) {
+            carRows.push(y)
+        }
+    }
+    return carRows
+}
+
+// Helper function to find all car positions
+function getCars(gameState: { grid: string[][], gridSize: number, carRows: number[] }) {
+    const grid = gameState.grid;
+    const cars: { x: number, y: number }[] = []
+    for (let y = 0; y < grid.length; y++) {
+        for (let x = 0; x < grid[y].length; x++) {
+            if (grid[y][x] === 'C') {
+                cars.push({ x, y })
+            }
+        }
+    }
+    return cars
+}
+
+// Helper function to print the game state for debugging
+function printGameState(gameState: { grid: string[][], gridSize: number, carRows: number[] }) {
+    const grid = gameState.grid;
+    const frogPos = getFrogPosition(gameState)
+    const carRows = gameState.carRows
+
+    const gridSize = gameState.gridSize
+    
+    console.log("\nGame Grid State: (Size: " + gridSize + "x" + gridSize + ")")
+    console.log("Car Rows: [" + carRows.join(", ") + "]")
+    console.log("  " + Array.from({ length: grid[0].length }, (_, i) => i).join(" "))
+
+    for (let y = 0; y < grid.length; y++) {
+        let rowStr = y + " " + grid[y].join(" ")
+        rowStr += carRows.includes(y) ? " (Car Row)" : ""
+        if (y === frogPos.y) {
+            rowStr += " <- Frog at (" + frogPos.x + "," + frogPos.y + ")"
+        }
+        console.log(rowStr)
+    }
+    console.log("")
+}
+
+// Game constants
 const CARS_PER_ROW = 3
 const MOVE_INTERVAL = 400 // Same as in the game
 
@@ -61,14 +121,25 @@ tasks.forEach((task, lineIndex) => {
         // Take a screenshot of the initial game state
         await takeScreenshotAndCopy('initial')
 
+        // Get initial game state to determine grid size
+        const initialState = await page.evaluate(() => {
+            const gridContainer = document.querySelector('[class*="grid"]')
+            if (!gridContainer) throw new Error('Grid container not found')
+            
+            // Calculate grid dimensions
+            const gridStyle = window.getComputedStyle(gridContainer)
+            const gridSize = gridStyle.getPropertyValue('grid-template-columns').split(' ').length
+            return { gridSize }
+        })
+
         // Create dataset item
         const dataItem: FrogCrossingDatasetItem = {
             taskIndex: lineIndex,
             images: [],
             seed: task.seed,
             initialFrogPos: {
-                x: Math.floor(GRID_SIZE / 2),
-                y: GRID_SIZE - 1
+                x: Math.floor(initialState.gridSize / 2),
+                y: initialState.gridSize - 1
             },
             finalFrogPos: { x: 0, y: 0 }, // Will be updated later
             actions: [],
@@ -78,79 +149,93 @@ tasks.forEach((task, lineIndex) => {
         // Function to get the current grid state
         async function getGameState() {
             return page.evaluate(() => {
-                const grid = []
+                // Get grid size by measuring the grid element
+                const gridContainer = document.querySelector('[class*="grid"]')
+                if (!gridContainer) throw new Error('Grid container not found')
+                
+                // Calculate grid dimensions from the container's style
+                const gridStyle = window.getComputedStyle(gridContainer)
+                const gridTemplateColumns = gridStyle.getPropertyValue('grid-template-columns').split(' ').length
+                const gridTemplateRows = gridStyle.getPropertyValue('grid-template-rows').split(' ').length
+                
+                // Get the grid dimensions
+                const gridSize = Math.max(gridTemplateColumns, gridTemplateRows)
+                
+                const grid: string[][] = []
                 const cells = document.querySelectorAll('[class*="grid"] > div')
-                const gridSize = 9
-
+                
+                // Identify car rows by checking which rows have "car" class elements
+                const carRows: number[] = []
+                
                 for (let y = 0; y < gridSize; y++) {
-                    const row = []
+                    const row: string[] = []
+                    let hasCarInRow = false
+                    
                     for (let x = 0; x < gridSize; x++) {
                         const index = y * gridSize + x
                         const cell = cells[index]
                         const hasFrog = cell.textContent?.includes('🐸') ?? false
                         const hasCar = cell.textContent?.includes('🚙') || cell.textContent?.includes('🚗')
-                        const cellType = hasFrog ? 'frog' : (hasCar ? 'car' : (
-                            y === 0 ? 'goal' : (
-                                y === gridSize - 1 ? 'start' : (
-                                    [1, 3, 5, 7].includes(y) ? 'road' : 'safe'
-                                )
-                            )
-                        ))
-
-                        row.push({
-                            x,
-                            y,
-                            type: cellType
-                        })
+                        
+                        // Use single character codes for cell types
+                        // F = frog, C = car, G = goal, S = start, R = road, O = open/safe
+                        let cellChar: string
+                        if (hasFrog) {
+                            cellChar = 'F' // Frog
+                        } else if (hasCar) {
+                            cellChar = 'C' // Car
+                            hasCarInRow = true
+                        } else if (y === 0) {
+                            cellChar = 'G' // Goal
+                        } else if (y === gridSize - 1) {
+                            cellChar = 'S' // Start
+                        } else {
+                            // Check for road cell (has moving elements)
+                            const isRoad = cell.classList.contains('road') || 
+                                          cell.parentElement?.classList.contains('road') ||
+                                          hasCarInRow;
+                            cellChar = isRoad ? 'R' : 'O'; // Road or Open/safe
+                        }
+                        
+                        row.push(cellChar)
                     }
                     grid.push(row)
-                }
-
-                // Find frog position
-                let frogPos = { x: -1, y: -1 }
-                for (let y = 0; y < gridSize; y++) {
-                    for (let x = 0; x < gridSize; x++) {
-                        if (grid[y][x].type === 'frog') {
-                            frogPos = { x, y }
-                            break
-                        }
+                    
+                    // If this row has a car, mark it as a car row
+                    if (hasCarInRow && !carRows.includes(y)) {
+                        carRows.push(y)
                     }
                 }
-
-                // Find all car positions
-                const cars = []
-                for (let y = 0; y < gridSize; y++) {
-                    for (let x = 0; x < gridSize; x++) {
-                        if (grid[y][x].type === 'car') {
-                            cars.push({ x, y })
-                        }
-                    }
-                }
-
+                
                 return {
                     grid,
-                    frogPos,
-                    cars
+                    gridSize,
+                    carRows
                 }
             })
         }
 
         // Function to decide the next move based on the current game state
-        function decideNextMove(gameState: any) {
+        function decideNextMove(gameState: { grid: string[][], gridSize: number, carRows: number[] }) {
+            // Get frog position from the grid
+            const frogPos = getFrogPosition(gameState)
+            const gridSize = gameState.gridSize
+            const carRows = gameState.carRows
+
             // If we're at the top row, we've won
-            if (gameState.frogPos.y === 0) {
+            if (frogPos.y === 0) {
                 return null
             }
 
             // Calculate safe moves
             const possibleMoves = [
-                { key: 'ArrowUp', newPos: { x: gameState.frogPos.x, y: gameState.frogPos.y - 1 } },
-                { key: 'ArrowLeft', newPos: { x: gameState.frogPos.x - 1, y: gameState.frogPos.y } },
-                { key: 'ArrowRight', newPos: { x: gameState.frogPos.x + 1, y: gameState.frogPos.y } }
+                { key: 'ArrowUp', newPos: { x: frogPos.x, y: frogPos.y - 1 } },
+                { key: 'ArrowLeft', newPos: { x: frogPos.x - 1, y: frogPos.y } },
+                { key: 'ArrowRight', newPos: { x: frogPos.x + 1, y: frogPos.y } }
             ].filter(move => {
                 // Check if move is within grid bounds
-                if (move.newPos.x < 0 || move.newPos.x >= GRID_SIZE ||
-                    move.newPos.y < 0 || move.newPos.y >= GRID_SIZE) {
+                if (move.newPos.x < 0 || move.newPos.x >= gridSize ||
+                    move.newPos.y < 0 || move.newPos.y >= gridSize) {
                     return false
                 }
 
@@ -159,12 +244,12 @@ tasks.forEach((task, lineIndex) => {
 
             // Prioritize moving up if it's safe
             const upMove = possibleMoves.find(move => move.key === 'ArrowUp')
-            if (upMove && !CAR_ROWS.includes(upMove.newPos.y)) {
+            if (upMove && !carRows.includes(upMove.newPos.y)) {
                 return upMove.key
             }
 
             // If we're on a car row, try to move to a safe position
-            if (CAR_ROWS.includes(gameState.frogPos.y)) {
+            if (carRows.includes(frogPos.y)) {
                 // Try side moves
                 const sideMoves = possibleMoves.filter(move =>
                     move.key === 'ArrowLeft' || move.key === 'ArrowRight')
@@ -206,8 +291,15 @@ tasks.forEach((task, lineIndex) => {
             // Get current state
             const gameState = await getGameState()
 
+            // Get frog position
+            const frogPos = getFrogPosition(gameState)
+
+            // Print the current grid state for debugging
+            console.log(`--- Move ${moveCount} ---`)
+            printGameState(gameState)
+
             // Check if we've reached the top (success)
-            if (gameState.frogPos.y === 0) {
+            if (frogPos.y === 0) {
                 success = true
                 break
             }
@@ -233,12 +325,16 @@ tasks.forEach((task, lineIndex) => {
             // Check game status
             const newGameState = await getGameState()
 
+            // Get old and new frog positions
+            const oldFrogPos = getFrogPosition(gameState)
+            const newFrogPos = getFrogPosition(newGameState)
+
             // If frog position didn't change, we might have hit a car
-            if (newGameState.frogPos.x === gameState.frogPos.x &&
-                newGameState.frogPos.y === gameState.frogPos.y) {
+            if (newFrogPos.x === oldFrogPos.x &&
+                newFrogPos.y === oldFrogPos.y) {
                 // Take a screenshot to see what happened
                 await takeScreenshotAndCopy(`move_${moveCount}_failed`)
-                
+
                 // If position didn't change, explicitly check for game over
                 const immediateGameOverCheck = await page.locator('#gameover').count()
                 if (immediateGameOverCheck > 0) {
@@ -251,7 +347,7 @@ tasks.forEach((task, lineIndex) => {
                 await takeScreenshotAndCopy(`move_${moveCount}_success`)
             }
 
-            console.log(`Move ${moveCount}: Frog moved to (${newGameState.frogPos.x}, ${newGameState.frogPos.y})`)
+            console.log(`Move ${moveCount}: Frog moved to (${newFrogPos.x}, ${newFrogPos.y})`)
             // Check for game over (we can detect this by looking for the game over text)
             const gameOverText = await page.locator('#gameover').count()
             if (gameOverText > 0) {
@@ -283,7 +379,7 @@ tasks.forEach((task, lineIndex) => {
 
         // Get final frog position
         const finalGameState = await getGameState()
-        dataItem.finalFrogPos = finalGameState.frogPos
+        dataItem.finalFrogPos = getFrogPosition(finalGameState)
 
         if (success && passwordText) {
             // Verify the displayed password matches the expected one from tasks.jsonl
@@ -297,13 +393,13 @@ tasks.forEach((task, lineIndex) => {
         // Append game data to dataset.jsonl file
         await fs.promises.appendFile(datasetJsonlPath, JSON.stringify(dataItem) + '\n')
         console.log(`Data for task #${lineIndex} written to ${datasetJsonlPath}`)
-        
+
         // Fail the test if game over was detected
         if (gameOver) {
             // Using throw instead of test.fail() for immediate exit
-            throw new Error("Game over - Frog hit a car");
+            throw new Error("Game over - Frog hit a car")
         }
-        
+
         // This test will pass if we reached success
         if (success) {
             console.log(`Successfully completed game with password: ${passwordText}`)
