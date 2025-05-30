@@ -7,7 +7,7 @@ import {
   createScreenshotHandler, 
   getTaskImages,
   getXYOffset
-} from './helpers'
+} from '../helpers'
 
 // Create directories and get paths
 const { 

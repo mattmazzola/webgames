@@ -6,7 +6,7 @@ import {
   loadTasksFromJsonl, 
   createScreenshotHandler, 
   getTaskImages
-} from './helpers'
+} from '../helpers'
 
 // Create directories and get paths
 const { 
