@@ -33,6 +33,7 @@ type FrogCrossingDatasetItem = {
 type TaskData = {
     seed: number
     password: string
+    mode: "static" | "dynamic" // Mode to control car movement (static or dynamic)
 }
 
 // Define our game state type
@@ -268,6 +269,7 @@ tasks.forEach((task, lineIndex) => {
             const rowDirections = gameState.rowDirections
             const cars = getCars(gameState)
             const grid = gameState.grid
+            const isStaticMode = gameMode === 'static'
 
             // If we're at the top row, we've won
             if (frogPos.y === 0) {
@@ -285,9 +287,54 @@ tasks.forEach((task, lineIndex) => {
                     move.newPos.y < 0 || move.newPos.y >= gridSize) {
                     return false
                 }
+                
+                // In static mode, also immediately filter out moves directly to car positions
+                if (isStaticMode) {
+                    const { x, y } = move.newPos;
+                    if (grid[y][x] === 'C') {
+                        return false;
+                    }
+                }
+                
                 return true
             })
 
+            // For static mode, use a simpler algorithm focused on avoiding cars
+            // and finding the shortest path to the goal
+            if (isStaticMode) {
+                // In static mode, we can just look for a direct path to the top
+                console.log("Static mode: Using simplified path planning");
+                
+                // First, check if we can move up safely (no car directly above)
+                const upMove = possibleMoves.find(move => move.key === 'ArrowUp');
+                if (upMove) {
+                    console.log("Moving up");
+                    return 'ArrowUp';
+                }
+                
+                // Next, try moving left or right to find a path
+                const sideMoves = possibleMoves.filter(move => 
+                    move.key === 'ArrowLeft' || move.key === 'ArrowRight');
+                
+                if (sideMoves.length > 0) {
+                    // Choose the side move that gets us closer to the center
+                    const center = Math.floor(gridSize / 2);
+                    const sortedSideMoves = sideMoves.sort((a, b) => 
+                        Math.abs(a.newPos.x - center) - Math.abs(b.newPos.x - center));
+                    
+                    console.log(`Moving ${sortedSideMoves[0].key === 'ArrowLeft' ? 'left' : 'right'} to avoid obstacle`);
+                    return sortedSideMoves[0].key;
+                }
+                
+                // If no moves are available, just pick any available move
+                if (possibleMoves.length > 0) {
+                    return possibleMoves[0].key;
+                }
+                
+                return null;
+            }
+            
+            // For dynamic mode, use the more complex algorithm with safety scores
             // Evaluate safety score for each possible move
             const scoredMoves = possibleMoves.map(move => {
                 let safetyScore = 10; // Base score
@@ -381,6 +428,13 @@ tasks.forEach((task, lineIndex) => {
 
         // Take screenshot after initialization
         await takeScreenshotAndCopy('started')
+        
+        // Check which mode we're running in
+        const gameMode = task.mode
+        console.log(`Running test in ${gameMode} mode (cars ${gameMode === 'static' ? "don't move" : "move"})`)
+        
+        // In static mode, we can be more aggressive with timing since cars won't move
+        const moveIntervalToUse = gameMode === 'static' ? 50 : FROG_MOVE_INTERVAL
 
         // Game loop - continue until we reach the top or hit a car
         let maxMoves = 50 // Safety limit to prevent infinite loops
@@ -473,9 +527,9 @@ tasks.forEach((task, lineIndex) => {
 
             moveCount++
 
-            // IMPROVEMENT 3: Use faster frog movement interval
-            // Still give cars time to move but make frog decisions quicker
-            await page.waitForTimeout(FROG_MOVE_INTERVAL)
+            // Use the appropriate movement interval based on the game mode
+            // In static mode, we can move much faster since cars don't move
+            await page.waitForTimeout(moveIntervalToUse)
         }
 
         // Take final screenshot regardless of outcome

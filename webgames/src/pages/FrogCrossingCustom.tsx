@@ -24,6 +24,7 @@ interface TaskData {
   carRows: number[]
   carsPerRow: number
   moveInterval: number
+  mode: "static" | "dynamic" // Mode to control car movement (static or dynamic)
 }
 
 // Default seed for consistent gameplay when no task is provided
@@ -42,6 +43,7 @@ export default function FrogCrossingCustom() {
   const [taskData, setTaskData] = useState<TaskData | null>(null)
   const [seed, setSeed] = useState<number>(DEFAULT_SEED)
   const [configError, setConfigError] = useState<string | null>(null)
+  const [gameMode, setGameMode] = useState<"static" | "dynamic">("dynamic")
 
   // Load task data and set game parameters
   useEffect(() => {
@@ -85,6 +87,7 @@ export default function FrogCrossingCustom() {
               if (!selectedTask.carRows) missingParams.push('carRows')
               if (!selectedTask.carsPerRow) missingParams.push('carsPerRow')
               if (!selectedTask.moveInterval) missingParams.push('moveInterval')
+              if (!selectedTask.mode) missingParams.push('mode')
 
               if (missingParams.length > 0) {
                 const errorMsg = `Missing required parameters in task data: ${missingParams.join(', ')}`
@@ -99,6 +102,9 @@ export default function FrogCrossingCustom() {
               setCarRows(selectedTask.carRows);
               setCarsPerRow(selectedTask.carsPerRow);
               setMoveInterval(selectedTask.moveInterval);
+              
+              // Set the game mode (static or dynamic)
+              setGameMode(selectedTask.mode);
               
               // Update frog position based on grid size
               setFrog({
@@ -147,11 +153,12 @@ export default function FrogCrossingCustom() {
     setCars(initialCars)
   }, [seed, carRows, carsPerRow, gridSize]) // Depend on all game parameters
 
-  // Move cars
+  // Move cars - only in dynamic mode
   useEffect(() => {
-    // Only run this effect when all required parameters are available
-    if (!gridSize || !moveInterval || gameOver || success) return;
+    // Skip car movement in static mode or when parameters are missing
+    if (gameMode === "static" || !gridSize || !moveInterval || gameOver || success) return;
 
+    // In dynamic mode, move the cars at regular intervals
     const moveCarsInterval = setInterval(() => {
       setCars((prevCars) =>
         prevCars.map((car) => {
@@ -169,7 +176,7 @@ export default function FrogCrossingCustom() {
     }, moveInterval)
 
     return () => clearInterval(moveCarsInterval)
-  }, [gameOver, success, gridSize, moveInterval])
+  }, [gameOver, success, gridSize, moveInterval, gameMode])
 
   // Check collisions and win condition
   useEffect(() => {
@@ -261,6 +268,7 @@ export default function FrogCrossingCustom() {
                 <li>carRows: number[]</li>
                 <li>carsPerRow: number</li>
                 <li>moveInterval: number</li>
+                <li>mode: "static" | "dynamic"</li>
               </ul>
             </div>
           </div>
@@ -349,6 +357,9 @@ export default function FrogCrossingCustom() {
 
       <div className="mt-4 text-emerald-300">
         <p>Current seed: {seed}</p>
+        <p>Game mode: <span className={gameMode === "static" ? "text-emerald-400 font-bold" : "text-amber-400 font-bold"}>
+          {gameMode === "static" ? "Static (cars don't move)" : "Dynamic (cars move)"}
+        </span></p>
         <p className="text-sm mt-2">
           * Using the same seed will generate the same game pattern every time.
         </p>
