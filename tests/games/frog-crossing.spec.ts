@@ -167,43 +167,54 @@ tasks.forEach((task, lineIndex) => {
                 // Identify car rows by checking which rows have "car" class elements
                 const carRows: number[] = []
                 
+                // First pass: identify car rows by finding car emojis
+                const tempCarRows: number[] = [];
                 for (let y = 0; y < gridSize; y++) {
-                    const row: string[] = []
-                    let hasCarInRow = false
+                    for (let x = 0; x < gridSize; x++) {
+                        const index = y * gridSize + x;
+                        const cell = cells[index];
+                        const hasCar = cell.textContent?.includes('🚙') || cell.textContent?.includes('🚗');
+                        
+                        if (hasCar && !tempCarRows.includes(y)) {
+                            tempCarRows.push(y);
+                        }
+                    }
+                }
+                
+                // Second pass: build the grid with proper cell types
+                for (let y = 0; y < gridSize; y++) {
+                    const row: string[] = [];
+                    const isCarRow = tempCarRows.includes(y);
                     
                     for (let x = 0; x < gridSize; x++) {
-                        const index = y * gridSize + x
-                        const cell = cells[index]
-                        const hasFrog = cell.textContent?.includes('🐸') ?? false
-                        const hasCar = cell.textContent?.includes('🚙') || cell.textContent?.includes('🚗')
+                        const index = y * gridSize + x;
+                        const cell = cells[index];
+                        const hasFrog = cell.textContent?.includes('🐸') ?? false;
+                        const hasCar = cell.textContent?.includes('🚙') || cell.textContent?.includes('🚗');
                         
                         // Use single character codes for cell types
                         // F = frog, C = car, G = goal, S = start, R = road, O = open/safe
-                        let cellChar: string
+                        let cellChar: string;
                         if (hasFrog) {
-                            cellChar = 'F' // Frog
+                            cellChar = 'F'; // Frog
                         } else if (hasCar) {
-                            cellChar = 'C' // Car
-                            hasCarInRow = true
+                            cellChar = 'C'; // Car
                         } else if (y === 0) {
-                            cellChar = 'G' // Goal
+                            cellChar = 'G'; // Goal
                         } else if (y === gridSize - 1) {
-                            cellChar = 'S' // Start
+                            cellChar = 'S'; // Start
                         } else {
-                            // Check for road cell (has moving elements)
-                            const isRoad = cell.classList.contains('road') || 
-                                          cell.parentElement?.classList.contains('road') ||
-                                          hasCarInRow;
-                            cellChar = isRoad ? 'R' : 'O'; // Road or Open/safe
+                            // If we're in a known car row, all cells in that row are roads
+                            cellChar = isCarRow ? 'R' : 'O'; // Road or Open/safe
                         }
                         
-                        row.push(cellChar)
+                        row.push(cellChar);
                     }
-                    grid.push(row)
+                    grid.push(row);
                     
-                    // If this row has a car, mark it as a car row
-                    if (hasCarInRow && !carRows.includes(y)) {
-                        carRows.push(y)
+                    // Add to official car rows list
+                    if (isCarRow && !carRows.includes(y)) {
+                        carRows.push(y);
                     }
                 }
                 
