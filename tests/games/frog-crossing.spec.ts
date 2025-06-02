@@ -301,11 +301,9 @@ tasks.forEach((task, lineIndex) => {
                 return true
             })
 
-            // For static mode, use a simpler algorithm focused on avoiding cars
-            // and finding the shortest path to the goal
+            // For static mode, use a smarter algorithm that looks for the first open path
             if (isStaticMode) {
-                // In static mode, we can just look for a direct path to the top
-                console.log("Static mode: Using simplified path planning");
+                console.log("Static mode: Using smart path planning");
                 
                 // First, check if we can move up safely (no car directly above)
                 const upMove = possibleMoves.find(move => move.key === 'ArrowUp');
@@ -314,21 +312,144 @@ tasks.forEach((task, lineIndex) => {
                     return 'ArrowUp';
                 }
                 
-                // Next, try moving left or right to find a path
+                // If we can't move up directly, we need a more sophisticated approach
+                // Let's analyze multiple rows ahead to plan a path to the top
+                
+                // Step 1: Identify the target row (the row above)
+                const targetRowIndex = frogPos.y - 1;
+                
+                if (targetRowIndex >= 0 && targetRowIndex < gridSize) {
+                    // Step 2: Create a planning map for the next few rows (up to 3 rows ahead if possible)
+                    // This helps us avoid getting stuck in local minima
+                    const pathPlanningMap: string[][] = [];
+                    const maxPlanningDepth = Math.min(3, frogPos.y); // Look ahead up to 3 rows or until the top
+                    
+                    for (let depth = 0; depth < maxPlanningDepth; depth++) {
+                        const rowIndex = frogPos.y - 1 - depth;
+                        if (rowIndex >= 0) {
+                            pathPlanningMap.push(grid[rowIndex]);
+                        }
+                    }
+                    
+                    // Step 3: Create a safety score map for the target row
+                    const safetyScores = Array(gridSize).fill(0);
+                    
+                    // Calculate safety scores based on car positions in current and future rows
+                    for (let x = 0; x < gridSize; x++) {
+                        let score = 0;
+                        
+                        // Check if there's a car in this position in the target row
+                        if (grid[targetRowIndex][x] !== 'C') {
+                            score += 10; // Base score for open position
+                            
+                            // Bonus for positions that have open positions above them
+                            for (let depth = 1; depth < pathPlanningMap.length; depth++) {
+                                if (pathPlanningMap[depth] && pathPlanningMap[depth][x] !== 'C') {
+                                    score += (5 - depth); // Decreasing bonus for positions further up
+                                }
+                            }
+                            
+                            // Penalty based on distance from current position
+                            const distance = Math.abs(x - frogPos.x);
+                            score -= distance * 2; // Penalty increases with distance
+                            
+                            // Store the calculated score
+                            safetyScores[x] = score;
+                        } else {
+                            safetyScores[x] = -100; // Very low score for positions with cars
+                        }
+                    }
+                    
+                    // Step 4: Find the highest scoring position in the target row
+                    let bestX = -1;
+                    let bestScore = -Infinity;
+                    
+                    for (let x = 0; x < gridSize; x++) {
+                        if (safetyScores[x] > bestScore) {
+                            bestScore = safetyScores[x];
+                            bestX = x;
+                        }
+                    }
+                    
+                    console.log(`Safety scores: ${safetyScores.join(', ')}`);
+                    console.log(`Best position: (${bestX}, ${targetRowIndex}) with score ${bestScore}`);
+                    
+                    // Step 5: If we found a good position, move towards it
+                    if (bestX !== -1 && bestScore > -100) {
+                        // Determine the best direction to move
+                        if (bestX < frogPos.x && possibleMoves.some(m => m.key === 'ArrowLeft')) {
+                            console.log(`Moving left toward best position at (${bestX}, ${targetRowIndex})`);
+                            return 'ArrowLeft';
+                        } else if (bestX > frogPos.x && possibleMoves.some(m => m.key === 'ArrowRight')) {
+                            console.log(`Moving right toward best position at (${bestX}, ${targetRowIndex})`);
+                            return 'ArrowRight';
+                        } else if (bestX === frogPos.x) {
+                            // We're directly under the best position but can't move up
+                            // Try to find an alternative path by looking horizontally for the next best position
+                            const horizontalOptions = [...safetyScores];
+                            horizontalOptions[bestX] = -Infinity; // Exclude current best as we know we can't go there
+                            
+                            let nextBestX = -1;
+                            let nextBestScore = -Infinity;
+                            
+                            for (let x = 0; x < gridSize; x++) {
+                                if (horizontalOptions[x] > nextBestScore) {
+                                    nextBestScore = horizontalOptions[x];
+                                    nextBestX = x;
+                                }
+                            }
+                            
+                            // If we found a reasonable alternative, move toward it
+                            if (nextBestX !== -1 && nextBestScore > -50) {
+                                if (nextBestX < frogPos.x && possibleMoves.some(m => m.key === 'ArrowLeft')) {
+                                    console.log(`Moving left toward alternative position at (${nextBestX}, ${targetRowIndex})`);
+                                    return 'ArrowLeft';
+                                } else if (nextBestX > frogPos.x && possibleMoves.some(m => m.key === 'ArrowRight')) {
+                                    console.log(`Moving right toward alternative position at (${nextBestX}, ${targetRowIndex})`);
+                                    return 'ArrowRight';
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                // Step 6: Fallback strategy - if we don't have a clear path forward
+                // Look for any escape route from the current position
+                
+                // Check for open paths to the sides
                 const sideMoves = possibleMoves.filter(move => 
                     move.key === 'ArrowLeft' || move.key === 'ArrowRight');
                 
                 if (sideMoves.length > 0) {
-                    // Choose the side move that gets us closer to the center
-                    const center = Math.floor(gridSize / 2);
-                    const sortedSideMoves = sideMoves.sort((a, b) => 
-                        Math.abs(a.newPos.x - center) - Math.abs(b.newPos.x - center));
+                    // Evaluate side moves by looking at their potential future paths
+                    const sideMoveScores = sideMoves.map(move => {
+                        const { x, y } = move.newPos;
+                        let score = 0;
+                        
+                        // Check if moving to this position might open a path up in the future
+                        if (y > 0 && grid[y-1][x] !== 'C') {
+                            score += 5; // This move might let us go up next turn
+                        }
+                        
+                        // Prefer positions closer to the center for better maneuverability
+                        const center = Math.floor(gridSize / 2);
+                        score -= Math.abs(x - center);
+                        
+                        return { move: move.key, score };
+                    });
                     
-                    console.log(`Moving ${sortedSideMoves[0].key === 'ArrowLeft' ? 'left' : 'right'} to avoid obstacle`);
-                    return sortedSideMoves[0].key;
+                    // Sort by score (descending)
+                    sideMoveScores.sort((a, b) => b.score - a.score);
+                    console.log(`Side move scores: ${JSON.stringify(sideMoveScores)}`);
+                    
+                    // Choose the best side move
+                    if (sideMoveScores.length > 0) {
+                        console.log(`Moving ${sideMoveScores[0].move === 'ArrowLeft' ? 'left' : 'right'} as best escape route`);
+                        return sideMoveScores[0].move;
+                    }
                 }
                 
-                // If no moves are available, just pick any available move
+                // If all else fails, just pick any available move
                 if (possibleMoves.length > 0) {
                     return possibleMoves[0].key;
                 }
