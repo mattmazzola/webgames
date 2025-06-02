@@ -1,5 +1,17 @@
-{"seed": 12345, "password": "HOPPY_CROSSING_12345"}
-{"seed": 54321, "password": "HOPPY_CROSSING_54321"}
-{"seed": 98765, "password": "HOPPY_CROSSING_98765"}
-{"seed": 24680, "password": "HOPPY_CROSSING_24680"}
-{"seed": 13579, "password": "HOPPY_CROSSING_13579"}
+// Tasks sorted by difficulty (easiest to hardest)
+
+// Easy difficulty tasks
+{"seed": 11111, "password": "HOPPY_CROSSING_11111", "gridSize": 7, "carRows": [1, 3, 5], "carsPerRow": 2, "moveInterval": 600}
+{"seed": 22222, "password": "HOPPY_CROSSING_22222", "gridSize": 7, "carRows": [1, 3, 5], "carsPerRow": 2, "moveInterval": 550}
+{"seed": 24680, "password": "HOPPY_CROSSING_24680", "gridSize": 8, "carRows": [1, 3, 5], "carsPerRow": 2, "moveInterval": 450}
+
+// Medium difficulty tasks
+{"seed": 12345, "password": "HOPPY_CROSSING_12345", "gridSize": 9, "carRows": [1, 3, 5, 7], "carsPerRow": 3, "moveInterval": 400}
+{"seed": 54321, "password": "HOPPY_CROSSING_54321", "gridSize": 9, "carRows": [1, 3, 5, 7], "carsPerRow": 3, "moveInterval": 400}
+{"seed": 33333, "password": "HOPPY_CROSSING_33333", "gridSize": 9, "carRows": [1, 3, 5, 7], "carsPerRow": 3, "moveInterval": 400}
+{"seed": 13579, "password": "HOPPY_CROSSING_13579", "gridSize": 10, "carRows": [2, 4, 6, 8], "carsPerRow": 3, "moveInterval": 400}
+
+// Hard difficulty tasks
+{"seed": 44444, "password": "HOPPY_CROSSING_44444", "gridSize": 11, "carRows": [1, 2, 3, 4, 6, 7, 8], "carsPerRow": 4, "moveInterval": 350}
+{"seed": 55555, "password": "HOPPY_CROSSING_55555", "gridSize": 11, "carRows": [1, 2, 3, 5, 6, 7, 8], "carsPerRow": 4, "moveInterval": 300}
+{"seed": 98765, "password": "HOPPY_CROSSING_98765", "gridSize": 11, "carRows": [1, 3, 5, 7, 9], "carsPerRow": 4, "moveInterval": 350}
