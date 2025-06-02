@@ -35,7 +35,15 @@ type TaskData = {
     password: string
 }
 
-function getFrogPosition(gameState: { grid: string[][], gridSize: number, carRows: number[] }) {
+// Define our game state type
+type GameState = {
+    grid: string[][],
+    gridSize: number,
+    carRows: number[],
+    rowDirections: Record<number, "left" | "right">
+}
+
+function getFrogPosition(gameState: GameState) {
     const grid = gameState.grid;
     for (let y = 0; y < grid.length; y++) {
         for (let x = 0; x < grid[y].length; x++) {
@@ -49,7 +57,7 @@ function getFrogPosition(gameState: { grid: string[][], gridSize: number, carRow
 
 // Helper function to identify car rows - we don't need this anymore as car rows come from the DOM
 // But keeping a modified version in case we need to calculate them from the grid
-function identifyCarRowsFromGrid(gameState: { grid: string[][], gridSize: number, carRows: number[] }) {
+function identifyCarRowsFromGrid(gameState: GameState) {
     const grid = gameState.grid;
     const carRows: number[] = []
     for (let y = 0; y < grid.length; y++) {
@@ -61,13 +69,17 @@ function identifyCarRowsFromGrid(gameState: { grid: string[][], gridSize: number
 }
 
 // Helper function to find all car positions
-function getCars(gameState: { grid: string[][], gridSize: number, carRows: number[] }) {
+function getCars(gameState: GameState) {
     const grid = gameState.grid;
-    const cars: { x: number, y: number }[] = []
+    const cars: { x: number, y: number, direction: "left" | "right" }[] = []
     for (let y = 0; y < grid.length; y++) {
         for (let x = 0; x < grid[y].length; x++) {
             if (grid[y][x] === 'C') {
-                cars.push({ x, y })
+                cars.push({ 
+                    x, 
+                    y, 
+                    direction: gameState.rowDirections[y] || "left" // Default to left if not known
+                })
             }
         }
     }
@@ -75,10 +87,11 @@ function getCars(gameState: { grid: string[][], gridSize: number, carRows: numbe
 }
 
 // Helper function to print the game state for debugging
-function printGameState(gameState: { grid: string[][], gridSize: number, carRows: number[] }) {
+function printGameState(gameState: GameState) {
     const grid = gameState.grid;
     const frogPos = getFrogPosition(gameState)
     const carRows = gameState.carRows
+    const rowDirections = gameState.rowDirections
 
     const gridSize = gameState.gridSize
     
@@ -88,7 +101,12 @@ function printGameState(gameState: { grid: string[][], gridSize: number, carRows
 
     for (let y = 0; y < grid.length; y++) {
         let rowStr = y + " " + grid[y].join(" ")
-        rowStr += carRows.includes(y) ? " (Car Row)" : ""
+        
+        if (carRows.includes(y)) {
+            const direction = rowDirections[y];
+            rowStr += ` (Car Row - ${direction === 'left' ? '←' : '→'})`;
+        }
+        
         if (y === frogPos.y) {
             rowStr += " <- Frog at (" + frogPos.x + "," + frogPos.y + ")"
         }
@@ -98,8 +116,7 @@ function printGameState(gameState: { grid: string[][], gridSize: number, carRows
 }
 
 // Game constants
-const CARS_PER_ROW = 3
-const MOVE_INTERVAL = 400 // Same as in the game
+const FROG_MOVE_INTERVAL = 200 // Move frog faster than cars to improve success rate
 
 // Load tasks from the JSONL file
 const tasksFilePath = path.join(process.cwd(), 'webgames', 'public', 'data', 'frog-crossing', 'tasks.jsonl')
@@ -167,17 +184,32 @@ tasks.forEach((task, lineIndex) => {
                 // Identify car rows by checking which rows have "car" class elements
                 const carRows: number[] = []
                 
-                // First pass: identify car rows by finding car emojis
+                // First pass: identify car rows and their directions by finding car emojis
                 const tempCarRows: number[] = [];
+                const rowDirections: Record<number, "left" | "right"> = {};
+                
                 for (let y = 0; y < gridSize; y++) {
+                    let leftMovingCars = 0;
+                    let rightMovingCars = 0;
+                    
                     for (let x = 0; x < gridSize; x++) {
                         const index = y * gridSize + x;
                         const cell = cells[index];
-                        const hasCar = cell.textContent?.includes('🚙') || cell.textContent?.includes('🚗');
+                        const hasLeftCar = cell.textContent?.includes('🚙');
+                        const hasRightCar = cell.textContent?.includes('🚗');
                         
-                        if (hasCar && !tempCarRows.includes(y)) {
+                        if ((hasLeftCar || hasRightCar) && !tempCarRows.includes(y)) {
                             tempCarRows.push(y);
                         }
+                        
+                        // Count car directions
+                        if (hasLeftCar) leftMovingCars++;
+                        if (hasRightCar) rightMovingCars++;
+                    }
+                    
+                    // Determine row direction based on majority of cars
+                    if (leftMovingCars > 0 || rightMovingCars > 0) {
+                        rowDirections[y] = leftMovingCars >= rightMovingCars ? "left" : "right";
                     }
                 }
                 
@@ -221,24 +253,28 @@ tasks.forEach((task, lineIndex) => {
                 return {
                     grid,
                     gridSize,
-                    carRows
+                    carRows,
+                    rowDirections
                 }
             })
         }
 
         // Function to decide the next move based on the current game state
-        function decideNextMove(gameState: { grid: string[][], gridSize: number, carRows: number[] }) {
+        function decideNextMove(gameState: GameState) {
             // Get frog position from the grid
             const frogPos = getFrogPosition(gameState)
             const gridSize = gameState.gridSize
             const carRows = gameState.carRows
+            const rowDirections = gameState.rowDirections
+            const cars = getCars(gameState)
+            const grid = gameState.grid
 
             // If we're at the top row, we've won
             if (frogPos.y === 0) {
                 return null
             }
 
-            // Calculate safe moves
+            // Calculate all possible moves
             const possibleMoves = [
                 { key: 'ArrowUp', newPos: { x: frogPos.x, y: frogPos.y - 1 } },
                 { key: 'ArrowLeft', newPos: { x: frogPos.x - 1, y: frogPos.y } },
@@ -249,40 +285,95 @@ tasks.forEach((task, lineIndex) => {
                     move.newPos.y < 0 || move.newPos.y >= gridSize) {
                     return false
                 }
-
                 return true
             })
 
-            // Prioritize moving up if it's safe
-            const upMove = possibleMoves.find(move => move.key === 'ArrowUp')
-            if (upMove && !carRows.includes(upMove.newPos.y)) {
-                return upMove.key
-            }
-
-            // If we're on a car row, try to move to a safe position
-            if (carRows.includes(frogPos.y)) {
-                // Try side moves
-                const sideMoves = possibleMoves.filter(move =>
-                    move.key === 'ArrowLeft' || move.key === 'ArrowRight')
-
-                if (sideMoves.length > 0) {
-                    // Choose randomly between side moves
-                    return sideMoves[Math.floor(Math.random() * sideMoves.length)].key
+            // Evaluate safety score for each possible move
+            const scoredMoves = possibleMoves.map(move => {
+                let safetyScore = 10; // Base score
+                const { x, y } = move.newPos;
+                
+                // IMPROVEMENT 1: Consider car directions for better prediction
+                if (carRows.includes(y)) {
+                    // Moving onto a road is risky, reduce score significantly
+                    safetyScore -= 5;
+                    
+                    // Check if there are nearby cars that could hit us
+                    const rowDirection = rowDirections[y];
+                    const carsInRow = cars.filter(car => car.y === y);
+                    
+                    for (const car of carsInRow) {
+                        // Calculate horizontal distance to car
+                        const distance = Math.abs(car.x - x);
+                        
+                        // If car is moving towards our position
+                        if ((rowDirection === 'left' && car.x > x) || 
+                            (rowDirection === 'right' && car.x < x)) {
+                            // Closer cars are more dangerous
+                            if (distance < 2) {
+                                safetyScore -= 8; // Very dangerous
+                            } else if (distance < 3) {
+                                safetyScore -= 5; // Moderately dangerous
+                            } else if (distance < 4) {
+                                safetyScore -= 2; // Slightly dangerous
+                            }
+                        }
+                    }
                 }
-            }
-
-            // If we can move up, do so even if it's onto a car row
-            if (upMove) {
-                return upMove.key
-            }
-
-            // If no good moves, just try any valid move
-            if (possibleMoves.length > 0) {
-                return possibleMoves[Math.floor(Math.random() * possibleMoves.length)].key
+                
+                // IMPROVEMENT 2: Prefer positions with clear space around them
+                let clearSpaceCount = 0;
+                // Check for clear 3x3 grid area around target position
+                for (let checkY = Math.max(0, y - 1); checkY <= Math.min(gridSize - 1, y + 1); checkY++) {
+                    for (let checkX = Math.max(0, x - 1); checkX <= Math.min(gridSize - 1, x + 1); checkX++) {
+                        // Skip the target position itself
+                        if (checkX === x && checkY === y) continue;
+                        
+                        // If position is not a car, add to clear space count
+                        if (grid[checkY][checkX] !== 'C') {
+                            clearSpaceCount++;
+                        }
+                    }
+                }
+                safetyScore += clearSpaceCount;
+                
+                // Bonus for moving upward (toward goal)
+                if (move.key === 'ArrowUp') {
+                    safetyScore += 3;
+                    
+                    // Extra bonus if moving to a non-car-row (very safe)
+                    if (!carRows.includes(y)) {
+                        safetyScore += 5;
+                    }
+                }
+                
+                return { ...move, safetyScore };
+            });
+            
+            // Sort moves by safety score (descending)
+            scoredMoves.sort((a, b) => b.safetyScore - a.safetyScore);
+            
+            // Debug info about move options
+            console.log("Move options (sorted by safety):");
+            scoredMoves.forEach(move => {
+                console.log(`${move.key} to (${move.newPos.x},${move.newPos.y}) - Safety: ${move.safetyScore}`);
+            });
+            
+            // Choose the safest move
+            if (scoredMoves.length > 0) {
+                // If there are multiple relatively safe options with similar scores, 
+                // pick from the top 2 to introduce some randomness
+                const topMoves = scoredMoves.filter(move => 
+                    move.safetyScore >= scoredMoves[0].safetyScore - 2);
+                    
+                if (topMoves.length > 1) {
+                    return topMoves[Math.floor(Math.random() * Math.min(2, topMoves.length))].key;
+                }
+                return scoredMoves[0].key;
             }
 
             // No valid moves
-            return null
+            return null;
         }
 
         // Wait a moment for the game to initialize
@@ -330,8 +421,9 @@ tasks.forEach((task, lineIndex) => {
                 key: nextMove
             })
 
-            // Wait for the game to process the move - give it more time to detect collisions
-            await page.waitForTimeout(300)
+            // Wait for the game to process the move - give it just enough time to detect collisions
+            // but not so much that cars move significantly
+            await page.waitForTimeout(100)
 
             // Check game status
             const newGameState = await getGameState()
@@ -381,8 +473,9 @@ tasks.forEach((task, lineIndex) => {
 
             moveCount++
 
-            // Add a small delay between moves to allow for car movement
-            await page.waitForTimeout(MOVE_INTERVAL / 2)
+            // IMPROVEMENT 3: Use faster frog movement interval
+            // Still give cars time to move but make frog decisions quicker
+            await page.waitForTimeout(FROG_MOVE_INTERVAL)
         }
 
         // Take final screenshot regardless of outcome
