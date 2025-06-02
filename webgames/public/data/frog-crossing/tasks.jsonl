@@ -1,0 +1,27 @@
+// Tasks sorted by difficulty (easiest to hardest)
+
+// Static mode tasks (cars don't move) - Easiest for testing
+{"seed": 10001, "password": "STATIC_10001", "gridSize": 7, "carRows": [1, 3, 5], "carsPerRow": 2, "moveInterval": 600, "mode": "static"}
+{"seed": 10002, "password": "STATIC_10002", "gridSize": 7, "carRows": [1, 3, 5], "carsPerRow": 3, "moveInterval": 600, "mode": "static"}
+{"seed": 10003, "password": "STATIC_10003", "gridSize": 7, "carRows": [1, 3, 5], "carsPerRow": 4, "moveInterval": 600, "mode": "static"}
+{"seed": 10004, "password": "STATIC_10004", "gridSize": 7, "carRows": [1, 2, 3, 5], "carsPerRow": 3, "moveInterval": 600, "mode": "static"}
+{"seed": 10005, "password": "STATIC_10005", "gridSize": 7, "carRows": [1, 3, 4, 5], "carsPerRow": 3, "moveInterval": 600, "mode": "static"}
+{"seed": 10016, "password": "STATIC_10006", "gridSize": 8, "carRows": [1, 2, 3, 5, 6], "carsPerRow": 2, "moveInterval": 600, "mode": "static"}
+{"seed": 10017, "password": "STATIC_10007", "gridSize": 9, "carRows": [1, 3, 5, 7], "carsPerRow": 3, "moveInterval": 400, "mode": "static"}
+{"seed": 10018, "password": "STATIC_10008", "gridSize": 11, "carRows": [1, 2, 3, 5, 7, 8], "carsPerRow": 4, "moveInterval": 300, "mode": "static"}
+
+// Easy difficulty tasks (dynamic mode - cars move)
+{"seed": 11111, "password": "HOPPY_CROSSING_11111", "gridSize": 7, "carRows": [1, 3, 5], "carsPerRow": 2, "moveInterval": 600, "mode": "dynamic"}
+{"seed": 22222, "password": "HOPPY_CROSSING_22222", "gridSize": 7, "carRows": [1, 3, 5], "carsPerRow": 2, "moveInterval": 550, "mode": "dynamic"}
+{"seed": 24680, "password": "HOPPY_CROSSING_24680", "gridSize": 8, "carRows": [1, 3, 5], "carsPerRow": 2, "moveInterval": 450, "mode": "dynamic"}
+
+// Medium difficulty tasks (dynamic mode - cars move)
+{"seed": 12345, "password": "HOPPY_CROSSING_12345", "gridSize": 9, "carRows": [1, 3, 5, 7], "carsPerRow": 3, "moveInterval": 400, "mode": "dynamic"}
+{"seed": 54321, "password": "HOPPY_CROSSING_54321", "gridSize": 9, "carRows": [1, 3, 5, 7], "carsPerRow": 3, "moveInterval": 400, "mode": "dynamic"}
+{"seed": 33333, "password": "HOPPY_CROSSING_33333", "gridSize": 9, "carRows": [1, 3, 5, 7], "carsPerRow": 3, "moveInterval": 400, "mode": "dynamic"}
+{"seed": 13579, "password": "HOPPY_CROSSING_13579", "gridSize": 10, "carRows": [2, 4, 6, 8], "carsPerRow": 3, "moveInterval": 400, "mode": "dynamic"}
+
+// Hard difficulty tasks (dynamic mode - cars move)
+{"seed": 44444, "password": "HOPPY_CROSSING_44444", "gridSize": 11, "carRows": [1, 2, 3, 4, 6, 7, 8], "carsPerRow": 4, "moveInterval": 350, "mode": "dynamic"}
+{"seed": 55555, "password": "HOPPY_CROSSING_55555", "gridSize": 11, "carRows": [1, 2, 3, 5, 6, 7, 8], "carsPerRow": 4, "moveInterval": 300, "mode": "dynamic"}
+{"seed": 98765, "password": "HOPPY_CROSSING_98765", "gridSize": 11, "carRows": [1, 3, 5, 7, 9], "carsPerRow": 4, "moveInterval": 350, "mode": "dynamic"}

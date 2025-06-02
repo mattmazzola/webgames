@@ -1,622 +1,629 @@
-import { FC } from "react";
-import AdClicked from "../pages/AdClicked";
+import { FC } from "react"
+import AdClicked from "../pages/AdClicked"
 import BlockStack, {
   PASSWORD_BlockStack,
   TASK_ID_BlockStack,
-} from "../pages/BlockStack";
+} from "../pages/BlockStack"
 import BlockStackEasy, {
   PASSWORD_BlockStackEasy,
   TASK_ID_BlockStackEasy,
-} from "../pages/BlockStackEasy";
+} from "../pages/BlockStackEasy"
 import BlockStackHard, {
   PASSWORD_BlockStackHard,
   TASK_ID_BlockStackHard,
-} from "../pages/BlockStackHard";
+} from "../pages/BlockStackHard"
 import BrickBuster, {
   PASSWORD_BrickBuster,
   TASK_ID_BrickBuster,
-} from "../pages/BrickBuster";
+} from "../pages/BrickBuster"
 import BrickBusterEasy, {
   PASSWORD_BrickBusterEasy,
   TASK_ID_BrickBusterEasy,
-} from "../pages/BrickBusterEasy";
+} from "../pages/BrickBusterEasy"
 import BrickBusterHard, {
   PASSWORD_BrickBusterHard,
   TASK_ID_BrickBusterHard,
-} from "../pages/BrickBusterHard";
+} from "../pages/BrickBusterHard"
 import Bullseye, {
   PASSWORD_Bullseye,
   TASK_ID_Bullseye,
-} from "../pages/Bullseye";
+} from "../pages/Bullseye"
 import BullseyeEasy, {
   PASSWORD_BullseyeEasy,
   TASK_ID_BullseyeEasy,
-} from "../pages/BullseyeEasy";
+} from "../pages/BullseyeEasy"
 import BullseyeHard, {
   PASSWORD_BullseyeHard,
   TASK_ID_BullseyeHard,
-} from "../pages/BullseyeHard";
+} from "../pages/BullseyeHard"
 import ButtonHold, {
   PASSWORD_ButtonHold,
   TASK_ID_ButtonHold,
-} from "../pages/ButtonHold";
+} from "../pages/ButtonHold"
 import ButtonHoldEasy, {
   PASSWORD_ButtonHoldEasy,
   TASK_ID_ButtonHoldEasy,
-} from "../pages/ButtonHoldEasy";
+} from "../pages/ButtonHoldEasy"
 import ButtonHoldHard, {
   PASSWORD_ButtonHoldHard,
   TASK_ID_ButtonHoldHard,
-} from "../pages/ButtonHoldHard";
+} from "../pages/ButtonHoldHard"
 import ButtonMegastar, {
   PASSWORD_ButtonMegastar,
   TASK_ID_ButtonMegastar,
-} from "../pages/ButtonMegastar";
+} from "../pages/ButtonMegastar"
 import ButtonMegastarEasy, {
   PASSWORD_ButtonMegastarEasy,
   TASK_ID_ButtonMegastarEasy,
-} from "../pages/ButtonMegastarEasy";
+} from "../pages/ButtonMegastarEasy"
 import ButtonMegastarHard, {
   PASSWORD_ButtonMegastarHard,
   TASK_ID_ButtonMegastarHard,
-} from "../pages/ButtonMegastarHard";
+} from "../pages/ButtonMegastarHard"
 import CalendarComprehension, {
   PASSWORD_CalendarComprehension,
   TASK_ID_CalendarComprehension,
-} from "../pages/CalendarComprehension";
+} from "../pages/CalendarComprehension"
 import CalendarComprehension2, {
   PASSWORD_CalendarComprehension2,
   TASK_ID_CalendarComprehension2,
-} from "../pages/CalendarComprehension2";
+} from "../pages/CalendarComprehension2"
 import CalendarComprehension2Easy, {
   PASSWORD_CalendarComprehension2Easy,
   TASK_ID_CalendarComprehension2Easy,
-} from "../pages/CalendarComprehension2Easy";
+} from "../pages/CalendarComprehension2Easy"
 import CalendarComprehension2Hard, {
   PASSWORD_CalendarComprehension2Hard,
   TASK_ID_CalendarComprehension2Hard,
-} from "../pages/CalendarComprehension2Hard";
+} from "../pages/CalendarComprehension2Hard"
 import CalendarComprehensionEasy, {
   PASSWORD_CalendarComprehensionEasy,
   TASK_ID_CalendarComprehensionEasy,
-} from "../pages/CalendarComprehensionEasy";
+} from "../pages/CalendarComprehensionEasy"
 import CalendarComprehensionHard, {
   PASSWORD_CalendarComprehensionHard,
   TASK_ID_CalendarComprehensionHard,
-} from "../pages/CalendarComprehensionHard";
+} from "../pages/CalendarComprehensionHard"
 import CanvasCatch, {
   PASSWORD_CanvasCatch,
   TASK_ID_CanvasCatch,
-} from "../pages/CanvasCatch";
+} from "../pages/CanvasCatch"
 import CanvasCatchEasy, {
   PASSWORD_CanvasCatchEasy,
   TASK_ID_CanvasCatchEasy,
-} from "../pages/CanvasCatchEasy";
+} from "../pages/CanvasCatchEasy"
 import CanvasCatchHard, {
   PASSWORD_CanvasCatchHard,
   TASK_ID_CanvasCatchHard,
-} from "../pages/CanvasCatchHard";
+} from "../pages/CanvasCatchHard"
 import ChartRead, {
   PASSWORD_ChartRead,
   TASK_ID_ChartRead,
-} from "../pages/ChartRead";
+} from "../pages/ChartRead"
 import ChartReadEasy, {
   PASSWORD_ChartReadEasy,
   TASK_ID_ChartReadEasy,
-} from "../pages/ChartReadEasy";
+} from "../pages/ChartReadEasy"
 import ChartReadHard, {
   PASSWORD_ChartReadHard,
   TASK_ID_ChartReadHard,
-} from "../pages/ChartReadHard";
+} from "../pages/ChartReadHard"
 import ChartTranscribe, {
   PASSWORD_ChartTranscribe,
   TASK_ID_ChartTranscribe,
-} from "../pages/ChartTranscribe";
+} from "../pages/ChartTranscribe"
 import ChartTranscribeEasy, {
   PASSWORD_ChartTranscribeEasy,
   TASK_ID_ChartTranscribeEasy,
-} from "../pages/ChartTranscribeEasy";
+} from "../pages/ChartTranscribeEasy"
 import ChartTranscribeHard, {
   PASSWORD_ChartTranscribeHard,
   TASK_ID_ChartTranscribeHard,
-} from "../pages/ChartTranscribeHard";
+} from "../pages/ChartTranscribeHard"
 import ClickCubed, {
   PASSWORD_ClickCubed,
   TASK_ID_ClickCubed,
-} from "../pages/ClickCubed";
+} from "../pages/ClickCubed"
 import ClickCubedEasy, {
   PASSWORD_ClickCubedEasy,
   TASK_ID_ClickCubedEasy,
-} from "../pages/ClickCubedEasy";
+} from "../pages/ClickCubedEasy"
 import ClickCubedHard, {
   PASSWORD_ClickCubedHard,
   TASK_ID_ClickCubedHard,
-} from "../pages/ClickCubedHard";
+} from "../pages/ClickCubedHard"
 import ClickPixel, {
   PASSWORD_ClickPixel,
   TASK_ID_ClickPixel,
-} from "../pages/ClickPixel";
+} from "../pages/ClickPixel"
 import ClickPixelEasy, {
   PASSWORD_ClickPixelEasy,
   TASK_ID_ClickPixelEasy,
-} from "../pages/ClickPixelEasy";
+} from "../pages/ClickPixelEasy"
 import ClickPixelHard, {
   PASSWORD_ClickPixelHard,
   TASK_ID_ClickPixelHard,
-} from "../pages/ClickPixelHard";
+} from "../pages/ClickPixelHard"
 import ColorHarmony, {
   PASSWORD_ColorHarmony,
   TASK_ID_ColorHarmony,
-} from "../pages/ColorHarmony";
+} from "../pages/ColorHarmony"
 import ColorHarmonyEasy, {
   PASSWORD_ColorHarmonyEasy,
   TASK_ID_ColorHarmonyEasy,
-} from "../pages/ColorHarmonyEasy";
+} from "../pages/ColorHarmonyEasy"
 import ColorHarmonyHard, {
   PASSWORD_ColorHarmonyHard,
   TASK_ID_ColorHarmonyHard,
-} from "../pages/ColorHarmonyHard";
+} from "../pages/ColorHarmonyHard"
 import CombinationLock, {
   PASSWORD_CombinationLock,
   TASK_ID_CombinationLock,
-} from "../pages/CombinationLock";
+} from "../pages/CombinationLock"
 import CombinationLockEasy, {
   PASSWORD_CombinationLockEasy,
   TASK_ID_CombinationLockEasy,
-} from "../pages/CombinationLockEasy";
+} from "../pages/CombinationLockEasy"
 import CombinationLockHard, {
   PASSWORD_CombinationLockHard,
   TASK_ID_CombinationLockHard,
-} from "../pages/CombinationLockHard";
+} from "../pages/CombinationLockHard"
 import ContextBreaker, {
   PASSWORD_ContextBreaker,
   TASK_ID_ContextBreaker,
-} from "../pages/ContextBreaker";
+} from "../pages/ContextBreaker"
 import ContextBreakerEasy, {
   PASSWORD_ContextBreakerEasy,
   TASK_ID_ContextBreakerEasy,
-} from "../pages/ContextBreakerEasy";
+} from "../pages/ContextBreakerEasy"
 import ContextBreakerHard, {
   PASSWORD_ContextBreakerHard,
   TASK_ID_ContextBreakerHard,
-} from "../pages/ContextBreakerHard";
+} from "../pages/ContextBreakerHard"
 import EmojiRemember, {
   PASSWORD_EmojiRemember,
   TASK_ID_EmojiRemember,
-} from "../pages/EmojiRemember";
+} from "../pages/EmojiRemember"
 import EmojiRememberEasy, {
   PASSWORD_EmojiRememberEasy,
   TASK_ID_EmojiRememberEasy,
-} from "../pages/EmojiRememberEasy";
+} from "../pages/EmojiRememberEasy"
 import EmojiRememberHard, {
   PASSWORD_EmojiRememberHard,
   TASK_ID_EmojiRememberHard,
-} from "../pages/EmojiRememberHard";
+} from "../pages/EmojiRememberHard"
 import FileCredentials, {
   PASSWORD_FileCredentials,
   TASK_ID_FileCredentials,
-} from "../pages/FileCredentials";
+} from "../pages/FileCredentials"
 import FileCredentialsEasy, {
   PASSWORD_FileCredentialsEasy,
   TASK_ID_FileCredentialsEasy,
-} from "../pages/FileCredentialsEasy";
+} from "../pages/FileCredentialsEasy"
 import FileCredentialsHard, {
   PASSWORD_FileCredentialsHard,
   TASK_ID_FileCredentialsHard,
-} from "../pages/FileCredentialsHard";
+} from "../pages/FileCredentialsHard"
 import FileUpload, {
   PASSWORD_FileUpload,
   TASK_ID_FileUpload,
-} from "../pages/FileUpload";
+} from "../pages/FileUpload"
 import FileUploadHard, {
   PASSWORD_FileUploadHard,
   TASK_ID_FileUploadHard,
-} from "../pages/FileUploadHard";
+} from "../pages/FileUploadHard"
 import FrogCrossing, {
   PASSWORD_FrogCrossing,
   TASK_ID_FrogCrossing,
-} from "../pages/FrogCrossing";
+} from "../pages/FrogCrossing"
 import FrogCrossingEasy, {
   PASSWORD_FrogCrossingEasy,
   TASK_ID_FrogCrossingEasy,
-} from "../pages/FrogCrossingEasy";
+} from "../pages/FrogCrossingEasy"
 import FrogCrossingHard, {
   PASSWORD_FrogCrossingHard,
   TASK_ID_FrogCrossingHard,
-} from "../pages/FrogCrossingHard";
-import Herding, { PASSWORD_Herding, TASK_ID_Herding } from "../pages/Herding";
+} from "../pages/FrogCrossingHard"
+import FrogCrossingCustom, {
+  PASSWORD_FrogCrossingCustom,
+  TASK_ID_FrogCrossingCustom,
+} from "../pages/FrogCrossingCustom"
+import Herding, {
+  PASSWORD_Herding,
+  TASK_ID_Herding
+} from "../pages/Herding"
 import HerdingEasy, {
   PASSWORD_HerdingEasy,
   TASK_ID_HerdingEasy,
-} from "../pages/HerdingEasy";
+} from "../pages/HerdingEasy"
 import HerdingHard, {
   PASSWORD_HerdingHard,
   TASK_ID_HerdingHard,
-} from "../pages/HerdingHard";
-import IAccept, { PASSWORD_IAccept, TASK_ID_IAccept } from "../pages/IAccept";
+} from "../pages/HerdingHard"
+import IAccept, { PASSWORD_IAccept, TASK_ID_IAccept } from "../pages/IAccept"
 import IAcceptEasy, {
   PASSWORD_IAcceptEasy,
   TASK_ID_IAcceptEasy,
-} from "../pages/IAcceptEasy";
+} from "../pages/IAcceptEasy"
 import IAcceptHard, {
   PASSWORD_IAcceptHard,
   TASK_ID_IAcceptHard,
-} from "../pages/IAcceptHard";
-import IframeContent, { PASSWORD_IframeContent } from "../pages/IframeContent";
+} from "../pages/IAcceptHard"
+import IframeContent, { PASSWORD_IframeContent } from "../pages/IframeContent"
 import IframeNest, {
   PASSWORD_IframeNest,
   TASK_ID_IframeNest,
-} from "../pages/IframeNest";
+} from "../pages/IframeNest"
 import IframeNestEasy, {
   PASSWORD_IframeNestEasy,
   TASK_ID_IframeNestEasy,
-} from "../pages/IframeNestEasy";
+} from "../pages/IframeNestEasy"
 import IframeNestHard, {
   PASSWORD_IframeNestHard,
   TASK_ID_IframeNestHard,
-} from "../pages/IframeNestHard";
+} from "../pages/IframeNestHard"
 import IllegalMaterial, {
   PASSWORD_IllegalMaterial,
   TASK_ID_IllegalMaterial,
-} from "../pages/IllegalMaterial";
+} from "../pages/IllegalMaterial"
 import IllegalMaterialEasy, {
   PASSWORD_IllegalMaterialEasy,
   TASK_ID_IllegalMaterialEasy,
-} from "../pages/IllegalMaterialEasy";
+} from "../pages/IllegalMaterialEasy"
 import IllegalMaterialHard, {
   PASSWORD_IllegalMaterialHard,
   TASK_ID_IllegalMaterialHard,
-} from "../pages/IllegalMaterialHard";
+} from "../pages/IllegalMaterialHard"
 import KeyCombo, {
   PASSWORD_KeyCombo,
   TASK_ID_KeyCombo,
-} from "../pages/KeyCombo";
+} from "../pages/KeyCombo"
 import KeyComboEasy, {
   PASSWORD_KeyComboEasy,
   TASK_ID_KeyComboEasy,
-} from "../pages/KeyComboEasy";
+} from "../pages/KeyComboEasy"
 import KeyComboHard, {
   PASSWORD_KeyComboHard,
   TASK_ID_KeyComboHard,
-} from "../pages/KeyComboHard";
+} from "../pages/KeyComboHard"
 import LadyBirdPlanner, {
   PASSWORD_LadyBirdPlanner,
   TASK_ID_LadyBirdPlanner,
-} from "../pages/LadyBirdPlanner";
+} from "../pages/LadyBirdPlanner"
 import LadyBirdPlannerEasy, {
   PASSWORD_LadyBirdPlannerEasy,
   TASK_ID_LadyBirdPlannerEasy,
-} from "../pages/LadyBirdPlannerEasy";
+} from "../pages/LadyBirdPlannerEasy"
 import LadyBirdPlannerHard, {
   PASSWORD_LadyBirdPlannerHard,
   TASK_ID_LadyBirdPlannerHard,
-} from "../pages/LadyBirdPlannerHard";
+} from "../pages/LadyBirdPlannerHard"
 import LadyBirdPlannerCustom, {
   PASSWORD_LadyBirdPlannerCustom,
   TASK_ID_LadyBirdPlannerCustom,
-} from "../pages/LadyBirdPlannerCustom";
+} from "../pages/LadyBirdPlannerCustom"
 import MapPanner, {
   PASSWORD_MapPanner,
   TASK_ID_MapPanner,
-} from "../pages/MapPanner";
+} from "../pages/MapPanner"
 import MapPannerEasy, {
   PASSWORD_MapPannerEasy,
   TASK_ID_MapPannerEasy,
-} from "../pages/MapPannerEasy";
+} from "../pages/MapPannerEasy"
 import MapPannerHard, {
   PASSWORD_MapPannerHard,
   TASK_ID_MapPannerHard,
-} from "../pages/MapPannerHard";
+} from "../pages/MapPannerHard"
 import MapPannerCustom, {
   PASSWORD_MapPannerCustom,
   TASK_ID_MapPannerCustom,
-} from "../pages/MapPannerCustom";
-import MazeNavigator, { PASSWORD_MazeNavigator } from "../pages/MazeNavigator";
+} from "../pages/MapPannerCustom"
+import MazeNavigator, { PASSWORD_MazeNavigator } from "../pages/MazeNavigator"
 import MazeNavigatorEasy, {
   PASSWORD_MazeNavigatorEasy,
   TASK_ID_MazeNavigatorEasy,
-} from "../pages/MazeNavigatorEasy";
+} from "../pages/MazeNavigatorEasy"
 import MazeNavigatorHard, {
   PASSWORD_MazeNavigatorHard,
   TASK_ID_MazeNavigatorHard,
-} from "../pages/MazeNavigatorHard";
+} from "../pages/MazeNavigatorHard"
 import MenuNavigator, {
   PASSWORD_MenuNavigator,
   TASK_ID_MenuNavigator,
-} from "../pages/MenuNavigator";
+} from "../pages/MenuNavigator"
 import MenuNavigatorEasy, {
   PASSWORD_MenuNavigatorEasy,
   TASK_ID_MenuNavigatorEasy,
-} from "../pages/MenuNavigatorEasy";
+} from "../pages/MenuNavigatorEasy"
 import MenuNavigatorHard, {
   PASSWORD_MenuNavigatorHard,
   TASK_ID_MenuNavigatorHard,
-} from "../pages/MenuNavigatorHard";
+} from "../pages/MenuNavigatorHard"
 import OTPEntry, {
   PASSWORD_OTPEntry,
   TASK_ID_OTPEntry,
-} from "../pages/OTPEntry";
+} from "../pages/OTPEntry"
 import OTPEntryEasy, {
   PASSWORD_OTPEntryEasy,
   TASK_ID_OTPEntryEasy,
-} from "../pages/OTPEntryEasy";
+} from "../pages/OTPEntryEasy"
 import OTPEntryHard, {
   PASSWORD_OTPEntryHard,
   TASK_ID_OTPEntryHard,
-} from "../pages/OTPEntryHard";
+} from "../pages/OTPEntryHard"
 import Patience, {
   PASSWORD_Patience,
   TASK_ID_Patience,
-} from "../pages/Patience";
+} from "../pages/Patience"
 import PatienceEasy, {
   PASSWORD_PatienceEasy,
   TASK_ID_PatienceEasy,
-} from "../pages/PatienceEasy";
+} from "../pages/PatienceEasy"
 import PatienceHard, {
   PASSWORD_PatienceHard,
   TASK_ID_PatienceHard,
-} from "../pages/PatienceHard";
+} from "../pages/PatienceHard"
 import PixelCopy, {
   PASSWORD_PixelCopy,
   TASK_ID_PixelCopy,
-} from "../pages/PixelCopy";
+} from "../pages/PixelCopy"
 import PixelCopyEasy, {
   PASSWORD_PixelCopyEasy,
   TASK_ID_PixelCopyEasy,
-} from "../pages/PixelCopyEasy";
+} from "../pages/PixelCopyEasy"
 import PixelCopyHard, {
   PASSWORD_PixelCopyHard,
   TASK_ID_PixelCopyHard,
-} from "../pages/PixelCopyHard";
+} from "../pages/PixelCopyHard"
 import PopupChaos, {
   PASSWORD_PopupChaos,
   TASK_ID_PopupChaos,
-} from "../pages/PopupChaos";
+} from "../pages/PopupChaos"
 import PopupChaosEasy, {
   PASSWORD_PopupChaosEasy,
   TASK_ID_PopupChaosEasy,
-} from "../pages/PopupChaosEasy";
+} from "../pages/PopupChaosEasy"
 import PopupChaosHard, {
   PASSWORD_PopupChaosHard,
   TASK_ID_PopupChaosHard,
-} from "../pages/PopupChaosHard";
+} from "../pages/PopupChaosHard"
 import PrintReveal, {
   PASSWORD_PrintReveal,
   TASK_ID_PrintReveal,
-} from "../pages/PrintReveal";
+} from "../pages/PrintReveal"
 import PromptDefender, {
   PASSWORD_PromptDefender,
   TASK_ID_PromptDefender,
-} from "../pages/PromptDefender";
+} from "../pages/PromptDefender"
 import PromptDefenderEasy, {
   PASSWORD_PromptDefenderEasy,
   TASK_ID_PromptDefenderEasy,
-} from "../pages/PromptDefenderEasy";
+} from "../pages/PromptDefenderEasy"
 import PromptDefenderHard, {
   PASSWORD_PromptDefenderHard,
   TASK_ID_PromptDefenderHard,
-} from "../pages/PromptDefenderHard";
+} from "../pages/PromptDefenderHard"
 import RecipeCalculator, {
   PASSWORD_RecipeCalculator,
   TASK_ID_RecipeCalculator,
-} from "../pages/RecipeCalculator";
+} from "../pages/RecipeCalculator"
 import RecipeCalculatorEasy, {
   PASSWORD_RecipeCalculatorEasy,
   TASK_ID_RecipeCalculatorEasy,
-} from "../pages/RecipeCalculatorEasy";
+} from "../pages/RecipeCalculatorEasy"
 import RecipeCalculatorHard, {
   PASSWORD_RecipeCalculatorHard,
   TASK_ID_RecipeCalculatorHard,
-} from "../pages/RecipeCalculatorHard";
-import RecipeDetail from "../pages/RecipeDetail";
-import RecipeList from "../pages/RecipeList";
+} from "../pages/RecipeCalculatorHard"
+import RecipeDetail from "../pages/RecipeDetail"
+import RecipeList from "../pages/RecipeList"
 import ResumeChallenge, {
   PASSWORD_ResumeChallenge,
   TASK_ID_ResumeChallenge,
-} from "../pages/ResumeChallenge";
+} from "../pages/ResumeChallenge"
 import RightClickReveal, {
   PASSWORD_RightClickReveal,
   TASK_ID_RightClickReveal,
-} from "../pages/RightClickReveal";
+} from "../pages/RightClickReveal"
 import RightClickRevealEasy, {
   PASSWORD_RightClickRevealEasy,
   TASK_ID_RightClickRevealEasy,
-} from "../pages/RightClickRevealEasy";
+} from "../pages/RightClickRevealEasy"
 import RightClickRevealHard, {
   PASSWORD_RightClickRevealHard,
   TASK_ID_RightClickRevealHard,
-} from "../pages/RightClickRevealHard";
+} from "../pages/RightClickRevealHard"
 import RoboCheck, {
   PASSWORD_RoboCheck,
   TASK_ID_RoboCheck,
-} from "../pages/RoboCheck";
+} from "../pages/RoboCheck"
 import RoboCheckEasy, {
   PASSWORD_RoboCheckEasy,
   TASK_ID_RoboCheckEasy,
-} from "../pages/RoboCheckEasy";
+} from "../pages/RoboCheckEasy"
 import RoboCheckHard, {
   PASSWORD_RoboCheckHard,
   TASK_ID_RoboCheckHard,
-} from "../pages/RoboCheckHard";
+} from "../pages/RoboCheckHard"
 import ScrollDiagonal, {
   PASSWORD_ScrollDiagonal,
   TASK_ID_ScrollDiagonal,
-} from "../pages/ScrollDiagonal";
+} from "../pages/ScrollDiagonal"
 import ScrollDiagonalEasy, {
   PASSWORD_ScrollDiagonalEasy,
   TASK_ID_ScrollDiagonalEasy,
-} from "../pages/ScrollDiagonalEasy";
+} from "../pages/ScrollDiagonalEasy"
 import ScrollDiagonalHard, {
   PASSWORD_ScrollDiagonalHard,
   TASK_ID_ScrollDiagonalHard,
-} from "../pages/ScrollDiagonalHard";
+} from "../pages/ScrollDiagonalHard"
 import ScrollHorizontal, {
   PASSWORD_ScrollHorizontal,
   TASK_ID_ScrollHorizontal,
-} from "../pages/ScrollHorizontal";
+} from "../pages/ScrollHorizontal"
 import ScrollHorizontalEasy, {
   PASSWORD_ScrollHorizontalEasy,
   TASK_ID_ScrollHorizontalEasy,
-} from "../pages/ScrollHorizontalEasy";
+} from "../pages/ScrollHorizontalEasy"
 import ScrollHorizontalHard, {
   PASSWORD_ScrollHorizontalHard,
   TASK_ID_ScrollHorizontalHard,
-} from "../pages/ScrollHorizontalHard";
+} from "../pages/ScrollHorizontalHard"
 import ScrollVertical, {
   PASSWORD_ScrollVertical,
   TASK_ID_ScrollVertical,
-} from "../pages/ScrollVertical";
+} from "../pages/ScrollVertical"
 import ScrollVerticalEasy, {
   PASSWORD_ScrollVerticalEasy,
   TASK_ID_ScrollVerticalEasy,
-} from "../pages/ScrollVerticalEasy";
+} from "../pages/ScrollVerticalEasy"
 import ScrollVerticalHard, {
   PASSWORD_ScrollVerticalHard,
   TASK_ID_ScrollVerticalHard,
-} from "../pages/ScrollVerticalHard";
+} from "../pages/ScrollVerticalHard"
 import ShopAdmin, {
   PASSWORD_ShopAdmin,
   TASK_ID_ShopAdmin,
-} from "../pages/ShopAdmin";
+} from "../pages/ShopAdmin"
 import ShopAdminEasy, {
   PASSWORD_ShopAdminEasy,
   TASK_ID_ShopAdminEasy,
-} from "../pages/ShopAdminEasy";
-import ShopAdminEdit from "../pages/ShopAdminEdit";
-import ShopAdminEditEasy from "../pages/ShopAdminEditEasy";
-import ShopAdminEditHard from "../pages/ShopAdminEditHard";
+} from "../pages/ShopAdminEasy"
+import ShopAdminEdit from "../pages/ShopAdminEdit"
+import ShopAdminEditEasy from "../pages/ShopAdminEditEasy"
+import ShopAdminEditHard from "../pages/ShopAdminEditHard"
 import ShopAdminHard, {
   PASSWORD_ShopAdminHard,
   TASK_ID_ShopAdminHard,
-} from "../pages/ShopAdminHard";
+} from "../pages/ShopAdminHard"
 import ShoppingChallenge, {
   PASSWORD_ShoppingChallenge,
   TASK_ID_ShoppingChallenge,
-} from "../pages/ShoppingChallenge";
+} from "../pages/ShoppingChallenge"
 import ShoppingChallengeEasy, {
   PASSWORD_ShoppingChallengeEasy,
   TASK_ID_ShoppingChallengeEasy,
-} from "../pages/ShoppingChallengeEasy";
+} from "../pages/ShoppingChallengeEasy"
 import ShoppingChallengeHard, {
   PASSWORD_ShoppingChallengeHard,
   TASK_ID_ShoppingChallengeHard,
-} from "../pages/ShoppingChallengeHard";
+} from "../pages/ShoppingChallengeHard"
 import SliderSymphony, {
   PASSWORD_SliderSymphony,
   TASK_ID_SliderSymphony,
-} from "../pages/SliderSymphony";
+} from "../pages/SliderSymphony"
 import SliderSymphonyEasy, {
   PASSWORD_SliderSymphonyEasy,
   TASK_ID_SliderSymphonyEasy,
-} from "../pages/SliderSymphonyEasy";
+} from "../pages/SliderSymphonyEasy"
 import SliderSymphonyHard, {
   PASSWORD_SliderSymphonyHard,
   TASK_ID_SliderSymphonyHard,
-} from "../pages/SliderSymphonyHard";
+} from "../pages/SliderSymphonyHard"
 import StockMarketScroll, {
   PASSWORD_StockMarketScroll,
   TASK_ID_StockMarketScroll,
-} from "../pages/StockMarketScroll";
+} from "../pages/StockMarketScroll"
 import StockMarketScrollEasy, {
   PASSWORD_StockMarketScrollEasy,
   TASK_ID_StockMarketScrollEasy,
-} from "../pages/StockMarketScrollEasy";
+} from "../pages/StockMarketScrollEasy"
 import StockMarketScrollHard, {
   PASSWORD_StockMarketScrollHard,
   TASK_ID_StockMarketScrollHard,
-} from "../pages/StockMarketScrollHard";
-import TabSync, { PASSWORD_TabSync, TASK_ID_TabSync } from "../pages/TabSync";
-import TabSyncReceiver from "../pages/TabSyncReceiver";
-import TabSyncSender from "../pages/TabSyncSender";
+} from "../pages/StockMarketScrollHard"
+import TabSync, { PASSWORD_TabSync, TASK_ID_TabSync } from "../pages/TabSync"
+import TabSyncReceiver from "../pages/TabSyncReceiver"
+import TabSyncSender from "../pages/TabSyncSender"
 import TextMirror, {
   PASSWORD_TextMirror,
   TASK_ID_TextMirror,
-} from "../pages/TextMirror";
+} from "../pages/TextMirror"
 import TextMirrorEasy, {
   PASSWORD_TextMirrorEasy,
   TASK_ID_TextMirrorEasy,
-} from "../pages/TextMirrorEasy";
+} from "../pages/TextMirrorEasy"
 import TextMirrorHard, {
   PASSWORD_TextMirrorHard,
   TASK_ID_TextMirrorHard,
-} from "../pages/TextMirrorHard";
+} from "../pages/TextMirrorHard"
 import TodaysDate, {
   PASSWORD_TodaysDate,
   TASK_ID_TodaysDate,
-} from "../pages/TodaysDate";
+} from "../pages/TodaysDate"
 import TodaysDateEasy, {
   PASSWORD_TodaysDateEasy,
   TASK_ID_TodaysDateEasy,
-} from "../pages/TodaysDateEasy";
+} from "../pages/TodaysDateEasy"
 import TodaysDateHard, {
   PASSWORD_TodaysDateHard,
   TASK_ID_TodaysDateHard,
-} from "../pages/TodaysDateHard";
+} from "../pages/TodaysDateHard"
 import TowersOfHanoi, {
   PASSWORD_TowersOfHanoi,
   TASK_ID_TowersOfHanoi,
-} from "../pages/TowersOfHanoi";
+} from "../pages/TowersOfHanoi"
 import TowersOfHanoiEasy, {
   PASSWORD_TowersOfHanoiEasy,
   TASK_ID_TowersOfHanoiEasy,
-} from "../pages/TowersOfHanoiEasy";
+} from "../pages/TowersOfHanoiEasy"
 import TowersOfHanoiHard, {
   PASSWORD_TowersOfHanoiHard,
   TASK_ID_TowersOfHanoiHard,
-} from "../pages/TowersOfHanoiHard";
+} from "../pages/TowersOfHanoiHard"
 import VerifyChallenge, {
   PASSWORD_Verify,
   TASK_ID_Verify,
-} from "../pages/VerifyChallenge";
+} from "../pages/VerifyChallenge"
 import VerifyChallengeEasy, {
   PASSWORD_VerifyEasy,
   TASK_ID_VerifyEasy,
-} from "../pages/VerifyChallengeEasy";
+} from "../pages/VerifyChallengeEasy"
 import VerifyChallengeHard, {
   PASSWORD_VerifyHard,
   TASK_ID_VerifyHard,
-} from "../pages/VerifyChallengeHard";
+} from "../pages/VerifyChallengeHard"
 import WebGLText, {
   PASSWORD_WebGLText,
   TASK_ID_WebGLText,
-} from "../pages/WebGLText";
+} from "../pages/WebGLText"
 import WebGLTextEasy, {
   PASSWORD_WebGLTextEasy,
   TASK_ID_WebGLTextEasy,
-} from "../pages/WebGLTextEasy";
+} from "../pages/WebGLTextEasy"
 import WebGLTextHard, {
   PASSWORD_WebGLTextHard,
   TASK_ID_WebGLTextHard,
-} from "../pages/WebGLTextHard";
+} from "../pages/WebGLTextHard"
 import WebsAssemble, {
   PASSWORD_WebsAssemble,
   TASK_ID_WebsAssemble,
-} from "../pages/WebsAssemble";
+} from "../pages/WebsAssemble"
 import WolfGoatCabbage, {
   PASSWORD_WolfGoatCabbage,
   TASK_ID_WolfGoatCabbage,
-} from "../pages/WolfGoatCabbage";
+} from "../pages/WolfGoatCabbage"
 import WolfGoatCabbageEasy, {
   PASSWORD_WolfGoatCabbageEasy,
   TASK_ID_WolfGoatCabbageEasy,
-} from "../pages/WolfGoatCabbageEasy";
+} from "../pages/WolfGoatCabbageEasy"
 import WolfGoatCabbageHard, {
   PASSWORD_WolfGoatCabbageHard,
   TASK_ID_WolfGoatCabbageHard,
-} from "../pages/WolfGoatCabbageHard";
+} from "../pages/WolfGoatCabbageHard"
 
 export interface RouteConfig {
-  path: string;
-  title: string;
-  description: string;
-  icon: string;
-  component: FC;
-  tags: string[];
-  hidden?: boolean;
-  password?: string;
-  difficulty?: "easy" | "medium" | "hard";
-  variant?: "easy" | "base" | "hard";
-  base_task?: string;
+  path: string
+  title: string
+  description: string
+  icon: string
+  component: FC
+  tags: string[]
+  hidden?: boolean
+  password?: string
+  difficulty?: "easy" | "medium" | "hard"
+  variant?: "easy" | "base" | "hard"
+  base_task?: string
 }
 
 export const routes: RouteConfig[] = [
@@ -1231,6 +1238,18 @@ export const routes: RouteConfig[] = [
     component: FrogCrossingHard,
     tags: ["game", "keyboard", "hard"],
     password: PASSWORD_FrogCrossingHard,
+    difficulty: "hard",
+    variant: "hard",
+    base_task: TASK_ID_FrogCrossing,
+  },
+  {
+    path: TASK_ID_FrogCrossingCustom,
+    title: "Frog Crossing (Custom)",
+    description: "Guide your frog safely across a very busy and fast road.",
+    icon: "🐸",
+    component: FrogCrossingCustom,
+    tags: ["game", "keyboard", "hard", "datagen"],
+    password: PASSWORD_FrogCrossingCustom,
     difficulty: "hard",
     variant: "hard",
     base_task: TASK_ID_FrogCrossing,
@@ -2540,4 +2559,4 @@ export const routes: RouteConfig[] = [
     variant: "hard",
     base_task: TASK_ID_ClickPixel,
   },
-];
+]

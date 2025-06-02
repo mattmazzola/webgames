@@ -7,7 +7,7 @@ import {
   createScreenshotHandler, 
   getTaskImages,
   getXYOffset
-} from './helpers'
+} from '../helpers'
 
 // Create directories and get paths
 const { 
@@ -43,7 +43,9 @@ const tasksFilePath = path.join(process.cwd(), 'webgames', 'public', 'data', 'la
 const tasks = loadTasksFromJsonl<TaskData>(tasksFilePath)
 
 tasks.forEach((task, lineIndex) => {
-    test(`Ladybird game task #${lineIndex}`, async ({ page }) => {
+    // Format line index with leading zero for single digits (01, 02, etc.)
+    const formattedLineIndex = lineIndex.toString().padStart(2, '0');
+    test(`Ladybird game task #${formattedLineIndex}`, async ({ page }) => {
         // Set viewport to include full game area
         await page.setViewportSize({ width: 650, height: 1052 })
 
@@ -161,6 +163,6 @@ tasks.forEach((task, lineIndex) => {
 
         // Append game data to dataset.jsonl file
         await fs.promises.appendFile(datasetJsonlPath, JSON.stringify(dataItem) + '\n')
-        console.log(`Data for task #${lineIndex} written to ${datasetJsonlPath}`)
+        console.log(`Data for task #${formattedLineIndex} written to ${datasetJsonlPath}`)
     })
 })

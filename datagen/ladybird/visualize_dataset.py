@@ -41,8 +41,10 @@ def main():
 
     if not dataset_path_str or not os.path.exists(dataset_path_str):
         st.error("File does not exist. Please check the path.")
+        st.stop()
     elif not dataset_path_str.endswith(".jsonl"):
-        st.error("File does is .jsonl file.")
+        st.error("File is not a .jsonl file.")
+        st.stop()
 
     if (
         "dataset_path_str" not in st.session_state
