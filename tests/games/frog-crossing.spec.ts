@@ -124,7 +124,9 @@ const tasksFilePath = path.join(process.cwd(), 'webgames', 'public', 'data', 'fr
 const tasks = loadTasksFromJsonl<TaskData>(tasksFilePath)
 
 tasks.forEach((task, lineIndex) => {
-    test(`Frog Crossing game task #${lineIndex}`, async ({ page }) => {
+    // Format line index with leading zero for single digits (01, 02, etc.)
+    const formattedLineIndex = lineIndex.toString().padStart(2, '0');
+    test(`Frog Crossing game task #${formattedLineIndex}`, async ({ page }) => {
         // Set viewport to include full game area
         await page.setViewportSize({ width: 1024, height: 1024 })
 

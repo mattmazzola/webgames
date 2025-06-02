@@ -2,9 +2,9 @@ import { test, expect } from '@playwright/test'
 import fs from 'fs'
 import path from 'path'
 import { 
-  createDirectories, 
-  loadTasksFromJsonl, 
-  createScreenshotHandler, 
+  createDirectories,
+  loadTasksFromJsonl,
+  createScreenshotHandler,
   getTaskImages
 } from '../helpers'
 
@@ -39,7 +39,9 @@ const tasksFilePath = path.join(process.cwd(), 'webgames', 'public', 'data', 'ma
 const tasks = loadTasksFromJsonl<TaskData>(tasksFilePath)
 
 tasks.forEach((task, lineIndex) => {
-  test(`Map Panner game task #${lineIndex}`, async ({ page }) => {
+  // Format line index with leading zero for single digits (01, 02, etc.)
+  const formattedLineIndex = lineIndex.toString().padStart(2, '0');
+  test(`Map Panner game task #${formattedLineIndex}`, async ({ page }) => {
     // Set viewport size for the test
     await page.setViewportSize({ width: 1024, height: 1024 })
 
@@ -117,7 +119,7 @@ tasks.forEach((task, lineIndex) => {
     const mapMovePerOperationX = (panSteps > 0) ? (distanceToTargetX * moveAmountPerStep / totalDistance) : distanceToTargetX
     const mapMovePerOperationY = (panSteps > 0) ? (distanceToTargetY * moveAmountPerStep / totalDistance) : distanceToTargetY
 
-    console.log(`Task #${lineIndex}: Target at (${targetMapX}, ${targetMapY}), Password: ${task.password}`)
+    console.log(`Task #${formattedLineIndex}: Target at (${targetMapX}, ${targetMapY}), Password: ${task.password}`)
     console.log(`Starting map position (viewport center): (${mapX}, ${mapY})`)
     console.log(`Total distance to target: ${totalDistance.toFixed(2)} pixels`)
     console.log(`Using ${panSteps} pan steps with fixed movement of ~${moveAmountPerStep} pixels per step`)
@@ -356,6 +358,6 @@ tasks.forEach((task, lineIndex) => {
 
     // Append game data to dataset.jsonl file
     await fs.promises.appendFile(datasetJsonlPath, JSON.stringify(dataItem) + '\n')
-    console.log(`Data for task #${lineIndex} written to ${datasetJsonlPath}`)
+    console.log(`Data for task #${formattedLineIndex} written to ${datasetJsonlPath}`)
   })
 })
